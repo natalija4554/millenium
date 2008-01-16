@@ -1,0 +1,27 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Colaboration software application</title>
+	<link rel="stylesheet" href="styles/base.css" />
+</head>
+<body>
+<div id="navigacia">
+	<a href="/">Home</a>
+	<a href="/problemarea">Problémové oblasti</a>
+	
+	<!-- Prihlasenie | Odhlasenie -->
+	<?php if ($this->authenticated): ?>
+		<a href="<?=$this->baseUrl?>/logout">Odhlásiť sa</a> 
+		(<?=$this->user->getFullname()?>)
+	<?php else: ?>
+		<a href="/login">Prihlásiť sa</a>
+	<?php endif; ?>
+</div>
+<hr />
+<?php echo $this->content ?>
+<hr />
+<p><small>ETA: <?php echo gmdate('Y-m-d H:i:s'); ?></small></p>
+</body>
+</html>

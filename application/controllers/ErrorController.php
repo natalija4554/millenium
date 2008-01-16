@@ -1,34 +1,22 @@
 <?php
-/**
- * ErrorController - The default error controller class
- * 
- */
 
-require_once 'Zend/Controller/Action.php' ;
-
-class ErrorController extends Zend_Controller_Action {
-
-	/**
-	 * This action handles  
-	 *    - Application errors
-	 *    - Errors in the controller chain arising from missing 
-	 *      controller classes and/or action methods
-	 */
-	public function errorAction () {
-		$errors = $this->_getParam ('error_handler') ;
+class ErrorController extends Zend_Controller_Action 
+{
+	function errorAction()
+	{
+		$errors = $this->_getParam('error_handler');
+		
 		switch ($errors->type) {
-			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER :
-			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION :
-				// 404 error -- controller or action not found                
-				$this->getResponse ()->setRawHeader ( 'HTTP/1.1 404 Not Found' ) ;
-				// ... get some output to display...
-				break ;
-			default :
-				// application error; display error page, but don't change                
-				// status code                
-				break ;
+			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
+			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
+				$this->getResponse()->setRawHeader('HTTP/1.1 404 Not Found');
+				$this->render('404');
+				break;
+			default: 
+				$this->view->assign('message', $errors->exception->getMessage());
+				$this->render('500');
+				break;
 		}
 	}
 }
-
-
+?>

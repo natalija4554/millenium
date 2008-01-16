@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<DBMODEL Version="1.2" TYPE="PostgreSQL">
+<MODELSETTINGS MDDVERSION="1.2.2 (build 285)" ModelProject="" ModelName="dp" ModelCompany="" ModelAuthor="" ModelCopyright="" ModelVersion="" ModelVersionAI="0" ModelCreated="2007-12-12 00:44:57" ModelUpdated="2007-12-12 01:34:38" Description="" Annotation="" ZoomFac="100.00" XPos="0" YPos="0" PrintLink="" GenSettings="object TGenSettings\n  TextCharCase = tccMixed\n  ModelCheck = True\n  ISQL = False\n  DBOptions = [dbgoCreate, dbgoBeginScript, dbgoEndScript]\n  ViewOptions = [viewgoCreate, viewgoCreateRule]\n  SPOptions = [spgoCreate]\n  TableOptions = [tblgoCreate, tblgoBeginScript, tblgoEndScript, tblgoComment, tblgoCreatePK, tblgoCreateFK, tblgoCreateIndex, tblgoCreateRule, tblgoCreateTrigger]\nend\n" WorkspaceColor="16777215" SnapGrid="1" DisplaySnap="1" SnapSize="10" ShowPages="1" ShowTableColumns="1" ShowTableInhColumns="1" ShowTableIndeces="1" ShowTableConstraints="1" ShowTableRules="1" ShowColumnTypes="1" ShowDomains="0" ShowIndexInd="0" ShowNullInd="0" ShowForeignKeys="1" EntityFillColor="16777215" EntityLineColor="8388608" ShowRefName="1" ShowCardinality="0" ShowJoin="0" Notation="0" RefColor="8388608" RefLabelColor="16777215" DefaultDelete="3" DefaultUpdate="3" DefaultDataType="23" FKPrefix="" QueryDelimiter=";" DBQuoteCharacter="\A" EncloseNames="1" HPageCount="5" VPageCount="5" SPFillColor="13499135" SPLineColor="8388608" ViewFillColor="3329434" ViewLineColor="8388608" MinimapBackColor="16777215" MinimapShapesStyle="2" MinimapVisibleAreaStyle="2" />
+<DATABASE Name="Database_1" CharacterSet="" Tablespace="" Owner="" Template="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="0" />
+
+<STAMPS>
+</STAMPS>
+<DOMAINS>
+</DOMAINS>
+<COMPOSITES>
+</COMPOSITES>
+<SCALARS>
+</SCALARS>
+<SCHEMAS>
+</SCHEMAS>
+<TABLESPACES>
+</TABLESPACES>
+<METADATA>
+<ENTITIES>
+<ENTITY ID="16816" Name="problem" SchemaOID="0" SchemaName="public" Tablespace="" XPos="270" YPos="340" Temporary="0" WithOIDsSpecified="1" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="17079" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="997" Name="created_by" Pos="1" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1020" Name="problem_id" Pos="2" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="998" Name="created" Pos="3" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="996" Name="deleted" Pos="4" Datatype="16" Type="bool" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="false" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_BEGIN>
+<REFERENCE_BEGIN ID="1518" />
+<REFERENCE_BEGIN ID="1536" />
+<REFERENCE_BEGIN ID="1547" />
+<REFERENCE_BEGIN ID="1566" />
+<REFERENCE_BEGIN ID="1604" />
+<REFERENCE_BEGIN ID="1805" />
+</REFERENCES_BEGIN>
+<REFERENCES_END>
+<REFERENCE_END ID="17070" />
+<REFERENCE_END ID="1013" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="16821" Name="problem_pkey" Kind="2" Expression="" ReferenceIndex="1345" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="17079" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1345" Name="problem_pkey_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="16821">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="16796" Name="problem_area" SchemaOID="0" SchemaName="public" Tablespace="" XPos="10" YPos="10" Temporary="0" WithOIDsSpecified="1" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="17081" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="994" Name="name" Pos="1" Datatype="1043" Type="varchar" Width="64" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="993" Name="description" Pos="2" Datatype="25" Type="text" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1148" Name="state" Pos="3" Datatype="1043" Type="varchar" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="992" Name="created" Pos="4" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="991" Name="created_by" Pos="5" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="990" Name="updated" Pos="6" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="989" Name="updated_by" Pos="7" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_BEGIN>
+<REFERENCE_BEGIN ID="1013" />
+</REFERENCES_BEGIN>
+<REFERENCES_END>
+<REFERENCE_END ID="17071" />
+<REFERENCE_END ID="17072" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="16803" Name="problem_area_pkey" Kind="2" Expression="" ReferenceIndex="1152" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="17081" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1152" Name="problem_area_pkey_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="16803">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="16855" Name="problem_attachement" SchemaOID="0" SchemaName="public" Tablespace="" XPos="270" YPos="10" Temporary="0" WithOIDsSpecified="1" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="17090" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="978" Name="problem_id" Pos="1" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="973" Name="created_by" Pos="2" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1728" Name="type" Pos="3" Datatype="1043" Type="varchar" Width="10" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="977" Name="filename" Pos="4" Datatype="1043" Type="varchar" Width="255" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="976" Name="name" Pos="5" Datatype="1043" Type="varchar" Width="64" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="975" Name="description" Pos="6" Datatype="25" Type="text" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="974" Name="created" Pos="7" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_END>
+<REFERENCE_END ID="17076" />
+<REFERENCE_END ID="1536" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="16862" Name="problem_attachement_pkey" Kind="2" Expression="" ReferenceIndex="1761" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="17090" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1761" Name="problem_attachement_pkey_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="16862">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="16787" Name="user" SchemaOID="0" SchemaName="public" Tablespace="" XPos="20" YPos="370" Temporary="0" WithOIDsSpecified="1" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="User accounts" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="972" Name="id" Pos="1" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="1" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="971" Name="username" Pos="2" Datatype="1043" Type="varchar" Width="32" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="970" Name="password" Pos="3" Datatype="1043" Type="varchar" Width="32" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="969" Name="fullname" Pos="4" Datatype="1043" Type="varchar" Width="64" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_BEGIN>
+<REFERENCE_BEGIN ID="17070" />
+<REFERENCE_BEGIN ID="17071" />
+<REFERENCE_BEGIN ID="17072" />
+<REFERENCE_BEGIN ID="17076" />
+<REFERENCE_BEGIN ID="1372" />
+<REFERENCE_BEGIN ID="1591" />
+<REFERENCE_BEGIN ID="1645" />
+<REFERENCE_BEGIN ID="1820" />
+<REFERENCE_BEGIN ID="1965" />
+</REFERENCES_BEGIN>
+<CONSTRAINTS>
+<CONSTRAINT ID="16791" Name="user_pkey" Kind="2" Expression="" ReferenceIndex="2020" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="972" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+<CONSTRAINT ID="16793" Name="user_username_key" Kind="1" Expression="" ReferenceIndex="17078" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="971" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="17078" Name="user_username_key_idx_ui" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="16793">
+<INDEXCOLUMNS COMMATEXT="username">
+</INDEXCOLUMNS>
+</INDEX>
+<INDEX ID="2020" Name="user_pkey_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="16791">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="1157" Name="problem_comment" SchemaOID="0" SchemaName="public" Tablespace="" XPos="520" YPos="220" Temporary="0" WithOIDsSpecified="0" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="1158" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="1" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1159" Name="subject" Pos="1" Datatype="1043" Type="varchar" Width="128" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1160" Name="body" Pos="2" Datatype="25" Type="text" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1290" Name="problem_id" Pos="3" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1380" Name="created_by" Pos="4" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1420" Name="created" Pos="5" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_END>
+<REFERENCE_END ID="1372" />
+<REFERENCE_END ID="1518" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="1161" Name="" Kind="2" Expression="" ReferenceIndex="1744" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="1158" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1744" Name="_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="1161">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="1465" Name="problem_dependency" SchemaOID="0" SchemaName="public" Tablespace="" XPos="520" YPos="10" Temporary="0" WithOIDsSpecified="0" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="1476" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1486" Name="problem_id" Pos="1" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1487" Name="problem_depends_id" Pos="2" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1558" Name="strenght" Pos="3" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_END>
+<REFERENCE_END ID="1547" />
+<REFERENCE_END ID="1566" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="1477" Name="" Kind="2" Expression="" ReferenceIndex="1565" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="1476" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1565" Name="_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="1477">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="1577" Name="problem_solution" SchemaOID="0" SchemaName="public" Tablespace="" XPos="520" YPos="570" Temporary="0" WithOIDsSpecified="0" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="1578" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1579" Name="problem_id" Pos="1" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1580" Name="name" Pos="2" Datatype="1043" Type="varchar" Width="128" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1581" Name="description" Pos="3" Datatype="25" Type="text" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1582" Name="created" Pos="4" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1583" Name="created_by" Pos="5" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_BEGIN>
+<REFERENCE_BEGIN ID="1704" />
+<REFERENCE_BEGIN ID="1907" />
+</REFERENCES_BEGIN>
+<REFERENCES_END>
+<REFERENCE_END ID="1591" />
+<REFERENCE_END ID="1604" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="1584" Name="" Kind="2" Expression="" ReferenceIndex="1585" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="1578" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1585" Name="_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="1584">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="1617" Name="problem_solution_comment" SchemaOID="0" SchemaName="public" Tablespace="" XPos="480" YPos="380" Temporary="0" WithOIDsSpecified="0" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="1633" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="1" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1634" Name="problem_solution_id" Pos="1" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1635" Name="subject" Pos="2" Datatype="1043" Type="varchar" Width="128" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1636" Name="body" Pos="3" Datatype="25" Type="text" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1637" Name="created" Pos="4" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1638" Name="created_by" Pos="5" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_END>
+<REFERENCE_END ID="1645" />
+<REFERENCE_END ID="1704" />
+</REFERENCES_END>
+</ENTITY>
+<ENTITY ID="1765" Name="inquiry" SchemaOID="0" SchemaName="public" Tablespace="" XPos="20" YPos="670" Temporary="0" WithOIDsSpecified="0" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="1788" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="1" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1789" Name="title" Pos="1" Datatype="1043" Type="varchar" Width="255" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1790" Name="description" Pos="2" Datatype="25" Type="text" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1791" Name="start" Pos="3" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1792" Name="end" Pos="4" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1793" Name="created_by" Pos="5" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1794" Name="created" Pos="6" Datatype="1082" Type="date" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1795" Name="problem_id" Pos="7" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_BEGIN>
+<REFERENCE_BEGIN ID="1890" />
+<REFERENCE_BEGIN ID="1948" />
+</REFERENCES_BEGIN>
+<REFERENCES_END>
+<REFERENCE_END ID="1805" />
+<REFERENCE_END ID="1820" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="1796" Name="" Kind="2" Expression="" ReferenceIndex="1888" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="1788" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1888" Name="_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="1796">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="1837" Name="inquiry_choice" SchemaOID="0" SchemaName="public" Tablespace="" XPos="260" YPos="720" Temporary="0" WithOIDsSpecified="0" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="1838" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="1" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1839" Name="inquiry_id" Pos="1" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1840" Name="problem_solution_id" Pos="2" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1841" Name="title" Pos="3" Datatype="1043" Type="varchar" Width="128" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1842" Name="description" Pos="4" Datatype="25" Type="text" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_BEGIN>
+<REFERENCE_BEGIN ID="1998" />
+</REFERENCES_BEGIN>
+<REFERENCES_END>
+<REFERENCE_END ID="1890" />
+<REFERENCE_END ID="1907" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="1843" Name="" Kind="2" Expression="" ReferenceIndex="1844" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="1838" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1844" Name="_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="1843">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+<ENTITY ID="1924" Name="inquiry_user" SchemaOID="0" SchemaName="public" Tablespace="" XPos="300" YPos="520" Temporary="0" WithOIDsSpecified="0" WithOIDs="0" Inherits="" DelayKeyTblUpdates="0" FillColor="16777215" LineColor="8388608" CharacterSet="" Collate="" Comments="" Description="" Annotation="" BeginScript="" EndScript="" Generate="1" >
+<COLUMNS>
+<COLUMN ID="1925" Name="id" Pos="0" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="1" AutoInc="0" PrimaryKey="1" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1926" Name="inquiry_id" Pos="1" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1927" Name="user_id" Pos="2" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1928" Name="voted" Pos="3" Datatype="16" Type="bool" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="0" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+<COLUMN ID="1929" Name="choice_id" Pos="4" Datatype="23" Type="int4" Width="0" Prec="0" NotNull="0" AutoInc="0" PrimaryKey="0" IsFKey="1" DefaultValue="" QuoteDefault="0" Comments="">
+</COLUMN>
+</COLUMNS>
+<REFERENCES_END>
+<REFERENCE_END ID="1948" />
+<REFERENCE_END ID="1965" />
+<REFERENCE_END ID="1998" />
+</REFERENCES_END>
+<CONSTRAINTS>
+<CONSTRAINT ID="1938" Name="" Kind="2" Expression="" ReferenceIndex="2022" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="1925" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+<CONSTRAINT ID="1985" Name="Constraint0" Kind="1" Expression="" ReferenceIndex="1986" >
+<CONSTRAINTCOLUMNS>
+<CONSTRAINTCOLUMN ID="1926" />
+<CONSTRAINTCOLUMN ID="1927" />
+</CONSTRAINTCOLUMNS>
+</CONSTRAINT>
+</CONSTRAINTS>
+<INDEXES>
+<INDEX ID="1986" Name="Constraint0_idx_ui" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="1985">
+<INDEXCOLUMNS COMMATEXT="inquiry_id,user_id">
+</INDEXCOLUMNS>
+</INDEX>
+<INDEX ID="2022" Name="_idx_pk" Unique="1" Method="0" Predicate="" Tablespace="" ReferenceConstraint="1938">
+<INDEXCOLUMNS COMMATEXT="id">
+</INDEXCOLUMNS>
+</INDEX>
+</INDEXES>
+</ENTITY>
+</ENTITIES>
+<REFERENCES>
+<REFERENCE ID="17070" Name="ref_4_fkey" SOURCE="16787" DESTINATION="16816" FKIDS="972=997\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="17071" Name="updated_by_fkey" SOURCE="16787" DESTINATION="16796" FKIDS="972=989\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="17072" Name="created_by_fkey" SOURCE="16787" DESTINATION="16796" FKIDS="972=991\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="17076" Name="ref_3_fkey" SOURCE="16787" DESTINATION="16855" FKIDS="972=973\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="1013" Name="problem_id_fkey" SOURCE="16796" DESTINATION="16816" FKIDS="17081=1020\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="0" FKConstraint_ID="16803" />
+<REFERENCE ID="1372" Name="Ref_-03" SOURCE="16787" DESTINATION="1157" FKIDS="972=1380\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="1518" Name="Ref_-02" SOURCE="16816" DESTINATION="1157" FKIDS="17079=1290\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16821" />
+<REFERENCE ID="1536" Name="Ref_-01" SOURCE="16816" DESTINATION="16855" FKIDS="17079=978\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16821" />
+<REFERENCE ID="1547" Name="Ref_00" SOURCE="16816" DESTINATION="1465" FKIDS="17079=1486\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16821" />
+<REFERENCE ID="1566" Name="Ref_01" SOURCE="16816" DESTINATION="1465" FKIDS="17079=1487\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16821" />
+<REFERENCE ID="1591" Name="Ref_02" SOURCE="16787" DESTINATION="1577" FKIDS="972=1583\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="1604" Name="Ref_03" SOURCE="16816" DESTINATION="1577" FKIDS="17079=1579\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16821" />
+<REFERENCE ID="1645" Name="Ref_04" SOURCE="16787" DESTINATION="1617" FKIDS="972=1638\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="1704" Name="Ref_05" SOURCE="1577" DESTINATION="1617" FKIDS="1578=1634\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="1584" />
+<REFERENCE ID="1805" Name="Ref_06" SOURCE="16816" DESTINATION="1765" FKIDS="17079=1795\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16821" />
+<REFERENCE ID="1820" Name="Ref_07" SOURCE="16787" DESTINATION="1765" FKIDS="972=1793\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="1890" Name="Ref_08" SOURCE="1765" DESTINATION="1837" FKIDS="1788=1839\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="1796" />
+<REFERENCE ID="1907" Name="Ref_09" SOURCE="1577" DESTINATION="1837" FKIDS="1578=1840\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="1584" />
+<REFERENCE ID="1948" Name="Ref_10" SOURCE="1765" DESTINATION="1924" FKIDS="1788=1926\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="1796" />
+<REFERENCE ID="1965" Name="Ref_11" SOURCE="16787" DESTINATION="1924" FKIDS="972=1927\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="16791" />
+<REFERENCE ID="1998" Name="Ref_12" SOURCE="1837" DESTINATION="1924" FKIDS="1838=1929\n" Direction="0" RefColor="8388608" RefLabelColor="16777215" OnDelete="3" OnUpdate="3" Deferrable="0" MatchType="0" Comments="" Description="" Annotation="" Generate="1" FKConstraint_ID="1843" />
+</REFERENCES>
+<NOTES>
+</NOTES>
+<STOREDPROCES>
+</STOREDPROCES>
+<VIEWS>
+</VIEWS>
+</METADATA>
+</DBMODEL>
