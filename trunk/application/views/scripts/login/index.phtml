@@ -1,0 +1,43 @@
+<?php if ($this->authenticated) : ?>
+
+<p>
+    You are already authenticated, <?php echo $this->escape($this->user->getFullname()) ?>.
+</p>
+<p>
+    <a href="<?php echo $this->baseUrl ?>/logout">Logout</a>
+</p>
+
+<?php else: ?>
+
+	<?php if (isset($this->messages)): ?>
+    <p>
+		Nastali nasledovné chyby pri prihlasovaní:
+    </p>
+    <div>
+	<?php foreach ($this->messages as $field => $messages): ?>
+		<p>
+    		<strong><?=$this->escape($field);?></strong><br />
+    		<?php foreach ($messages as $message): ?>
+    			- <?=$this->escape($message);?><br />
+    		<?php endforeach; ?>    		 
+    	</p>    
+    <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+    
+    
+    <form action="<?php echo $this->baseUrl ?>/login/process" method="POST">
+    	
+    	<p>
+    		<label>Username: </label>
+    		<input name="username" type="text" value="<?=$this->escape($this->username)?>" />
+    		<br />
+    		<label>Password: </label>
+    		<input name="password" type="password" />
+    	</p>
+    	<p>
+    		<input type="submit" value="Prihlásiť sa" />
+    	</p>
+    </form>
+        
+<?php endif; ?>

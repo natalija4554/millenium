@@ -1,0 +1,28 @@
+<h2>Zoznam problémových oblastí</h2>
+<table>
+<tr>
+	<th>#</th>
+	<th>Fáza</th>
+	<th>Názov</th>
+	<th>Akcie</th>
+</tr>
+<thead>
+</thead>
+<tbody>
+<?php foreach ($this->areas as $key=>$pa): ?>
+<tr>
+	<td><?=($key+1)?></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+<!--  ak ma pravo na pridavanie -->
+<?php if ($this->authAccess('problemarea')): ?>
+	ano ma
+<?php else: ?>
+	nema
+<?php endif; ?>
