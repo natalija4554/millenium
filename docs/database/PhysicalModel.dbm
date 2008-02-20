@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SQLConstraints="http:///org/eclipse/wst/rdb/models/sql/constraints.ecore" xmlns:SQLDataTypes="http:///org/eclipse/wst/rdb/models/sql/datatypes.ecore" xmlns:SQLSchema="http:///org/eclipse/wst/rdb/models/sql/schema.ecore" xmlns:SQLTables="http:///org/eclipse/wst/rdb/models/sql/tables.ecore" xmlns:datanotation="http:///datanotation.ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.0/notation">
+  <SQLSchema:Database xmi:id="_Q8vJoN8yEdyPf_NCQ0XSgA" name="New Database" vendor="MySql" version="4.1" schemas="_OtPr4N81Edy_-4X0ga01qw"/>
+  <SQLSchema:Schema xmi:id="_OtPr4N81Edy_-4X0ga01qw" name="Schema1" tables="_QDPOcN81Edy_-4X0ga01qw _jdqxYN82EdyUFfSAd0kPcw _MPjIIN86Edy1Krt6mGqkkg _3IHl8N86Edy1Krt6mGqkkg" database="_Q8vJoN8yEdyPf_NCQ0XSgA">
+    <eAnnotations xmi:id="_Ot_SwN81Edy_-4X0ga01qw" source="diagram">
+      <contents xsi:type="datanotation:DataDiagram" xmi:id="_OuJDwN81Edy_-4X0ga01qw" type="IE_CrowFoot" name="Diagram1" viewKind="ProjectExplorer" notation="IE_CrowFoot" kind="Physical">
+        <eAnnotations xmi:id="_Oyv28N81Edy_-4X0ga01qw" source="Diagram_State">
+          <details xmi:id="_Oyv28d81Edy_-4X0ga01qw" key="Diagram_State_Value" value="true"/>
+        </eAnnotations>
+        <children xmi:id="_QD-1UN81Edy_-4X0ga01qw" element="_QDPOcN81Edy_-4X0ga01qw">
+          <children xmi:id="_QEH_QN81Edy_-4X0ga01qw" type="TableName">
+            <children xmi:id="_QEH_Q981Edy_-4X0ga01qw" type="DiagramName"/>
+            <children xmi:id="_QEH_RN81Edy_-4X0ga01qw" type="Description"/>
+            <styles xsi:type="notation:FontStyle" xmi:id="_QEH_Qd81Edy_-4X0ga01qw" fontName="Segoe UI"/>
+            <layoutConstraint xsi:type="notation:Bounds" xmi:id="_QEH_Qt81Edy_-4X0ga01qw"/>
+          </children>
+          <children xmi:id="_QEH_Rd81Edy_-4X0ga01qw" type="Key.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_QEH_Rt81Edy_-4X0ga01qw"/>
+          </children>
+          <children xmi:id="_QEH_R981Edy_-4X0ga01qw" type="Column.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_QEH_SN81Edy_-4X0ga01qw"/>
+          </children>
+          <children xmi:id="_QEH_Sd81Edy_-4X0ga01qw" visible="false" type="Index.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_QEH_St81Edy_-4X0ga01qw"/>
+          </children>
+          <children xmi:id="_QEH_S981Edy_-4X0ga01qw" visible="false" type="Trigger.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_QEH_TN81Edy_-4X0ga01qw"/>
+          </children>
+          <styles xsi:type="datanotation:TableStyle" xmi:id="_QD-1Ud81Edy_-4X0ga01qw" fontName="Segoe UI"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_QD-1Ut81Edy_-4X0ga01qw" x="1902" y="1268" width="3252" height="2885"/>
+        </children>
+        <children xmi:id="_jdz7UN82EdyUFfSAd0kPcw" element="_jdqxYN82EdyUFfSAd0kPcw">
+          <children xmi:id="_jdz7U982EdyUFfSAd0kPcw" type="TableName">
+            <children xmi:id="_jdz7Vt82EdyUFfSAd0kPcw" type="DiagramName"/>
+            <children xmi:id="_jdz7V982EdyUFfSAd0kPcw" type="Description"/>
+            <styles xsi:type="notation:FontStyle" xmi:id="_jdz7VN82EdyUFfSAd0kPcw" fontName="Segoe UI"/>
+            <layoutConstraint xsi:type="notation:Bounds" xmi:id="_jdz7Vd82EdyUFfSAd0kPcw"/>
+          </children>
+          <children xmi:id="_jdz7WN82EdyUFfSAd0kPcw" type="Key.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_jdz7Wd82EdyUFfSAd0kPcw"/>
+          </children>
+          <children xmi:id="_jdz7Wt82EdyUFfSAd0kPcw" type="Column.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_jdz7W982EdyUFfSAd0kPcw"/>
+          </children>
+          <children xmi:id="_jdz7XN82EdyUFfSAd0kPcw" visible="false" type="Index.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_jdz7Xd82EdyUFfSAd0kPcw"/>
+          </children>
+          <children xmi:id="_jdz7Xt82EdyUFfSAd0kPcw" visible="false" type="Trigger.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_jdz7X982EdyUFfSAd0kPcw"/>
+          </children>
+          <styles xsi:type="datanotation:TableStyle" xmi:id="_jdz7Ud82EdyUFfSAd0kPcw" fontName="Segoe UI"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_jdz7Ut82EdyUFfSAd0kPcw" x="7291" y="1902"/>
+        </children>
+        <children xmi:id="_MQI-AN86Edy1Krt6mGqkkg" element="_MPjIIN86Edy1Krt6mGqkkg">
+          <children xmi:id="_MQSvAN86Edy1Krt6mGqkkg" type="TableName">
+            <children xmi:id="_MQSvA986Edy1Krt6mGqkkg" type="DiagramName"/>
+            <children xmi:id="_MQSvBN86Edy1Krt6mGqkkg" type="Description"/>
+            <styles xsi:type="notation:FontStyle" xmi:id="_MQSvAd86Edy1Krt6mGqkkg" fontName="Segoe UI"/>
+            <layoutConstraint xsi:type="notation:Bounds" xmi:id="_MQSvAt86Edy1Krt6mGqkkg"/>
+          </children>
+          <children xmi:id="_MQSvBd86Edy1Krt6mGqkkg" type="Key.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_MQSvBt86Edy1Krt6mGqkkg"/>
+          </children>
+          <children xmi:id="_MQSvB986Edy1Krt6mGqkkg" type="Column.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_MQSvCN86Edy1Krt6mGqkkg"/>
+          </children>
+          <children xmi:id="_MQSvCd86Edy1Krt6mGqkkg" visible="false" type="Index.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_MQSvCt86Edy1Krt6mGqkkg"/>
+          </children>
+          <children xmi:id="_MQSvC986Edy1Krt6mGqkkg" visible="false" type="Trigger.Compartment">
+            <styles xsi:type="datanotation:DataListCompartmentStyle" xmi:id="_MQSvDN86Edy1Krt6mGqkkg"/>
+          </children>
+          <styles xsi:type="datanotation:TableStyle" xmi:id="_MQI-Ad86Edy1Krt6mGqkkg" fontName="Segoe UI"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_MQI-At86Edy1Krt6mGqkkg" x="1902" y="7291"/>
+        </children>
+        <styles xsi:type="datanotation:DataAttributeStyle" xmi:id="_OuJDwd81Edy_-4X0ga01qw"/>
+        <styles xsi:type="datanotation:DataCompartmentStyle" xmi:id="_OuJDwt81Edy_-4X0ga01qw"/>
+        <styles xsi:type="datanotation:DataDisplayStyle" xmi:id="_OuJDw981Edy_-4X0ga01qw"/>
+        <styles xsi:type="datanotation:DataDiagramRelationshipStyle" xmi:id="_OuJDxN81Edy_-4X0ga01qw"/>
+        <styles xsi:type="datanotation:DataShapeNameStyle" xmi:id="_OuJDxd81Edy_-4X0ga01qw"/>
+        <styles xsi:type="datanotation:DataDiagramFormattingStyle" xmi:id="_OuJDxt81Edy_-4X0ga01qw"/>
+        <element xsi:nil="true"/>
+        <edges xmi:id="_uneXYN82EdyUFfSAd0kPcw" element="_tvY40N82EdyUFfSAd0kPcw" source="_QD-1UN81Edy_-4X0ga01qw" target="_jdz7UN82EdyUFfSAd0kPcw">
+          <children xmi:id="_uneXY982EdyUFfSAd0kPcw" type="ForeignKey.Name.Label">
+            <children xmi:id="_uneXZd82EdyUFfSAd0kPcw" type="FKRelationshipName">
+              <children xmi:id="_uneXaN82EdyUFfSAd0kPcw" type="DiagramName"/>
+              <children xmi:id="_uneXad82EdyUFfSAd0kPcw" type="Description"/>
+              <styles xsi:type="notation:FontStyle" xmi:id="_uneXZt82EdyUFfSAd0kPcw" fontName="Segoe UI"/>
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_uneXZ982EdyUFfSAd0kPcw"/>
+            </children>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_uneXZN82EdyUFfSAd0kPcw" y="-186"/>
+          </children>
+          <children xmi:id="_uneXat82EdyUFfSAd0kPcw" type="Child.RoleName">
+            <children xmi:id="_uneXbN82EdyUFfSAd0kPcw" type="ChildRoleName">
+              <children xmi:id="_uneXb982EdyUFfSAd0kPcw" type="DiagramName"/>
+              <children xmi:id="_unoIYN82EdyUFfSAd0kPcw" type="Description"/>
+              <styles xsi:type="notation:FontStyle" xmi:id="_uneXbd82EdyUFfSAd0kPcw" fontName="Segoe UI"/>
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_uneXbt82EdyUFfSAd0kPcw"/>
+            </children>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_uneXa982EdyUFfSAd0kPcw" x="-265" y="-662"/>
+          </children>
+          <children xmi:id="_unoIYd82EdyUFfSAd0kPcw" type="Parent.RoleName">
+            <children xmi:id="_unoIY982EdyUFfSAd0kPcw" type="ParentRoleName">
+              <children xmi:id="_unoIZt82EdyUFfSAd0kPcw" type="DiagramName"/>
+              <children xmi:id="_unoIZ982EdyUFfSAd0kPcw" type="Description"/>
+              <styles xsi:type="notation:FontStyle" xmi:id="_unoIZN82EdyUFfSAd0kPcw" fontName="Segoe UI"/>
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_unoIZd82EdyUFfSAd0kPcw"/>
+            </children>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_unoIYt82EdyUFfSAd0kPcw" y="-397"/>
+          </children>
+          <children xmi:id="_unoIaN82EdyUFfSAd0kPcw" type="Child.ReferentialIntegrity">
+            <children xmi:id="_unoIat82EdyUFfSAd0kPcw" type="ChildRiName">
+              <children xmi:id="_unoIbd82EdyUFfSAd0kPcw" type="DiagramName"/>
+              <children xmi:id="_unoIbt82EdyUFfSAd0kPcw" type="Description"/>
+              <styles xsi:type="notation:FontStyle" xmi:id="_unoIa982EdyUFfSAd0kPcw" fontName="Segoe UI"/>
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_unoIbN82EdyUFfSAd0kPcw"/>
+            </children>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_unoIad82EdyUFfSAd0kPcw" x="264" y="661"/>
+          </children>
+          <styles xsi:type="datanotation:DataLineStyle" xmi:id="_uneXYd82EdyUFfSAd0kPcw" fontName="Segoe UI"/>
+          <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_uneXYt82EdyUFfSAd0kPcw" points="[33, 54, -63, -106]$[60, 162, -36, 2]"/>
+          <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_uptMAN82EdyUFfSAd0kPcw" id="(0.32780358,0.82694846)"/>
+        </edges>
+        <edges xmi:id="_TyBbEN86Edy1Krt6mGqkkg" element="_SljA4N86Edy1Krt6mGqkkg" source="_MQI-AN86Edy1Krt6mGqkkg" target="_QD-1UN81Edy_-4X0ga01qw">
+          <children xmi:id="_TyBbE986Edy1Krt6mGqkkg" type="ForeignKey.Name.Label">
+            <children xmi:id="_TyBbFd86Edy1Krt6mGqkkg" type="FKRelationshipName">
+              <children xmi:id="_TyBbGN86Edy1Krt6mGqkkg" type="DiagramName"/>
+              <children xmi:id="_TyBbGd86Edy1Krt6mGqkkg" type="Description"/>
+              <styles xsi:type="notation:FontStyle" xmi:id="_TyBbFt86Edy1Krt6mGqkkg" fontName="Segoe UI"/>
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_TyBbF986Edy1Krt6mGqkkg"/>
+            </children>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_TyBbFN86Edy1Krt6mGqkkg" y="-186"/>
+          </children>
+          <children xmi:id="_TyBbGt86Edy1Krt6mGqkkg" type="Child.RoleName">
+            <children xmi:id="_TyBbHN86Edy1Krt6mGqkkg" type="ChildRoleName">
+              <children xmi:id="_TyBbH986Edy1Krt6mGqkkg" type="DiagramName"/>
+              <children xmi:id="_TyBbIN86Edy1Krt6mGqkkg" type="Description"/>
+              <styles xsi:type="notation:FontStyle" xmi:id="_TyBbHd86Edy1Krt6mGqkkg" fontName="Segoe UI"/>
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_TyBbHt86Edy1Krt6mGqkkg"/>
+            </children>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_TyBbG986Edy1Krt6mGqkkg" x="-836" y="-1100"/>
+          </children>
+          <children xmi:id="_TyBbId86Edy1Krt6mGqkkg" type="Parent.RoleName">
+            <children xmi:id="_TyBbI986Edy1Krt6mGqkkg" type="ParentRoleName">
+              <children xmi:id="_TyBbJt86Edy1Krt6mGqkkg" type="DiagramName"/>
+              <children xmi:id="_TyBbJ986Edy1Krt6mGqkkg" type="Description"/>
+              <styles xsi:type="notation:FontStyle" xmi:id="_TyBbJN86Edy1Krt6mGqkkg" fontName="Segoe UI"/>
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_TyBbJd86Edy1Krt6mGqkkg"/>
+            </children>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_TyBbIt86Edy1Krt6mGqkkg" y="-397"/>
+          </children>
+          <children xmi:id="_TyBbKN86Edy1Krt6mGqkkg" type="Child.ReferentialIntegrity">
+            <children xmi:id="_TyBbKt86Edy1Krt6mGqkkg" type="ChildRiName">
+              <children xmi:id="_TyBbLd86Edy1Krt6mGqkkg" type="DiagramName"/>
+              <children xmi:id="_TyBbLt86Edy1Krt6mGqkkg" type="Description"/>
+              <styles xsi:type="notation:FontStyle" xmi:id="_TyBbK986Edy1Krt6mGqkkg" fontName="Segoe UI"/>
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_TyBbLN86Edy1Krt6mGqkkg"/>
+            </children>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_TyBbKd86Edy1Krt6mGqkkg" x="264" y="661"/>
+          </children>
+          <styles xsi:type="datanotation:DataLineStyle" xmi:id="_TyBbEd86Edy1Krt6mGqkkg" fontName="Segoe UI"/>
+          <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_TyBbEt86Edy1Krt6mGqkkg" points="[-8, -25, 35, 104]$[14, -127, 57, 2]"/>
+          <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_TyKlAN86Edy1Krt6mGqkkg" id="(0.5215252,0.81663775)"/>
+        </edges>
+      </contents>
+    </eAnnotations>
+  </SQLSchema:Schema>
+  <SQLTables:PersistentTable xmi:id="_QDPOcN81Edy_-4X0ga01qw" name="ProblemAreas" schema="_OtPr4N81Edy_-4X0ga01qw" referencingForeignKeys="_tvY40N82EdyUFfSAd0kPcw">
+    <columns xmi:id="_D0HwwN82EdyUFfSAd0kPcw" name="Id" nullable="false">
+      <containedType xsi:type="SQLDataTypes:IntegerDataType" xmi:id="_ST3X0N82EdyUFfSAd0kPcw" name="INT" primitiveType="INTEGER"/>
+    </columns>
+    <columns xmi:id="_QNrHYN82EdyUFfSAd0kPcw" name="Name" nullable="false">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_TohdoN82EdyUFfSAd0kPcw" name="VARCHAR" primitiveType="CHARACTER_VARYING" length="64"/>
+    </columns>
+    <columns xmi:id="_U-EUQN82EdyUFfSAd0kPcw" name="Description">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_WlBD8N82EdyUFfSAd0kPcw" name="TEXT" primitiveType="CHARACTER_LARGE_OBJECT"/>
+    </columns>
+    <columns xmi:id="_aDR6kN82EdyUFfSAd0kPcw" name="Created" nullable="false">
+      <containedType xsi:type="SQLDataTypes:TimeDataType" xmi:id="_c_oW8N82EdyUFfSAd0kPcw" name="DATETIME" primitiveType="TIMESTAMP"/>
+    </columns>
+    <columns xmi:id="_bVQf0N82EdyUFfSAd0kPcw" name="CreatedBy" nullable="false">
+      <containedType xsi:type="SQLDataTypes:IntegerDataType" xmi:id="_d7SG4N82EdyUFfSAd0kPcw" name="INT" primitiveType="INTEGER"/>
+    </columns>
+    <constraints xsi:type="SQLConstraints:PrimaryKey" xmi:id="_RGp90N82EdyUFfSAd0kPcw" name="ProblemAreas_PK" members="_D0HwwN82EdyUFfSAd0kPcw" ForeignKey="_tvY40N82EdyUFfSAd0kPcw"/>
+    <constraints xsi:type="SQLConstraints:ForeignKey" xmi:id="_SljA4N86Edy1Krt6mGqkkg" name="ProblemAreas_Users_FK" members="_bVQf0N82EdyUFfSAd0kPcw" onUpdate="CASCADE" onDelete="CASCADE" uniqueConstraint="_OMXaIN86Edy1Krt6mGqkkg" referencedTable="_MPjIIN86Edy1Krt6mGqkkg">
+      <eAnnotations xmi:id="_Slsx4N86Edy1Krt6mGqkkg" source="FK_MODELING_RELATIONSHIP">
+        <details xmi:id="_Slsx4d86Edy1Krt6mGqkkg" key="FK_IS_IDENTIFYING_RELATIONSHIP" value="true"/>
+        <details xmi:id="_Slsx4t86Edy1Krt6mGqkkg" key="FK_CHILD_MULTIPLICITY" value="*"/>
+        <details xmi:id="_Slsx4986Edy1Krt6mGqkkg" key="FK_CHILD_ROLE_NAME" value="Created By"/>
+        <details xmi:id="_Slsx5N86Edy1Krt6mGqkkg" key="FK_PARENT_MULTIPLICITY" value="1"/>
+        <details xmi:id="_Slsx5d86Edy1Krt6mGqkkg" key="FK_PARENT_ROLE_NAME" value=""/>
+      </eAnnotations>
+    </constraints>
+  </SQLTables:PersistentTable>
+  <SQLTables:PersistentTable xmi:id="_jdqxYN82EdyUFfSAd0kPcw" name="Problems" schema="_OtPr4N81Edy_-4X0ga01qw">
+    <columns xmi:id="_kKvSwN82EdyUFfSAd0kPcw" name="Id" nullable="false">
+      <containedType xsi:type="SQLDataTypes:IntegerDataType" xmi:id="_lfZYkN82EdyUFfSAd0kPcw" name="INT" primitiveType="INTEGER"/>
+    </columns>
+    <columns xmi:id="_m3UNwN82EdyUFfSAd0kPcw" name="ProblemAreaId" nullable="false">
+      <containedType xsi:type="SQLDataTypes:IntegerDataType" xmi:id="_5ZCcgN82EdyUFfSAd0kPcw" name="INT" primitiveType="INTEGER"/>
+    </columns>
+    <constraints xsi:type="SQLConstraints:PrimaryKey" xmi:id="_lf_OcN82EdyUFfSAd0kPcw" name="Problem_PK" members="_kKvSwN82EdyUFfSAd0kPcw"/>
+    <constraints xsi:type="SQLConstraints:ForeignKey" xmi:id="_tvY40N82EdyUFfSAd0kPcw" name="Problem_ProblemAreas_FK" members="_m3UNwN82EdyUFfSAd0kPcw" onUpdate="CASCADE" onDelete="CASCADE" uniqueConstraint="_RGp90N82EdyUFfSAd0kPcw" referencedTable="_QDPOcN81Edy_-4X0ga01qw">
+      <eAnnotations xmi:id="_tvY40d82EdyUFfSAd0kPcw" source="FK_MODELING_RELATIONSHIP">
+        <details xmi:id="_tvY40t82EdyUFfSAd0kPcw" key="FK_IS_IDENTIFYING_RELATIONSHIP" value="true"/>
+        <details xmi:id="_tvY40982EdyUFfSAd0kPcw" key="FK_CHILD_MULTIPLICITY" value="*"/>
+        <details xmi:id="_tvY41N82EdyUFfSAd0kPcw" key="FK_CHILD_ROLE_NAME" value=""/>
+        <details xmi:id="_tvY41d82EdyUFfSAd0kPcw" key="FK_PARENT_MULTIPLICITY" value="1"/>
+        <details xmi:id="_tvY41t82EdyUFfSAd0kPcw" key="FK_PARENT_ROLE_NAME" value=""/>
+      </eAnnotations>
+    </constraints>
+  </SQLTables:PersistentTable>
+  <SQLTables:PersistentTable xmi:id="_MPjIIN86Edy1Krt6mGqkkg" name="Users" schema="_OtPr4N81Edy_-4X0ga01qw" referencingForeignKeys="_SljA4N86Edy1Krt6mGqkkg">
+    <columns xmi:id="_NMZK4N86Edy1Krt6mGqkkg" name="Id" nullable="false">
+      <containedType xsi:type="SQLDataTypes:IntegerDataType" xmi:id="_O9BbAN86Edy1Krt6mGqkkg" name="INT" primitiveType="INTEGER"/>
+    </columns>
+    <columns xmi:id="_jRvRYN86Edy1Krt6mGqkkg" name="Username" nullable="false">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_ka8VIN86Edy1Krt6mGqkkg" name="VARCHAR" primitiveType="CHARACTER_VARYING" length="32"/>
+    </columns>
+    <columns xmi:id="_lrk2kN86Edy1Krt6mGqkkg" name="Password" nullable="false">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_mv2-EN86Edy1Krt6mGqkkg" name="VARCHAR" primitiveType="CHARACTER_VARYING" length="32"/>
+    </columns>
+    <columns xmi:id="_oLDwwN86Edy1Krt6mGqkkg" name="Email" nullable="false">
+      <containedType xsi:type="SQLDataTypes:CharacterStringDataType" xmi:id="_pa8rUN86Edy1Krt6mGqkkg" name="VARCHAR" primitiveType="CHARACTER_VARYING" length="64"/>
+    </columns>
+    <constraints xsi:type="SQLConstraints:PrimaryKey" xmi:id="_OMXaIN86Edy1Krt6mGqkkg" name="Users_PK" members="_NMZK4N86Edy1Krt6mGqkkg" ForeignKey="_SljA4N86Edy1Krt6mGqkkg"/>
+  </SQLTables:PersistentTable>
+  <SQLTables:PersistentTable xmi:id="_3IHl8N86Edy1Krt6mGqkkg" name="Table1" schema="_OtPr4N81Edy_-4X0ga01qw"/>
+</xmi:XMI>

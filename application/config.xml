@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configdata>
 	<baseurl>/</baseurl>
-	<render_exceptions>1</render_exceptions>
+	<render_exceptions>0</render_exceptions>
 	<database>
 		<adapter>Pdo_Pgsql</adapter>
 		<params>
