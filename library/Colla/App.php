@@ -1,8 +1,23 @@
 <?php
 /**
- * Main class
+ * Collaboration Information System
+ * 
+ * Slovak university of technology Bratislava
+ * FACULTY OF INFORMATICS AND INFORMATION TECHNOLOGIES
+ * Degree Course: INFORMATION SYSTEMS
+ * 
+ * Author: Bc. František Durajka
+ * Thesis: COLLABORATION INFORMATION SYSTEM
+ * Supervisor: prof. Ing. Vladimír Vojtek PhD.
  *
- * @package Colla
+ * @category Colla
+ * @package Colla_App
+ * @version $Id$
+ */
+
+/**
+ * Colla_App
+ *
  */
 final class Colla_App
 {
