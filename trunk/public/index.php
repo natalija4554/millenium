@@ -5,11 +5,19 @@
  * @category Colla
  * @package Colla_Application
  * @version $Id$
+ */ 
+
+/**
+ * @see Zend_Loader 
  */
-// require Zend Loader & Application
 require_once '../library/Zend/Loader.php';
+
+/**
+ * @see Colla_App
+ */
 require_once '../library/Colla/App.php';
 
-// run application
+
+/** Run Application */
 Colla_App::getInstance()->run();
 ?>
