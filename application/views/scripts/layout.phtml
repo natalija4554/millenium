@@ -8,15 +8,15 @@
 </head>
 <body>
 <div id="navigacia">
-	<a href="/">Home</a>
-	<a href="/problemarea">Problémové oblasti</a>
+	<a href="<?=$this->url(array('controller'=>'index'))?>">Home</a>
+	<a href="<?=$this->url(array('controller'=>'problemarea', 'action'=>'index'))?>">Problémové oblasti</a>
 	
 	<!-- Prihlasenie | Odhlasenie -->
 	<?php if ($this->authenticated): ?>
-		<a href="<?=$this->baseUrl?>/logout">Odhlásiť sa</a> 
+		<a href="<?=$this->url(array('controller'=>'logout'))?>">Odhlásiť sa</a> 
 		(<?=$this->user->getFullname()?>)
 	<?php else: ?>
-		<a href="/login">Prihlásiť sa</a>
+		<a href="<?=$this->url(array('controller'=>'login'))?>">Prihlásiť sa</a>
 	<?php endif; ?>
 </div>
 <hr />

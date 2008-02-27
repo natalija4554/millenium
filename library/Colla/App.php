@@ -79,10 +79,11 @@ final class Colla_App
     {
     	// set options
     	$front = Zend_Controller_Front::getInstance();
-    	$front->throwExceptions(false);
+    	$front->throwExceptions(true);
     	$front->setBaseUrl($this->config->baseurl);
+    	$front->setBaseUrl('/millenium/public');
     	$front->setControllerDirectory($this->dirApplication . DIRECTORY_SEPARATOR . 'controllers');
-    	$front->registerPlugin(new Colla_Controller_Plugin_Dispatch_Check());
+    	// $front->registerPlugin(new Colla_Controller_Plugin_Dispatch_Check());
     	$front->registerPlugin(new Colla_Controller_Plugin_Auth());
     	$front->registerPlugin(new Colla_Controller_Plugin_View_Layout());
     	$front->returnResponse(true);    	
@@ -100,17 +101,16 @@ final class Colla_App
             ->addRole(new Zend_Acl_Role('admin'), 'member')
             ->allow()
             ->deny(null, 'problemarea')
-            ->allow('admin', 'problemarea');    	
+            ->allow('admin', 'problemarea');
     	
        	// go !
-    	//try {
+    	try {
     		$response = $front->dispatch();
     		$response->sendResponse();
-    	//} catch (Exception $e) {
-    		// echo 'Nastala chyba: ';
-    		// echo $e->getMessage();
-    		//print_r($e);
- 	 	//}
+    	} catch (Exception $e) {
+    		echo 'Nastala chyba: ';
+    		echo $e->getMessage();
+ 	 	}	
     }
     
 	/**
@@ -137,6 +137,9 @@ final class Colla_App
         // inclde path
         set_include_path($this->dirLibrary . PATH_SEPARATOR . $this->dirApplication . DIRECTORY_SEPARATOR . 'models' . PATH_SEPARATOR . get_include_path());
 		Zend_Loader::registerAutoload();
+		
+		// start session
+		Zend_Session::start();
  
         // read config file
         $this->config = new Zend_Config_Xml($this->dirApplication . DIRECTORY_SEPARATOR . 'config.xml');

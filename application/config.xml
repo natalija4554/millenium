@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configdata>
-	<baseurl>/</baseurl>
+	<baseurl>/millenium/public</baseurl>
 	<render_exceptions>0</render_exceptions>
 	<database>
 		<adapter>Pdo_Pgsql</adapter>
