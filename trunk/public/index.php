@@ -17,7 +17,6 @@ require_once '../library/Zend/Loader.php';
  */
 require_once '../library/Colla/App.php';
 
-
 /** Run Application */
 Colla_App::getInstance()->run();
 ?>

@@ -19,10 +19,6 @@ class Colla_Controller_Action extends Zend_Controller_Action
         } else {
             $view->user = new Colla_Model_User();
         }
-        
-        // nastavi premennu
-        // - baseUrl
-        $view->baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
    	}
 
     public function __call($name, $args)
