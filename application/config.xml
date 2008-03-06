@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configdata>
-	<baseurl>/millenium/public</baseurl>
-	<render_exceptions>0</render_exceptions>
+	<baseUrl>/</baseUrl>
 	<database>
-		<adapter>Pdo_Pgsql</adapter>
+		<adapter>Pdo_Mysql</adapter>
 		<params>
 			<host>localhost</host>
-			<username>dp</username>
-			<password>dp</password>
+			<username>root</username>
+			<password></password>
 			<dbname>dp</dbname>
 		</params>
 	</database>

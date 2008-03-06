@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Colla\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-06 15:09+0100\n"
+"PO-Revision-Date: 2008-03-06 15:10+0100\n"
+"Last-Translator: Frantisek Durajka <franto@franto.sk>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: C:\\Users\\franto\\My Web\\millenium\\application\\views\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-SearchPath-0: C:\\Users\\franto\\My Web\\millenium\\application\\views\n"
+
+#: C:\Users\franto\My
+#: Web\millenium\application\views/scripts/problemarea/add.phtml:1
+msgid "Add new problem area"
+msgstr "Pridať novú problémovú oblasť"
+
+#~ msgid "Ahojte šepkajte že to ležo plažo ťažo mäso."
+#~ msgstr "slovaneky Ahojte šepkajte že to ležo plažo ťažo mäso."
+#~ msgid "ahoj"
+#~ msgstr "ahoj slovensky ;-)"
+

@@ -1,9 +1,40 @@
 @CHARSET "UTF-8";
-
-table {
-	width: 100%;
-	border: 1px solid black;
+body, html {
+	margin: 0;
+	padding: 0;
 }
-table td, table th {
-	border: 1px solid black;
+body {
+	background-color: grey; 
+	text-align: center; 
+	padding: 5px;
+}
+#mainBox {
+	border: 1px solid black; 
+	margin: 0 auto; 
+	width: 922px; 
+	background-color: white;
+}
+#mainHeader {
+	background-color: silver; 
+	height: 180px; 
+	background-image: url('../images/logo.png');"
+}
+#mainNavigation {
+	padding-top: 140px; 
+	padding-left: 205px; 
+	text-align: left;
+}
+#mainNavigation a {
+	display: block; 
+	float: left; 
+	margin-right: 7px; 
+	border: 1px solid silver; 
+	text-decoration: none; 
+	padding: 1px 10px 1px 10px;
+}
+.mainSep1 {
+	background-color: grey; height: 1px;
+}
+.mainSep2 {
+	background-color: silver; height: 2px; border-top: 
 }
