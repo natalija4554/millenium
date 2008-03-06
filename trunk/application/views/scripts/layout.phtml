@@ -1,27 +1,43 @@
-<?php echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?= $this->doctype('XHTML1_STRICT') ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Colaboration software application</title>
-	<link rel="stylesheet" href="styles/base.css" />
+	<?php echo $this->headLink()->appendStylesheet('/styles/base.css') ?>
 </head>
 <body>
-<div id="navigacia">
-	<a href="<?=$this->url(array('controller'=>'index'))?>">Home</a>
-	<a href="<?=$this->url(array('controller'=>'problemarea', 'action'=>'index'))?>">Problémové oblasti</a>
+<div id="mainBox">
+	<div id="mainHeader">
+		<div id="mainNavigation">
+			<a href="/index">Main</a>
+			<a href="/problemarea/index">Nastavenie</a>
+		</div>
+	</div>
+	<div class="mainSep1"></div>
+	<div class="mainSep2"></div>
 	
-	<!-- Prihlasenie | Odhlasenie -->
-	<?php if ($this->authenticated): ?>
-		<a href="<?=$this->url(array('controller'=>'logout'))?>">Odhlásiť sa</a> 
-		(<?=$this->user->getFullname()?>)
-	<?php else: ?>
-		<a href="<?=$this->url(array('controller'=>'login'))?>">Prihlásiť sa</a>
-	<?php endif; ?>
+	<div style="text-align: left; background-image: menu divicer !">
+		<div style="float: left; width: 180px;">
+		
+			<div style="padding: 0 10px 0 10px;">
+				<span style="display: block; border: 1px solid silver; text-align: center; padding: 1px; background-color: silver; color: white; font-weight: bold;">Problémová oblasť</span>	
+				<a href="#" style="display: block; text-align: left;  border: 1px solid silver; padding: 1px; padding-left: 10px; text-decoration: none;  border-top: 0;">&raquo; Pridať novú</a>
+				<a href="/problemarea/add" style="display: block; text-align: left;  border: 1px solid silver; padding: 1px; padding-left: 10px; text-decoration: none;  border-top: 0;">&raquo; Zobraziť stav</a>
+			</div>
+
+		</div>
+		
+		<div style="width: 740px; margin-left: 180px; padding-bottom: 30px;">
+			<div style="padding-left: 25px;">
+				<?= $this->layout()->content; ?> 
+			</div>
+		</div>
+	</div>
+	<div style="text-align: right; margin-top: 10px; border-top: 1px dashed silver; padding: 7px;">
+		<small style="color: silver; font-size: 10px; text-align: right;">
+			(c) 2007, František Ďurajka
+		</small>
+	</div>
 </div>
-<hr />
-<?php echo $this->content ?>
-<hr />
-<p><small>ETA: <?php echo gmdate('Y-m-d H:i:s'); ?></small></p>
 </body>
 </html>

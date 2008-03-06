@@ -32,6 +32,12 @@ final class Colla_App
 	 * @var string
 	 */
     public $dirLibrary;
+    
+    /**
+     * Umiestnenie jazykovych suborov
+     * @var string
+     */
+    public $dirLanguages;
 	
 	/**
 	 * Instancia triedy
@@ -80,42 +86,18 @@ final class Colla_App
     	// set options
     	$front = Zend_Controller_Front::getInstance();
     	$front->throwExceptions(true);
-    	$front->setBaseUrl($this->config->baseurl);
-    	$front->setBaseUrl('/millenium/public');
+    	$front->setBaseUrl('/');
     	$front->setControllerDirectory($this->dirApplication . DIRECTORY_SEPARATOR . 'controllers');
-    	// $front->registerPlugin(new Colla_Controller_Plugin_Dispatch_Check());
-    	$front->registerPlugin(new Colla_Controller_Plugin_Auth());
-    	$front->registerPlugin(new Colla_Controller_Plugin_View_Layout());
     	$front->returnResponse(true);    	
     	
-    	// acl
-    	$acl = $this->getAcl();
-    	$acl->add(new Zend_Acl_Resource('index'))
-    		->add(new Zend_Acl_Resource('error'))
-            ->add(new Zend_Acl_Resource('login'))
-            ->add(new Zend_Acl_Resource('problemarea'))
-            ->add(new Zend_Acl_Resource('logout'))
-            ->add(new Zend_Acl_Resource('profile'))
-            ->addRole(new Zend_Acl_Role('anonymous'))
-            ->addRole(new Zend_Acl_Role('member'), 'anonymous')
-            ->addRole(new Zend_Acl_Role('admin'), 'member')
-            ->allow()
-            ->deny(null, 'problemarea')
-            ->allow('admin', 'problemarea');
-    	
-       	// go !
-    	try {
-    		$response = $front->dispatch();
-    		$response->sendResponse();
-    	} catch (Exception $e) {
-    		echo 'Nastala chyba: ';
-    		echo $e->getMessage();
- 	 	}	
+    	$response = $front->dispatch();
+    	$response->sendResponse();
     }
     
 	/**
      * Initialize Application
      * 
+     * BOOTSTRAP
      */
 	private function _initialize()
     {
@@ -124,15 +106,13 @@ final class Colla_App
         
 		// check magic quotes
 		if (get_magic_quotes_gpc()) {
-			if (!empty($_GET)) $_GET = stripMagicQuotes($_GET);
-			if (!empty($_POST)) $_POST = stripMagicQuotes($_POST);
-			if (!empty($_REQUEST)) $_REQUEST = stripMagicQuotes($_REQUEST);
-			if (!empty($_COOKIE)) $_COOKIE = stripMagicQuotes($_COOKIE);
+			die('Magic quotes gpc have to be turned OFF !');
 		}
                 
         // nadstav cesty
         $this->dirLibrary 		= dirname(dirname(__FILE__));
         $this->dirApplication 	= dirname($this->dirLibrary) . DIRECTORY_SEPARATOR . 'application';
+        $this->dirLanguages 	= dirname($this->dirLibrary) . DIRECTORY_SEPARATOR . 'languages';
         
         // inclde path
         set_include_path($this->dirLibrary . PATH_SEPARATOR . $this->dirApplication . DIRECTORY_SEPARATOR . 'models' . PATH_SEPARATOR . get_include_path());
@@ -146,22 +126,18 @@ final class Colla_App
         
         // set default DB adapter
         Zend_Db_Table_Abstract::setDefaultAdapter($this->getDb());
+        
+        // start layout
+        Zend_Layout::startMvc();
+        
+        // translate, add here more translations
+        // @todo dorobit automaticke nacitavanie jazykov
+        $adapter = new Zend_Translate(Zend_Translate::AN_GETTEXT, $this->dirLanguages.DIRECTORY_SEPARATOR.'sk'.DIRECTORY_SEPARATOR.'lang.mo', 'sk');
+        $adapter->addTranslation($this->dirLanguages.DIRECTORY_SEPARATOR.'en'.DIRECTORY_SEPARATOR.'lang.mo', 'en');
+        $adapter->setLocale('sk'); // zatial len SK 
+        Zend_Registry::set('Zend_Translate', $adapter);
     }
     
-    /**
-     * Vrati objekt ACL
-     * 
-     * @return Zend_Acl
-     */
-	public function getAcl()
-    {
-    	// inicializuj ak nie je vytvoreny
-        if (null === $this->_services['acl']) {
-            $this->_services['acl'] = new Zend_Acl();
-        }
-        return $this->_services['acl'];
-    }
-
     /**
      * Vrati objekt databzy
      * 
