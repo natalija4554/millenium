@@ -134,7 +134,8 @@ final class Colla_App
         // @todo dorobit automaticke nacitavanie jazykov
         $adapter = new Zend_Translate(Zend_Translate::AN_GETTEXT, $this->dirLanguages.DIRECTORY_SEPARATOR.'sk'.DIRECTORY_SEPARATOR.'lang.mo', 'sk');
         $adapter->addTranslation($this->dirLanguages.DIRECTORY_SEPARATOR.'en'.DIRECTORY_SEPARATOR.'lang.mo', 'en');
-        $adapter->setLocale('sk'); // zatial len SK 
+        $adapter->setLocale('sk'); // zatial len SK
+        Zend_Form::setDefaultTranslator($adapter); 
         Zend_Registry::set('Zend_Translate', $adapter);
     }
     

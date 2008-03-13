@@ -1,13 +1,3 @@
-<h2><?=$this->translate('Add new problem area');?></h2>
+<h2><?=$this->translate('New Problem Area Title');?></h2>
 
-<?php
-
-// utilizing zend_form
-$form = new Zend_Form();
-$form->setAction($this->url(array('controller'=>'problemarea', 'index'=>'add')))
-	->setMethod('post')
-	 ->addElement('text', 'username');
-	 
-	 
-echo $form;
-?>
+<?php echo $this->form->render();?>

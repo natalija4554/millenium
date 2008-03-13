@@ -16,25 +16,24 @@
 	<div class="mainSep1"></div>
 	<div class="mainSep2"></div>
 	
-	<div style="text-align: left; background-image: menu divicer !">
-		<div style="float: left; width: 180px;">
-		
-			<div style="padding: 0 10px 0 10px;">
-				<span style="display: block; border: 1px solid silver; text-align: center; padding: 1px; background-color: silver; color: white; font-weight: bold;">Problémová oblasť</span>	
-				<a href="#" style="display: block; text-align: left;  border: 1px solid silver; padding: 1px; padding-left: 10px; text-decoration: none;  border-top: 0;">&raquo; Pridať novú</a>
-				<a href="/problemarea/add" style="display: block; text-align: left;  border: 1px solid silver; padding: 1px; padding-left: 10px; text-decoration: none;  border-top: 0;">&raquo; Zobraziť stav</a>
+	<div>
+		<div id="mainMenuLeft">
+			<div class="menuBox">
+				<span class="title">Problémová oblasť</span>	
+				<a class="row" href="/problemarea/add">Pridať novú</a>
 			</div>
-
+			<?=$this->layout()->sidebar;?>
+			
 		</div>
 		
-		<div style="width: 740px; margin-left: 180px; padding-bottom: 30px;">
-			<div style="padding-left: 25px;">
-				<?= $this->layout()->content; ?> 
+		<div id="mainMenuRight">
+			<div id="mainMenuRight2">
+				<?=$this->layout()->content;?> 
 			</div>
 		</div>
 	</div>
-	<div style="text-align: right; margin-top: 10px; border-top: 1px dashed silver; padding: 7px;">
-		<small style="color: silver; font-size: 10px; text-align: right;">
+	<div id="mainFooter">
+		<small id="mainFooter2">
 			(c) 2007, František Ďurajka
 		</small>
 	</div>
