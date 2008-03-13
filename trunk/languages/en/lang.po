@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Colla\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-06 15:18+0100\n"
-"PO-Revision-Date: 2008-03-06 15:18+0100\n"
+"POT-Creation-Date: 2008-03-06 17:49+0100\n"
+"PO-Revision-Date: 2008-03-06 17:49+0100\n"
 "Last-Translator: Frantisek Durajka <franto@franto.sk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -12,12 +12,17 @@ msgstr ""
 "X-Poedit-Language: English\n"
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Basepath: C:\\Users\\franto\\My Web\\millenium\\application\\views\n"
-"X-Poedit-KeywordsList: translate\n"
-"X-Poedit-SearchPath-0: C:\\Users\\franto\\My Web\\millenium\\application\\views\n"
+"X-Poedit-Basepath: C:\\Users\\franto\\My Web\\millenium\\application\n"
+"X-Poedit-KeywordsList: translate;setLabel\n"
+"X-Poedit-SearchPath-0: C:\\Users\\franto\\My Web\\millenium\\application\n"
 
 #: C:\Users\franto\My
-#: Web\millenium\application\views/scripts/problemarea/add.phtml:1
+#: Web\millenium\application/controllers/ProblemAreaController.php:43
+msgid "Nazov"
+msgstr "ENG Nazov"
+
+#: C:\Users\franto\My
+#: Web\millenium\application/views/scripts/problemarea/add.phtml:1
 msgid "Add new problem area"
 msgstr "English new probl.area"
 

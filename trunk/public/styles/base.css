@@ -13,6 +13,7 @@ body {
 	margin: 0 auto; 
 	width: 922px; 
 	background-color: white;
+	text-align: left;
 }
 #mainHeader {
 	background-color: silver; 
@@ -37,4 +38,66 @@ body {
 }
 .mainSep2 {
 	background-color: silver; height: 2px; border-top: 
+}
+#mainMenuLeft {
+	float: left; 
+	width: 180px;
+}
+.menuBox {
+	padding: 0 10px 0 10px;
+}
+.menuBox .title {
+	display: block; 
+	border: 1px solid silver; 
+	text-align: center; 
+	padding: 1px; 
+	background-color: silver; 
+	color: white; 
+	font-weight: bold;
+}
+.menuBox .row {
+	display: block; 
+	text-align: left;  
+	border: 1px solid silver; 
+	padding: 1px; 
+	padding-left: 10px; 
+	text-decoration: none;  
+	border-top: 0;
+}
+#mainMenuRight {
+	width: 740px; 
+	margin-left: 180px; 
+	padding-bottom: 30px;
+}
+#mainMenuRight2 {
+	padding-left: 25px;
+	padding-right: 15px;
+}
+#mainFooter {
+	 text-align: right; 
+	 margin-top: 10px; 
+	 border-top: 1px dashed silver; 
+	 padding: 2px 10px 2px 10px;
+	 clear: both;
+}
+#mainFooter2 {
+	 color: grey; 
+	 font-size: 12px; 
+	 text-align: right;
+}
+
+
+
+.ProblemAreaTable {
+	border: 1px solid silver;
+	border-collapse: collapse;	
+	margin-bottom: 1em;
+	width: 100%;
+}
+.ProblemAreaTable th {
+	padding-left: 7px;
+}
+.ProblemAreaTable td {
+	border: 1px solid silver;
+	padding-left: 7px;
 }
