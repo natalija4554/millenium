@@ -1,0 +1,29 @@
+<?php $this->placeholder('nav')->captureStart('APPEND'); ?>
+	<div class="menuBox">
+		<span class="title"><?=$this->translate('Actions'); ?></span>	
+		<a class="row" href="/problemarea/change"><?=$this->translate('Change proporties');?></a>
+		<a class="row" href="/problemarea/addproblem"><?=$this->translate('Add new problem');?></a>
+	</div>
+<?php $this->placeholder('nav')->captureEnd(); ?>
+<h2>Problematic Area</h2>
+<p>
+	<label>Name:</label><?=$this->pa['Name'];?><br />
+	<label>Created:</label><?=$this->pa['Created'];?><br />
+</p>
+<p>
+	<?=$this->pa['Description']; ?>
+</p>
+
+<h3><?=$this->translate('List of problems')?></h3>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Category, Tags</th>
+	</tr>
+	<?php foreach ($this->problems as $problem): ?>
+	<tr>
+		<td><?=$problem['name'] ?></td>
+		<td> ... </td>
+	</tr>
+	<?php endforeach; ?>
+</table>

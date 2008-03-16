@@ -1,3 +1,10 @@
+<?php $this->placeholder('nav')->captureStart('APPEND'); ?>
+	<div class="menuBox">
+		<span class="title"><?=$this->translate('Problem areas'); ?></span>
+		<a class="row" href="/problemarea/add"><?=$this->translate('Add new problem area');?></a>	
+	</div>
+<?php $this->placeholder('nav')->captureEnd('APPEND'); ?>
+
 <h2>Zoznam problémových oblastí</h2>
 
 <?=$this->FlashMessages(); ?>
@@ -6,7 +13,9 @@
 <?php foreach ($this->areas as $key=>$pa): ?>
 <table class="ProblemAreaTable">
 	<tr>
-		<th><?=$pa['Name']?></th>
+		<th>
+			<a href="/problemarea/view/id/<?=$pa['Id']?>"><?=$pa['Name']?></a>
+		</th>
 	</tr>
 	<tr>
 		<td colspan="2"><?=$pa['Description']?></td>
