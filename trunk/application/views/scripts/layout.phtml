@@ -18,12 +18,9 @@
 	
 	<div>
 		<div id="mainMenuLeft">
-			<div class="menuBox">
-				<span class="title">Problémová oblasť</span>	
-				<a class="row" href="/problemarea/add">Pridať novú</a>
-			</div>
-			<?=$this->layout()->sidebar;?>
-			
+			<?php if ($this->placeholder('nav')): ?>
+				<?=$this->placeholder('nav');?>			
+			<?php endif; ?>
 		</div>
 		
 		<div id="mainMenuRight">

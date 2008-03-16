@@ -1,4 +1,8 @@
-<h2>Vitajte</h2>
-<p>
-	Vitajte v mojom diplomovom projekte .... 
-</p>
+<?php $this->placeholder('nav')->captureStart('APPEND'); ?>
+	<div class="menuBox">
+		<span class="title"><?=$this->translate('Index BOX'); ?></span>
+		<a class="row" href="/problemarea/index"><?=$this->translate('View problem areas');?></a>	
+	</div>
+<?php $this->placeholder('nav')->captureEnd('APPEND'); ?>
+
+<h2><?=$this->translate('WELCOME') ?></h2>
