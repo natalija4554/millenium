@@ -16,6 +16,13 @@
  */
 
 /**
+ * Few definitions to make life easier
+ */
+define('DS', DIRECTORY_SEPARATOR);
+define('PS', PATH_SEPARATOR);
+
+
+/**
  * Colla_App
  *
  */
@@ -25,20 +32,14 @@ final class Colla_App
 	 * Umiestnenie aplikacie
 	 * @var string
 	 */
-	public $dirApplication;
+	private $_dirApplication;
 	
 	/**
 	 * Umiestnenie kniznice
 	 * @var string
 	 */
-    public $dirLibrary;
+    private $_dirLibrary;
     
-    /**
-     * Umiestnenie jazykovych suborov
-     * @var string
-     */
-    public $dirLanguages;
-	
 	/**
 	 * Instancia triedy
 	 * 
@@ -50,18 +51,7 @@ final class Colla_App
 	 * Konfiguracia
 	 * @var Zend_Config_Xml
 	 */
-	public $config;
-	
-	
-	/**
-	 * Database services
-	 * 
-	 * @var array
-	 */
-	protected $_services = array(
-        'acl' => null,
-        'db'  => null
-        );
+	private $_config;
 	
 	/**
 	 * SingleTron pattern !
@@ -72,85 +62,150 @@ final class Colla_App
     {
         if (self::$_instance === null) {
             self::$_instance = new self();
-            self::$_instance->_initialize();
         }
         return self::$_instance;
     }
     
 	/**
-     * Spusti aplikaciu
-     * 
+     * @return Colla_App
      */
     public function run()
     {
-    	// set options
-    	$front = Zend_Controller_Front::getInstance();
-    	$front->throwExceptions(true);
-    	$front->setBaseUrl('/');
-    	$front->setControllerDirectory($this->dirApplication . DIRECTORY_SEPARATOR . 'controllers');
-    	$front->returnResponse(true);    	
-    	
-    	$response = $front->dispatch();
-    	$response->sendResponse();
+    	$this->_setupEnviroment()
+    		 ->_setupSession()
+    		 ->_loadConfig()
+    		 ->_setupDatabase()
+    		 ->_setupLayout()
+    		 ->_setupTranslation()
+    		 ->_setupFrontController()
+    		 ->_dispachFrontController();
+    		 
+    	return $this;
     }
     
-	/**
-     * Initialize Application
-     * 
-     * BOOTSTRAP
+    /**
+     * Setup Enviroment
+     *
+     * @return Colla_App
      */
-	private function _initialize()
+    private function _setupEnviroment()
     {
     	// error reporting
         error_reporting(E_ALL | E_STRICT);
         
-		// check magic quotes
-		if (get_magic_quotes_gpc()) {
-			die('Magic quotes gpc have to be turned OFF !');
-		}
-                
-        // nadstav cesty
-        $this->dirLibrary 		= dirname(dirname(__FILE__));
-        $this->dirApplication 	= dirname($this->dirLibrary) . DIRECTORY_SEPARATOR . 'application';
-        $this->dirLanguages 	= dirname($this->dirLibrary) . DIRECTORY_SEPARATOR . 'languages';
+		// nadstav cesty
+        $this->_dirLibrary 		= dirname(dirname(__FILE__));
+        $this->_dirApplication 	= dirname($this->_dirLibrary) . DS . 'application';
         
-        // inclde path
-        set_include_path($this->dirLibrary . PATH_SEPARATOR . $this->dirApplication . DIRECTORY_SEPARATOR . 'models' . PATH_SEPARATOR . get_include_path());
+        // autoloader
+        set_include_path($this->_dirLibrary . PS . $this->_dirApplication . DS . 'models' . PS . get_include_path());
 		Zend_Loader::registerAutoload();
+        
+        return $this;
+    }
 		
-		// start session
+    /**
+     * Setup Session
+     *
+     * @return Colla_App
+     */
+    private function _setupSession()
+    {
 		Zend_Session::start();
- 
-        // read config file
-        $this->config = new Zend_Config_Xml($this->dirApplication . DIRECTORY_SEPARATOR . 'config.xml');
-        
-        // set default DB adapter
-        Zend_Db_Table_Abstract::setDefaultAdapter($this->getDb());
-        
-        // start layout
-        Zend_Layout::startMvc();
-        
-        // translate, add here more translations
-        // @todo dorobit automaticke nacitavanie jazykov
-        $adapter = new Zend_Translate(Zend_Translate::AN_GETTEXT, $this->dirLanguages.DIRECTORY_SEPARATOR.'sk'.DIRECTORY_SEPARATOR.'lang.mo', 'sk');
-        $adapter->addTranslation($this->dirLanguages.DIRECTORY_SEPARATOR.'en'.DIRECTORY_SEPARATOR.'lang.mo', 'en');
-        $adapter->setLocale('sk'); // zatial len SK
-        Zend_Form::setDefaultTranslator($adapter); 
-        Zend_Registry::set('Zend_Translate', $adapter);
+		return $this;
     }
     
     /**
-     * Vrati objekt databzy
-     * 
-     * @return Zend_Db_Adapter_Abstract
+     * Setup Configuration
+     *
+     * @return Colla_App
      */
-    public function getDb()
+ 	private function _loadConfig()
+ 	{
+        // read config file
+        $this->_config = new Zend_Config_Xml($this->_dirApplication . DS . 'config.xml');
+        return $this;
+ 	}
+ 	
+ 	/**
+ 	 * Setup Database
+ 	 *
+ 	 * @return Colla_App
+ 	 */
+ 	private function _setupDatabase()
+ 	{
+ 		$adapter = Zend_Db::factory($this->_config->database);
+        Zend_Db_Table_Abstract::setDefaultAdapter($adapter);
+        return $this;
+ 	}
+ 	
+ 	/**
+ 	 * Setup Layout
+ 	 *
+ 	 * @return Colla_App
+ 	 */
+ 	private function _setupLayout()
+ 	{
+ 		// start layout
+ 		Zend_Layout::startMvc();
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->setLayoutPath($this->_dirApplication . DS . 'views' . DS . 'layout' . DS);
+        $layout->setLayout('default');
+        
+        return $this;
+ 	}
+ 	
+ 	/**
+ 	 * Setup Translation
+ 	 *
+ 	 * @return Colla_App
+ 	 */
+ 	private function _setupTranslation()
+ 	{
+ 		// configure path
+ 		$dirLanguages 	= dirname($this->_dirLibrary) . DS . 'languages';
+ 		
+ 		// translate, add here more translations
+        // @todo dorobit automaticke nacitavanie jazykov
+        $adapter = new Zend_Translate(Zend_Translate::AN_GETTEXT, $dirLanguages.DS.'sk'.DS.'lang.mo', 'sk');
+        $adapter->addTranslation($dirLanguages.DS.'en'.DS.'lang.mo', 'en');
+        $adapter->setLocale('sk'); // zatial len SK
+        Zend_Form::setDefaultTranslator($adapter); 
+        Zend_Registry::set('Zend_Translate', $adapter);
+        
+        return $this;
+ 	}
+ 	
+ 	/**
+ 	 * Setup Front Controller
+ 	 *
+ 	 * @return Colla_App
+ 	 */
+ 	private function _setupFrontController()
+ 	{
+        // set options
+    	$front = Zend_Controller_Front::getInstance();
+    	$front->throwExceptions(true);
+    	$front->setBaseUrl('/');
+    	$front->setControllerDirectory($this->_dirApplication . DS . 'controllers');
+    	$front->returnResponse(true);
+    	
+        return $this;
+    }
+    
+    /**
+     * Dispatch Front Controller
+     *
+     * @return Colla_App
+     */
+    private function _dispachFrontController()
     {
-    	// inicializuj ak nie je vytvoreny
-    	if (null === $this->_services['db']) {
-            $this->_services['db'] = Zend_Db::factory($this->config->database);
-        }
-        return $this->_services['db'];
+		// dispach
+		$front = Zend_Controller_Front::getInstance();
+    	$response = $front->dispatch();
+    	$response->sendResponse();
+    	
+    	return $this;
     }
 }
 ?>

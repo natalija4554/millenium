@@ -45,6 +45,7 @@ body {
 }
 .menuBox {
 	padding: 0 10px 0 10px;
+	margin-bottom: 1em;
 }
 .menuBox .title {
 	display: block; 
@@ -86,18 +87,17 @@ body {
 	 text-align: right;
 }
 
+table.std {
+  border-collapse: collapse;
+  border: 1px solid silver;
+  width: 100%;
+} 
+table.std th {
+  background-color: silver;
+  color: black;
+  text-align: left;
+}
+table.std td {
+  border: 1px solid silver;
+}
 
-
-.ProblemAreaTable {
-	border: 1px solid silver;
-	border-collapse: collapse;	
-	margin-bottom: 1em;
-	width: 100%;
-}
-.ProblemAreaTable th {
-	padding-left: 7px;
-}
-.ProblemAreaTable td {
-	border: 1px solid silver;
-	padding-left: 7px;
-}
