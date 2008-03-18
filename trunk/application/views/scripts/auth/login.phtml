@@ -1,0 +1,9 @@
+<h2>Authentification</h2>
+<?=$this->FlashMessages(); ?>
+
+<?php if ($this->authenticated) : ?>
+	<p>You are already authenticated as <?php echo $this->escape($this->user->getFullname()) ?>.</p>
+	<p><a href="/auth/logout">Logout</a></p>
+<?php else: ?>
+	<?=$this->form ?>
+<?php endif; ?>

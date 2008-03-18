@@ -11,7 +11,7 @@ class ProblemAreaController extends Colla_Controller_Action
 	 */
     public function indexAction()
     {
-    	$ProblemArea = new Colla_Model_ProblemArea();
+    	$ProblemArea = new Colla_Db_Table_ProblemArea();
     	$this->view->areas = $ProblemArea->getProblemAreas();
     	$this->render();
     }
@@ -26,15 +26,13 @@ class ProblemAreaController extends Colla_Controller_Action
     	// action save !
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($_POST)) {
-    			$ProblemArea = new Colla_Model_ProblemArea();
+    			$ProblemArea = new Colla_Db_Table_ProblemArea();
     			$ProblemArea->saveNew($form->getValues());
     			$this->_helper->FlashMessenger->addMessage($this->translate('Problem area has been created.'));
     			$this->_redirect('/problemarea/index');
        		}
     	}
     	$this->view->form = $form;
-    	$this->view->messages = $this->_helper->FlashMessenger->getMessages();
-    	$this->view->sidebar = 'text';
     }
     
     /**
@@ -49,7 +47,7 @@ class ProblemAreaController extends Colla_Controller_Action
     		$this->_redirect('/problemarea/index');
     	}
     	
-    	$PA = new Colla_Model_ProblemArea();
+    	$PA = new Colla_Db_Table_ProblemArea();
     	if (!$PA->hasProblemArea($this->_getParam('id'))) {
     		$this->_helper->FlashMessenger->addMessage($this->translate('No such problem area!'));
     		$this->_redirect('/problemarea/index');	

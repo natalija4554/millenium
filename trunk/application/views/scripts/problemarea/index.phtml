@@ -1,27 +1,35 @@
 <?php $this->placeholder('nav')->captureStart('APPEND'); ?>
-	<div class="menuBox">
-		<span class="title"><?=$this->translate('Problem areas'); ?></span>
-		<a class="row" href="/problemarea/add"><?=$this->translate('Add new problem area');?></a>	
-	</div>
+	<a class="row" href="/problemarea/add"><?=$this->translate('Add new problem area');?></a>	
 <?php $this->placeholder('nav')->captureEnd('APPEND'); ?>
 
-<h2>Zoznam problémových oblastí</h2>
+<h1>Problémové oblasti</h1>
+<p>
+  Prosím vyberte si problémovú oblasť, pre ktorú chcete zobraziť stav jej 
+  rozpracovania.
+</p>
 
 <?=$this->FlashMessages(); ?>
 
 <?php if (count($this->areas) > 0): ?>
+	<table class="std">
+  	<thead>
+    	<tr>
+      		<th>Názov problémovej oblasti</th>
+      		<th>Stav riešenia</th>
+      		<th>Posledná zmena</th>      
+    	</tr>
+	</thead>
+	<tbody>
 <?php foreach ($this->areas as $key=>$pa): ?>
-<table class="ProblemAreaTable">
-	<tr>
-		<th>
-			<a href="/problemarea/view/id/<?=$pa['Id']?>"><?=$pa['Name']?></a>
-		</th>
-	</tr>
-	<tr>
-		<td colspan="2"><?=$pa['Description']?></td>
-	</tr>
-</table>
+	
+    <tr>
+      <td><a href="/problemarea/view/id/<?=$pa['Id']?>" title="Zobraziť podrobnosti"><?=$pa['Name']?></a></td>
+      <td>todo</td>
+      <td>todo</td>
+    <tr>
 <?php endforeach; ?>
+	</tbody>
+	</table>
 <?php else: ?>
 <p>
 	<?=$this->translate('No problema area exists yet. Please add one.') ?>
