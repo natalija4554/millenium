@@ -6,22 +6,26 @@
  */
 class ProblemController extends Colla_Controller_Action
 {
-	public function changecategory()
+	public function viewAction()
+	{
+		
+	}
+	public function changecategoryAction()
 	{
 		
 	}
 	
-	public function changedefintion()
+	public function changedefintionAction()
 	{
 		
 	}
 	
-	public function remove()
+	public function removeAction()
 	{
 		
 	}
 	
-	public function merge()
+	public function mergeAction()
 	{
 		
 	}

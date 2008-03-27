@@ -1,1 +1,16 @@
-login box
+<div style="border: 1px solid silver; padding: 5px;">
+	<?php if ($this->authenticated): ?>
+		You are logged as <?=$this->user->getFullname();?>.
+
+		<div style="text-align: right">
+			<a href="/auth/logout" title="logout">sign out</a>
+		</div>
+	<?php else: ?>
+		Sign in to the system.
+		<form action="/auth/login" id="login-box" method="post">
+			<label>Username:</label><input type="text" name="username" value="" />
+			<label>Password:</label><input type="password" name="password" value="" />
+			<input type="submit" value="Sign in" />
+		</form>
+	<?php endif; ?>
+</div>

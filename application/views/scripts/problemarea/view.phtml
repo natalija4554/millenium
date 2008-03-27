@@ -1,6 +1,5 @@
 <?php $this->placeholder('nav')->captureStart('APPEND'); ?>
-	<a class="row" href="/problemarea/change"><?=$this->translate('Change proporties');?></a>
-	<a class="row" href="/problemarea/addproblem"><?=$this->translate('Add new problem');?></a>
+	<a class="row" href="/problemarea/addproblem"><?=$this->translate('Identify new problem');?></a>
 <?php $this->placeholder('nav')->captureEnd(); ?>
 
 <h1><?=$this->pa['Name'];?></h1>
@@ -17,6 +16,7 @@
 <table class="std">
 	<thead>
     <tr>
+    	<th></th>
 		<th>Názov problém</th>
 		<th>Posledná zmena</th>   
 		<th>Stav riešenia</th>   
@@ -24,6 +24,7 @@
 	</thead>
 	<tbody>
 	<tr>
+		<td></td>
 		<td>Suchý vzduch na izbe</td>
 		<td>10.1.2008</td>
 		<td>Vyriešený</td>

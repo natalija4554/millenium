@@ -4,7 +4,7 @@ class IndexController extends Colla_Controller_Action
 {
  	public function indexAction()
     {
-    	$this->render();
+    	$this->_forward('view', 'problemarea');
     }
 
     public function deniedAction()

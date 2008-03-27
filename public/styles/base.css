@@ -8,41 +8,109 @@ body {
 	text-align: center; 
 	padding: 5px;
 }
+a {
+	color: #5F2323;
+}
 #mainBox {
 	border: 1px solid black; 
 	margin: 0 auto; 
-	width: 922px; 
+	/* width: 922px; */
 	background-color: white;
 	text-align: left;
-}
-#mainHeader {
-	background-color: silver; 
-	height: 180px; 
-	background-image: url('../images/logo.png');"
-}
-#mainNavigation {
-	padding-top: 140px; 
-	padding-left: 205px; 
-	text-align: left;
-}
-#mainNavigation a {
-	display: block; 
-	float: left; 
-	margin-right: 7px; 
-	border: 1px solid silver; 
-	text-decoration: none; 
-	padding: 1px 10px 1px 10px;
-}
-.mainSep1 {
-	background-color: grey; height: 1px;
-}
-.mainSep2 {
-	background-color: silver; height: 2px; border-top: 
 }
 #mainMenuLeft {
 	float: left; 
 	width: 180px;
 }
+#mainMenuRight {
+	/* width: 730px; */ 
+	margin-left: 190px; 
+	padding-bottom: 30px;
+}
+#mainMenuRight2 {
+	padding-left: 0px;
+	padding-right: 15px;
+	margin-top: 0px;
+}
+#mainFooter {
+	 text-align: right; 
+	 margin-top: 10px; 
+	 border-top: 1px dashed silver; 
+	 padding: 2px 10px 2px 10px;
+	 clear: both;
+}
+#mainFooter2 {
+	 color: grey; 
+	 font-size: 12px; 
+	 text-align: right;
+}
+
+/**
+ * Navigation menu
+ */
+#mainNavigation {
+	margin: 10px 0 0 0;
+	padding: 0;
+}
+#mainNavigation:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: right;
+    visibility: hidden;
+}
+#mainNavigation li {
+	float: left;
+	display: block;
+	position: relative; 
+	color: white;
+	
+}
+#mainNavigation li a {
+	margin-right: 7px;
+	border: 1px solid silver;
+	display: block;
+	background-color: white;
+	text-decoration: none;
+	font-weight: 90%;
+	padding: 0px 10px 0px 10px;
+}
+#mainNavigation li a:hover {
+	border: 1px solid grey;
+}
+#mainNavigation li.rightNav  {
+	float: right;
+}
+#mainNavigation li.rightNav a {
+	margin-right: 0px;
+}
+#mainNavigation li a.dirItem {
+	padding-left: 30px;
+	background-image: url('/images/sipka.png');
+	background-position: 5px center;
+	background-repeat: no-repeat;
+}
+
+#mainNavigation li ul {
+	display: none;
+	margin: 0;
+	padding: 0;	
+	width: 100%;
+	position: absolute;
+}
+#mainNavigation li:hover ul {
+	display: block;
+}
+#mainNavigation li ul li {
+	float: none;
+	display: block;
+}
+
+
+
+/**
+ * Custom definitions - LEFT MENU 
+ */ 
 .menuBox {
 	padding: 0 10px 0 10px;
 	margin-bottom: 1em;
@@ -65,28 +133,11 @@ body {
 	text-decoration: none;  
 	border-top: 0;
 }
-#mainMenuRight {
-	width: 740px; 
-	margin-left: 180px; 
-	padding-bottom: 30px;
-}
-#mainMenuRight2 {
-	padding-left: 25px;
-	padding-right: 15px;
-}
-#mainFooter {
-	 text-align: right; 
-	 margin-top: 10px; 
-	 border-top: 1px dashed silver; 
-	 padding: 2px 10px 2px 10px;
-	 clear: both;
-}
-#mainFooter2 {
-	 color: grey; 
-	 font-size: 12px; 
-	 text-align: right;
-}
 
+
+/**
+ * Standard table
+ */
 table.std {
   border-collapse: collapse;
   border: 1px solid silver;

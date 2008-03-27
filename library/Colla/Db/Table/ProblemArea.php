@@ -93,9 +93,32 @@ class Colla_Db_Table_ProblemArea extends Zend_Db_Table_Abstract
 	 */
 	public function getProblems($ProblemAreaId)
 	{
-		$where = $this->select()->where('ProblemAreaId = ?', (int) $ProblemAreaId);
-		$rowset = $this->fetchAll($where);
+		$Problems = new Colla_Db_Table_Problem();
+		$where = $Problems->select()->where('ProblemAreaId = ?', (int) $ProblemAreaId);
+		$rowset = $Problems->fetchAll($where);
 		return $rowset->toArray();
+	}
+	
+	/**
+	 * Get default problem area 
+	 * - the one set as Default
+	 * - if only 1 is present, return this one
+	 * 
+	 * @return int | false 
+	 */
+	public function getDefaultProblemArea()
+	{
+		$where = $this->select()->from($this->_name, array('Id', 'Default'));
+		$rows = $this->fetchAll($where);
+		
+		if (count($rows) == 1) {
+			return $rows->current()->Id;
+		}
+		foreach ($rows as $row) {
+			if ($row->Default == '1') {
+				return $row->Id;			}
+		}
+		return false;
 	}
     
 }
