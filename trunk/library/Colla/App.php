@@ -54,6 +54,13 @@ final class Colla_App
 	private $_config;
 	
 	/**
+	 * Session data
+	 *
+	 * @var Zend_Session_Namespace
+	 */
+	private $_session;
+	
+	/**
 	 * SingleTron pattern !
 	 * 
 	 * @return Colla_App
@@ -112,6 +119,7 @@ final class Colla_App
     private function _setupSession()
     {
 		Zend_Session::start();
+		$this->_session = new Zend_Session_Namespace('Colla_App');
 		return $this;
     }
     
@@ -177,6 +185,15 @@ final class Colla_App
  	}
  	
  	/**
+ 	 * If system contains only 1 problem areat, this one becomes the default
+ 	 *
+ 	 */
+ 	private function _setDefaultProblemArea()
+ 	{
+ 		
+ 	}
+ 	
+ 	/**
  	 * Setup Front Controller
  	 *
  	 * @return Colla_App
@@ -189,6 +206,9 @@ final class Colla_App
     	$front->setBaseUrl('/');
     	$front->setControllerDirectory($this->_dirApplication . DS . 'controllers');
     	$front->returnResponse(true);
+    	
+    	// register plugins
+    	$front->registerPlugin(new Colla_Controller_Plugin_ProblemArea());
     	
         return $this;
     }
@@ -206,6 +226,28 @@ final class Colla_App
     	$response->sendResponse();
     	
     	return $this;
+    }
+    
+    /**
+     * Return number of problem are id, if none set, return false
+     *
+     * @return int | false
+     */
+    
+    public function hasProblemArea()
+    {
+    	return (isset($this->_session->problemAreaId) ? true : false);
+    }
+    public function getProblemArea()
+    {
+    	if (!isset($this->_session->problemAreaId)) {
+    		throw new Exception('No problem area !');
+    	}
+    	return $this->_session->problemAreaId;
+    }
+    public function setProblemArea($id)
+    {
+    	$this->_session->problemAreaId = $id;
     }
 }
 ?>

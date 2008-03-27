@@ -6,18 +6,20 @@
  */
 class ProblemAreaController extends Colla_Controller_Action
 {
-	/**
-	 * Odhlasi pouzivatela zo systemu
-	 */
-    public function indexAction()
+/**
+     * View problem Area details
+     */
+    public function viewAction()
     {
-    	$ProblemArea = new Colla_Db_Table_ProblemArea();
-    	$this->view->areas = $ProblemArea->getProblemAreas();
-    	$this->render();
+    	// param ID
+    	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
+    	$PA = new Colla_Db_Table_ProblemArea();
+		$this->view->pa = $PA->getProblemArea($ProblemAreaId);
+    	$this->view->problems = $PA->getProblems($ProblemAreaId);
     }
     
-    /**
-     * Prida novu problemovu oblast
+	/**
+     * Add new problem area
      */
     public function addAction()
     {
@@ -36,30 +38,22 @@ class ProblemAreaController extends Colla_Controller_Action
     }
     
     /**
-     * Zobrazi podrobnosti o problemovej oblasti, zoznam problemov
-     *
+     * Add new problem to problem area
      */
-    public function viewAction()
-    {
-    	// param ID
-    	if (!$this->_hasParam('id')) {
-    		$this->_helper->FlashMessenger->addMessage($this->translate('Please select problem area.'));
-    		$this->_redirect('/problemarea/index');
-    	}
-    	
-    	$PA = new Colla_Db_Table_ProblemArea();
-    	if (!$PA->hasProblemArea($this->_getParam('id'))) {
-    		$this->_helper->FlashMessenger->addMessage($this->translate('No such problem area!'));
-    		$this->_redirect('/problemarea/index');	
-    	}
-    	
-    	$this->view->pa = $PA->getProblemArea($this->_getParam('id'));
-    	$this->view->problems = $PA->getProblems($this->_getParam('id'));
-    }
-    
     public function addproblemAction()
     {
-    	
+    	Colla_App::getInstance()->setProblemArea($this->_getParam('id'));
+    }
+    
+    /**
+     * Let you to choose the default problem Area
+     * 
+     * @todo select screen when there is more or none problem areas
+     */
+    public function selectAction()
+    {
+    	$ProblemArea = new Colla_Db_Table_ProblemArea();
+    	$this->view->areas = $ProblemArea->getProblemAreas();
     }
 }
 ?>

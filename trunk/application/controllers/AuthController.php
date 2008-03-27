@@ -34,7 +34,7 @@ class AuthController extends Colla_Controller_Action
     				// success
     				case Zend_Auth_Result::SUCCESS:
     					$this->_helper->FlashMessenger->addMessage('You have been successfully logged in.');
-    					$this->_redirect('/auth/login');
+    					$this->_redirect('/');
     					break;
     					
     				// failure
@@ -55,10 +55,95 @@ class AuthController extends Colla_Controller_Action
     }
     
     /**
+     * Logout user, clear identity
+     * 
+     */
+    public function logoutAction()
+    {
+    	$auth = Zend_Auth::getInstance();
+    	
+    	if ($auth->hasIdentity()) {
+    		$auth->clearIdentity();
+    		$this->_helper->FlashMessenger->addMessage('You have been logged out.');
+    	} else {
+    		$this->_helper->FlashMessenger->addMessage('You are allready logged out.');
+    	}
+    	$this->_redirect('/auth/login');
+    }
+    
+    /**
      * Show partial login box in navigation menu
      */
 	public function partialLoginBoxAction()
     {
     	;
+    }
+    
+    /**
+     * Change profile of logged user
+     *
+     */
+    public function profileAction()
+    {
+    	// check if he is logged in
+    	if (!Zend_Auth::getInstance()->hasIdentity()) {
+    		$this->_helper->FlashMessenger->addMessage('Please sign in first!');
+    		$this->_redirect('/auth/login');
+    	}
+    	
+    	// get form
+    	// get informations 
+    	$user = Colla_Db_Table_User::getByUsername(Zend_Auth::getInstance()->getIdentity());
+    	$form = new Colla_Form_Profile();
+    	
+    	// action save !
+    	if ($this->getRequest()->isPost()) {
+    		if ($form->isValid($_POST)) {
+    			$user->FullName = $form->getValue('FullName');
+    			$user->save();
+    			$this->_helper->FlashMessenger->addMessage($this->translate('Your profile has been changed.'));
+    			$this->_redirect('/auth/profile');
+       		}
+    	} else {
+			$form->getElement('FullName')->setValue($user->FullName);
+		}
+		
+		// render
+		$this->view->formProfile = $form;
+    }
+    
+    /**
+     * Change user password
+     */
+    public function passwordAction()
+    {
+    	// check if he is logged in
+    	if (!Zend_Auth::getInstance()->hasIdentity()) {
+    		$this->_helper->FlashMessenger->addMessage('Please sign in first!');
+    		$this->_redirect('/auth/login');
+    	}
+    	
+    	// get form
+    	// get informations 
+    	$user = Colla_Db_Table_User::getByUsername(Zend_Auth::getInstance()->getIdentity());
+    	$form = new Colla_Form_Password();
+    	
+    	// action save !
+    	if ($this->getRequest()->isPost()) {
+    		if ($form->isValid($_POST)) {
+    			if ($form->getValue('password1') == $form->getValue('password2')) {
+    				$user->Password = md5($form->getValue('password1'));
+	    			$user->save();
+	    			$this->_helper->FlashMessenger->addMessage($this->translate('Your password has been changed.'));
+	    			$this->_redirect('/auth/password');
+    			} else {
+    				$this->_helper->FlashMessenger->addMessage($this->translate('Both passwords need to be the same!'));
+    				$this->_redirect('/auth/password');
+    			}
+       		}
+    	}
+    	
+    	// render
+		$this->view->form = $form;
     }
 }
