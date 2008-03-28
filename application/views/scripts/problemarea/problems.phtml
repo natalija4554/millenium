@@ -1,0 +1,25 @@
+<h2>Zoznam problémov v problémovej oblasti</h2>
+
+<h3>Všetky problémy</h3>
+<table class="std">
+	<thead>
+    <tr>
+		<th>Názov problém</th>
+		<th>Vytvorený</th>
+		<th>Posledná zmena</th>   
+	</tr>
+	</thead>
+	<tbody>
+	<?php foreach ($this->problems as $problem): ?>
+	<tr>
+		<td>
+			<a href="/problem/view/Id/<?=$problem['Id']?>">
+				<?=$problem['FullName']?>
+			</a>
+		</td>
+		<td><?=$problem['Created']?></td>
+		<td><?=$problem['Modified']?></td>
+	</tr>
+	<?php endforeach; ?>
+	</tbody>
+</table>
