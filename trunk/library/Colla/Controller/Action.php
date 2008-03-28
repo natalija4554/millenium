@@ -37,4 +37,13 @@ class Colla_Controller_Action extends Zend_Controller_Action
 	{
 		return Zend_Registry::get('Zend_Translate')->translate($word);
 	}
+	
+	/**
+	 * Check if user is authenticated
+	 *
+	 */
+	public function hasIdentity()
+	{
+		return Zend_Auth::getInstance()->hasIdentity();
+	}
 }

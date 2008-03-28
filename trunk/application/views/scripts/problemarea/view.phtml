@@ -1,9 +1,5 @@
-<?php $this->placeholder('nav')->captureStart('APPEND'); ?>
-	<a class="row" href="/problemarea/addproblem"><?=$this->translate('Identify new problem');?></a>
-<?php $this->placeholder('nav')->captureEnd(); ?>
-
 <h1><?=$this->pa['Name'];?></h1>
-
+<?=$this->FlashMessages(); ?>
 <p>
 	<label>Created:</label><?=$this->pa['Created'];?><br />
 	<label>Posledná zmena:</label> 10.1.2008, (<a href="#">Peter Zakuskový</a>)
@@ -12,22 +8,7 @@
 	<?=$this->pa['Description']; ?>
 </p>
 
-<h3>Zoznam problémov v problémovej oblasti</h3>
-<table class="std">
-	<thead>
-    <tr>
-    	<th></th>
-		<th>Názov problém</th>
-		<th>Posledná zmena</th>   
-		<th>Stav riešenia</th>   
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td></td>
-		<td>Suchý vzduch na izbe</td>
-		<td>10.1.2008</td>
-		<td>Vyriešený</td>
-	</tr>
-	</tbody>
-</table>
+
+<p>
+	<a class="btn" href="/problemarea/addproblem" title="Identitfy new problem">Create new problem</a>
+</p>

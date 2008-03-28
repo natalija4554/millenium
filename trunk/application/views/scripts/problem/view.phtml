@@ -1,0 +1,21 @@
+<h2><?=$this->problem->Name?></h2>
+<dl>
+	<dt>Plný názov</dt>
+	<dd><?=$this->problem->FullName;?></dd>
+	
+	<dt>Definition</dt>
+	<dd><?=$this->problem->Definition;?></dd>
+	
+	<dt>Created</dt>
+	<dd><?=$this->problem->Created?></dd>
+	
+	<dt>Modified</dt>
+	<dd><?=$this->problem->Modified?></dd>
+	
+</dl>
+<p>
+	<a class="btn" href="/problem/changedefinition/Id/<?=$this->problem->Id?>">Change definition</a>
+	<a class="btn" href="/problem/remove/Id/<?=$this->problem->Id?>">Remove</a>
+</p>
+
+<h3>Diskusia</h3>

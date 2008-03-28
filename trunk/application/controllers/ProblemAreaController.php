@@ -15,6 +15,13 @@ class ProblemAreaController extends Colla_Controller_Action
     	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
     	$PA = new Colla_Db_Table_ProblemArea();
 		$this->view->pa = $PA->getProblemArea($ProblemAreaId);
+    	
+    }
+    
+    public function problemsAction()
+    {
+    	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
+    	$PA = new Colla_Db_Table_ProblemArea();
     	$this->view->problems = $PA->getProblems($ProblemAreaId);
     }
     
@@ -23,9 +30,15 @@ class ProblemAreaController extends Colla_Controller_Action
      */
     public function addAction()
     {
+    	// check if user is logged in
+    	if (!$this->hasIdentity()) {
+    		$this->_helper->FlashMessenger->addMessage('You need to be logged in to perform actions.');
+    		$this->_redirect('/auth/login');
+    		return;
+    	}
+    	
+    	// new form
     	$form = new Colla_Form_ProblemArea();
-
-    	// action save !
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($_POST)) {
     			$ProblemArea = new Colla_Db_Table_ProblemArea();
@@ -42,7 +55,30 @@ class ProblemAreaController extends Colla_Controller_Action
      */
     public function addproblemAction()
     {
-    	Colla_App::getInstance()->setProblemArea($this->_getParam('id'));
+	    // check if user is logged in
+    	if (!$this->hasIdentity()) {
+    		$this->_helper->FlashMessenger->addMessage('You need to be logged in to perform actions.');
+    		$this->_redirect('/auth/login');
+    		return;
+    	}
+    	
+    	// ID for the new problem
+    	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
+    	$form = new Colla_Form_Problem();
+    	if ($this->getRequest()->isPost()) {
+    		if ($form->isValid($_POST)) {
+    			$data = array();
+    			$data = $form->getValues();
+    			$data['CreatedBy'] = $this->view->user->Id;
+    			$data['ProblemAreaId'] = $ProblemAreaId;
+    			$problem = new Colla_Db_Table_Problem();
+				$problem->createNew($data);
+				$this->_helper->FlashMessenger->addMessage('Problém bol vytvorený');
+				$this->_redirect('/problemarea/view');
+				return;
+    		}
+    	}
+    	$this->view->form = $form;
     }
     
     /**
