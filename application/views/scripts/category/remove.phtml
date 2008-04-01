@@ -1,0 +1,16 @@
+<h2>Category removing</h2>
+<?=$this->FlashMessages(); ?>
+
+
+<p>
+	Kategória ktorú chcete zrušiť obsahuje nasledujúce podkategórie. Ak ju odstránite, budú odstránené aj všetky podkategórie. Naozaj chcete túto kategóriu odstrániť?
+</p>
+<ul id="category-list">
+<?php foreach ($this->categories as $child): ?> 
+	<?=$this->partial('category/partial-item-simple.phtml', array('subcategory' => $child)) ?>	
+<?php endforeach; ?>
+</ul>
+<p>
+	<a class="btn" href="/category/list">&laquo; Naspäť</a>
+	<a class="btn" href="/category/forceremove/Id/<?=$this->categoryId?>">Potvrdiť odstránenie</a>
+</p>

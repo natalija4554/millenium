@@ -1,0 +1,10 @@
+<h2>Zoznam kategórií</h2>
+<?=$this->FlashMessages(); ?>
+<ul id="category-list">
+<?php foreach ($this->categories as $child): ?> 
+	<?=$this->partial('category/partial-item.phtml', array('subcategory' => $child)) ?>	
+<?php endforeach; ?>
+</ul>
+<p>
+	<a class="btn" href="/category/new">Nová kategória</a>
+</p>

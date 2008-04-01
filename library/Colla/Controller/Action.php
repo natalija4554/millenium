@@ -7,12 +7,17 @@ class Colla_Controller_Action extends Zend_Controller_Action
 {
 	public function preDispatch()
 	{
+		// view object
 		$view = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer')->view;
+		
+		// check login informations
 		$auth = Zend_Auth::getInstance();
 		$view->authenticated = $auth->hasIdentity();
-		if ($view->authenticated) {
-			$view->user = Colla_Db_Table_User::getByUsername($auth->getIdentity());
-		}	
+		$view->user = $view->authenticated ? Colla_Db_Table_User::getByUsername($auth->getIdentity()) : null;
+		
+		// save informations into registry to gain access to them by Db_Table_Abstract
+		Zend_Registry::set('Authenticated', $view->authenticated);
+		Zend_Registry::set('User', $view->user);
 	}
 	
 	public function postDispatch()

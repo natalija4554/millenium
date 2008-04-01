@@ -1,0 +1,20 @@
+<li>
+<span style="float: right;">
+	<span style="color: grey; font-size: 80%">
+		[Created: <?=$this->subcategory->Created?>]
+		[Modified: <?=$this->subcategory->Modified?>]
+	</span>
+</span>
+<?=$this->subcategory->Name ?>
+</li>
+<?php 
+	// render subchilds
+	$childs = $this->subcategory->getChilds();
+	if (count($childs) > 0):
+?>
+<ul>
+	<?php foreach ($childs as $child): ?>
+		<?=$this->partial('category/partial-item-simple.phtml', array('subcategory' => $child)) ?>	
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>

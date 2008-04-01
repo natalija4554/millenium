@@ -1,4 +1,16 @@
 @CHARSET "UTF-8";
+/** 
+Color scheme 
+#FFA64F - Vyrazna (oranzova)
+#B35A00 - Tmava (hneda)
+#FFDFBF - Svetla
+#FFC080 - Normal
+*/ 
+
+/* standard color */
+h1, 
+
+
 body, html {
 	margin: 0;
 	padding: 0;
@@ -8,6 +20,22 @@ body {
 	text-align: center; 
 	padding: 5px;
 }
+h1 {
+	background-color: #B35A00;
+	line-height: 70%; 
+	margin-left: 10px; 
+	margin-right: 10px; 
+	padding: 10px;
+	color: #FFDFBF;
+	margin-bottom: 13px;
+	margin-top: 10px;
+}
+h1 span {
+	font-size: 50%; 
+	font-weight: normal;
+	color: #FFDFBF;
+	font-weight: bold;
+}
 a {
 	color: #5F2323;
 }
@@ -15,7 +43,8 @@ a {
 	border: 1px solid black; 
 	margin: 0 auto; 
 	/* width: 922px; */
-	background-color: white;
+	max-width: 1024px;
+	background-color: #FFF7EF;
 	text-align: left;
 }
 #mainMenuLeft {
@@ -29,7 +58,7 @@ a {
 }
 #mainMenuRight2 {
 	padding-left: 0px;
-	padding-right: 15px;
+	padding-right: 10px;
 	margin-top: 0px;
 }
 #mainFooter {
@@ -37,6 +66,9 @@ a {
 	 margin-top: 10px; 
 	 border-top: 1px dashed silver; 
 	 padding: 2px 10px 2px 10px;
+	 margin-right: 10px;
+	 margin-left: 10px;
+	 margin-bottom: 10px;
 	 clear: both;
 }
 #mainFooter2 {
@@ -51,6 +83,9 @@ a {
 #mainNavigation {
 	margin: 10px 0 0 0;
 	padding: 0;
+	background-color: #FFDFBF ;
+	border: 1px solid #B35A00;
+	font-size: 95%;
 }
 #mainNavigation:after {
     content: ".";
@@ -67,16 +102,17 @@ a {
 	
 }
 #mainNavigation li a {
-	margin-right: 7px;
-	border: 1px solid silver;
 	display: block;
-	background-color: white;
+	background-color: #FFDFBF;
+	margin-right: 0px;
+	color: #B35A00;
 	text-decoration: none;
-	font-weight: 90%;
 	padding: 0px 10px 0px 10px;
+	margin: 1px;
 }
 #mainNavigation li a:hover {
-	border: 1px solid grey;
+	/* background-color: #FFA64F; */
+	color: black;
 }
 #mainNavigation li.rightNav  {
 	float: right;
@@ -85,9 +121,6 @@ a {
 	margin-right: 0px;
 }
 #mainNavigation li a.dirItem {
-	padding-left: 30px;
-	background-image: url('/images/sipka.png');
-	background-position: 5px center;
 	background-repeat: no-repeat;
 }
 
@@ -97,6 +130,13 @@ a {
 	padding: 0;	
 	width: 100%;
 	position: absolute;
+	border: 1px solid #B35A00;
+	border-top: 0;;
+	padding: 0;
+	margin-top: 1px;
+	z-index: 100;
+	background-color: #FFDFBF;
+	border-top: 1px dashed #B35A00;
 }
 #mainNavigation li:hover ul {
 	display: block;
@@ -105,64 +145,106 @@ a {
 	float: none;
 	display: block;
 }
-
+#mainNavigation li ul li a {
+	border-top: 0px;
+	margin: 0;
+	padding-top: 1px;
+	padding-bottom: 2px;
+}
+#mainNavigation li ul li a:hover {
+	border-top: 0px;
+	color: black;
+	/* background-color: #FF952F; */
+}
 
 
 /**
  * Custom definitions - LEFT MENU 
  */ 
 .menuBox {
-	padding: 0 10px 0 10px;
+	margin: 0 10px 0 10px;
 	margin-bottom: 1em;
+	background-color: #FFDFBF;
 }
 .menuBox .title {
 	display: block; 
-	border: 1px solid silver; 
+	border: 1px solid #B35A00;
+	border-bottom: 0px; 
 	text-align: center; 
 	padding: 1px; 
-	background-color: silver; 
-	color: white; 
+	background-color: #B35A00; 
+	color: #FFDFBF; 
 	font-weight: bold;
 }
 .menuBox .row {
 	display: block; 
 	text-align: left;  
-	border: 1px solid silver; 
+	border: 1px solid #B35A00; 
 	padding: 1px; 
 	padding-left: 10px; 
 	text-decoration: none;  
 	border-top: 0;
 }
-
+.menuBox .divBox {
+	border: 1px solid #B35A00;
+	padding: 5px;
+}
 
 /**
  * Standard table
  */
 table.std {
   border-collapse: collapse;
-  border: 1px solid silver;
+  border: 1px solid #FF952F;
   width: 100%;
 } 
 table.std th {
-  background-color: silver;
+  background-color: #FF952F;
   color: black;
   text-align: left;
 }
 table.std td {
-  border: 1px solid silver;
+  border: 1px solid #CF4D4D;
 }
 
 /**
  * A button cls
  */
 a.btn {
-	border: 1px solid grey;
-	padding: 1px 10px 1px 10px;
-	background-color: #CFCFCF;
-	color: black;
+	border: 1px solid #B35A00;
+	padding: 0px 7px 0px 7px;
+	background-color: #FFDFBF;
+	color: #B35A00;
 	text-decoration: none;
 }
 a.btn:hover {
-	background-color: silver;
+	color: black;
+}
+
+input.btn, submit {
+	
+}
+
+
+/**
+ * Listovanie kategorii
+ */
+#category-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#category-list li {
+	display: block;
+	padding: 1px 5px 1px 5px;
+	border: 1px solid silver;
+	background-color: #FFDFBF;
+	margin-top:4px;
+	margin-bottom: 4px;
+}
+#category-list li:hover {
+	border: 1px solid black;
+}
+#category-list ul {
 }
 

@@ -42,9 +42,11 @@ class ProblemAreaController extends Colla_Controller_Action
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($_POST)) {
     			$ProblemArea = new Colla_Db_Table_ProblemArea();
-    			$ProblemArea->saveNew($form->getValues());
+    			$data = $form->getValues();
+    			$data['CreatedBy'] = $this->view->user->Id;
+    			$ProblemArea->saveNew($data);
     			$this->_helper->FlashMessenger->addMessage($this->translate('Problem area has been created.'));
-    			$this->_redirect('/problemarea/index');
+    			$this->_redirect('/problemarea/view');
        		}
     	}
     	$this->view->form = $form;
@@ -90,6 +92,36 @@ class ProblemAreaController extends Colla_Controller_Action
     {
     	$ProblemArea = new Colla_Db_Table_ProblemArea();
     	$this->view->areas = $ProblemArea->getProblemAreas();
+    }
+    
+    /**
+     * Change the definition of the problem Area
+     * 
+     * @todo logovanie ?
+     */
+    public function changeAction()
+    {
+	    // param Id is required
+		if (!($problemAreaId = $this->getRequest()->getParam('Id'))) {
+			$this->_helper->FlashMessenger->addMessage('Please specify Id.');
+    		$this->_redirect('/problemarea/view');
+		}	
+		$form = new Colla_Form_ProblemAreaChange($problemAreaId);
+		$problemAreaTable = new Colla_Db_Table_ProblemArea();
+		if ($this->getRequest()->isPost()) {
+			if ($form->isValid($_POST)) {
+				$problemAreaTable->changeDefinition($problemAreaId, $form->getValues());
+				$this->_helper->FlashMessenger->addMessage('Problem Area has been changed.');
+    			$this->_redirect('/problemarea/view');
+			}			
+		} else {
+			// fill values
+			$problemArea = $problemAreaTable->getProblemArea($problemAreaId);
+			$form->getElement('Name')->setValue($problemArea->Name);
+			$form->getElement('Definition')->setValue($problemArea->Definition);
+		}
+		
+		$this->view->form = $form;
     }
 }
 ?>

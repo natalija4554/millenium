@@ -1,0 +1,22 @@
+<li>
+<span style="float: right;">
+	<span style="color: grey; font-size: 80%">
+		[Created: <?=$this->subcategory->Created?>]
+		[Modified: <?=$this->subcategory->Modified?>]
+	</span>
+	<a href="/category/remove/Id/<?=$this->subcategory->Id?>" onclick="return confirm('Are you sure?');">Remove</a>, 
+	<a href="/category/newsubcategory/Id/<?=$this->subcategory->Id?>">New Subcategory</a>
+</span>
+<?=$this->subcategory->Name ?>
+</li>
+<?php 
+	// render subchilds
+	$childs = $this->subcategory->getChilds();
+	if (count($childs) > 0):
+?>
+<ul>
+	<?php foreach ($childs as $child): ?>
+		<?=$this->partial('category/partial-item.phtml', array('subcategory' => $child)) ?>	
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>
