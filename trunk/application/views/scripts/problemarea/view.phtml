@@ -1,14 +1,17 @@
-<h1><?=$this->pa['Name'];?></h1>
+<h2><?=$this->pa->Name;?></h2>
 <?=$this->FlashMessages(); ?>
 <p>
-	<label>Created:</label><?=$this->pa['Created'];?><br />
+	<label>Created:</label><?=$this->pa->Created;?><br />
 	<label>Posledná zmena:</label> 10.1.2008, (<a href="#">Peter Zakuskový</a>)
 </p>
 <p>
-	<?=$this->pa['Description']; ?>
+	<?=$this->pa->Definition; ?>
 </p>
+
+<h3>Zmeny v problémovej oblasti</h3>
+... 
 
 
 <p>
-	<a class="btn" href="/problemarea/addproblem" title="Identitfy new problem">Create new problem</a>
+	<a class="btn" href="/problemarea/change/Id/<?=$this->pa->Id?>" title="Identitfy new problem">Zmeniť definíciu</a>
 </p>

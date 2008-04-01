@@ -4,20 +4,20 @@
  * Formular na pridanie novej problemovej oblasti
  * 
  */
-class Colla_Form_ProblemArea extends Zend_Form
+class Colla_Form_ProblemAreaChange extends Zend_Form
 {
 	/**
 	 * Construck ProblemArea Form class
 	 *
 	 * @param array $options
 	 */
-	public function __construct($options = null)
+	public function __construct($problemAreaId)
 	{
 		// parent construct
-		parent::__construct($options);
+		parent::__construct();
 		
 		// form
-		$this->setAction('/problemarea/add');
+		$this->setAction('/problemarea/change/Id/'.$problemAreaId);
 		$this->setMethod('post');
 		
 		// name
@@ -35,9 +35,15 @@ class Colla_Form_ProblemArea extends Zend_Form
 		$elm->setLabel('Problem area description');
 		$this->addElement($elm);
 		
+		// ProblemAreaId
+		$elm = new Zend_Form_Element_Hidden('ProblemAreaId');
+		$elm->setRequired(true)
+			->setValue($problemAreaId);		
+		$this->addElement($elm);
+		
 		// submit button
 		$elm = new Zend_Form_Element_Submit('submit');
-		$elm->setLabel('Add new problem area');
+		$elm->setLabel('Change');
 		$this->addElement($elm);
 	}
 }

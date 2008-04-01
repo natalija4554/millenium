@@ -3,7 +3,7 @@
  * Table ProblemArea
  *
  */
-class Colla_Db_Table_ProblemArea extends Zend_Db_Table_Abstract
+class Colla_Db_Table_ProblemArea extends Colla_Db_Table_Abstract
 {
 	/**
 	 * Table name
@@ -18,28 +18,61 @@ class Colla_Db_Table_ProblemArea extends Zend_Db_Table_Abstract
 	 * @param array $values data to save
 	 * @todo save CreatedBy
 	 */
-	public function saveNew($values)
+	public function saveNew($data)
 	{
-		// required fields
-		$required_fields = array(
-			'name',
-			'description'
-		);
-		
-		// filter and check input array
-		$data = array();
-		foreach ($required_fields as $key) {
-			if (!array_key_exists($key, $values)) {
-				throw new Exception('Value '.$key.' not found!');
-			}
-			$data[$key] = $values[$key];
-		}
-		
-		// extra fields to save
+		// extra fields
 		$data['Created'] = new Zend_Db_Expr('NOW()');
 		
-		// save data
-		$this->insert($data);
+		// Begin transaction
+		$this->getAdapter()->beginTransaction();
+		
+		// save problem area
+		$problemData = $this->_filterArray($data, array('Name', 'Definition', 'Created'));
+		$problemAreaId = $this->insert($problemData);
+		
+		// save problem area change
+		$data['ChangedBy'] = $data['CreatedBy'];
+		$data['ProblemAreaId'] = $problemAreaId;
+		$changeData = $this->_filterArray($data, array('Name', 'Definition', 'ChangedBy', 'ProblemAreaId', 'Created'));
+		$changeTable = new Colla_Db_Table_ProblemAreaChange();
+		$changeTable->insert($changeData);
+		
+		// commit transaction
+		$this->getAdapter()->commit();	
+	}
+	
+	/**
+	 * Change the definition of problem area
+	 *
+	 * @param int $problemAreaId
+	 * @param array $data
+	 */
+	public function changeDefinition($problemAreaId, $data)
+	{
+		// check data for presend of keys
+		$data = $this->_filterArray($data, array('Name', 'Definition'));
+		
+		// Begin transaction
+		$this->getAdapter()->beginTransaction();
+		
+		// Update this row
+		$problemArea = $this->getProblemArea($problemAreaId);
+		$problemArea->Name = $data['Name'];
+		$problemArea->Definition = $data['Definition'];
+		$problemArea->save();
+		
+		// create change set
+		$problemChangeTable = new Colla_Db_Table_ProblemAreaChange();
+		$changeRow = $problemChangeTable->createRow();
+		$changeRow->Name 			= $data['Name'];
+		$changeRow->Definition 		= $data['Definition'];
+		$changeRow->ProblemAreaId 	= $problemAreaId;
+		$changeRow->Created			= new Zend_Db_Expr('NOW()');
+		$changeRow->ChangedBy		= $this->_getLogedUserId(); 		
+		$changeRow->save();
+		
+		// commit
+		$this->getAdapter()->commit();		
 	}
 	
 	/**
@@ -56,7 +89,7 @@ class Colla_Db_Table_ProblemArea extends Zend_Db_Table_Abstract
 	 * Get problem are info
 	 *
 	 * @param int $id
-	 * @return array
+	 * @return Zend_Db_Table_Row
 	 */
 	public function getProblemArea($id)
 	{
@@ -64,7 +97,7 @@ class Colla_Db_Table_ProblemArea extends Zend_Db_Table_Abstract
 		if (count($rowset) != 1) {
 			throw new Exception('No such problem area');
 		}
-		return $rowset->current()->toArray();
+		return $rowset->current();
 	}
 	
 	/**
@@ -120,5 +153,4 @@ class Colla_Db_Table_ProblemArea extends Zend_Db_Table_Abstract
 		}
 		return false;
 	}
-    
 }

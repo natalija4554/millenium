@@ -36,6 +36,14 @@ class Colla_Form_Problem extends Zend_Form
 		$elm->setLabel('Definícia problému');
 		$this->addElement($elm);
 		
+		// Kategoria
+		$categoryTable = new Colla_Db_Table_Category();
+		$elm = new Zend_Form_Element_Select('CategoryId');
+		$rows = $categoryTable->getSelectList();
+		$elm->addMultiOptions($rows)
+			->setLabel('Kategória problému');
+		$this->addElement($elm);
+		
 		// Note
 		$elm = new Zend_Form_Element_Textarea('Note');
 		$elm->setAttrib('rows', '1');
