@@ -1,5 +1,5 @@
 <?php
-class Colla_Db_Table_Problem extends Zend_Db_Table_Abstract
+class Colla_Db_Table_Problem extends Colla_Db_Table_Abstract
 {
     protected $_name = 'problems';
     protected $_rowClass = 'Colla_Db_Table_Row_Problem';
@@ -19,39 +19,54 @@ class Colla_Db_Table_Problem extends Zend_Db_Table_Abstract
 		return $rowset->current();
     }
     
-    
 	/**
 	 * Save problematic area into database
 	 * 
 	 * @param array $values data to save
 	 * @todo save CreatedBy
 	 */
-	public function createNew($values)
+	public function createNew($data)
 	{
-		// required fields
-		$required_fields = array(
+		// extra fields to save
+		$data['Created'] 	= new Zend_Db_Expr('NOW()');
+		$data['Modified'] 	= new Zend_Db_Expr('NOW()');
+		$data['UserId'] 		= $this->_getLogedUserId();
+		$data['ApproveUserId']	= $this->_getLogedUserId();
+		
+		// choose witch one to save
+		$problemData = $this->_filterArray($data, array(
 			'Name',
 			'FullName',
 			'Definition',
 			'ProblemAreaId',
 			'CategoryId',
-			'CreatedBy'
-		);
+			'CreatedBy',
+			'Created',
+			'Modified'
+		));	
 		
-		// filter and check input array
-		$data = array();
-		foreach ($required_fields as $key) {
-			if (!array_key_exists($key, $values)) {
-				throw new Exception('Value '.$key.' not found!');
-			}
-			$data[$key] = $values[$key];
-		}
+		// change data
+		$changeData = $this->_filterArray($data, array(
+			'Name',
+			'FullName',
+			'Definition',
+			'Created',
+			'UserId',
+			'ApproveUserId'
+		));		
 		
-		// extra fields to save
-		$data['Created'] = new Zend_Db_Expr('NOW()');
-		$data['Modified'] = new Zend_Db_Expr('NOW()');
+		// begin transaction
+		$this->getAdapter()->beginTransaction();
 		
-		// save data
-		$this->insert($data);
+		// Save problem
+		$problemId = $this->insert($problemData);
+		
+		// Save problem change
+		$changeTable = new Colla_Db_Table_ProblemChange();
+		$changeData['ProblemId'] = $problemId;
+		$changeTable->insert($changeData);
+		
+		// commit transaction
+		$this->getAdapter()->commit();
 	}
 }

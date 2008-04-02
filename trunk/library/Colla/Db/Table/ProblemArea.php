@@ -11,8 +11,10 @@ class Colla_Db_Table_ProblemArea extends Colla_Db_Table_Abstract
 	 * @var string
 	 */
     protected $_name = 'ProblemAreas';
-    
-	/**
+    protected $_rowClass = 'Colla_Db_Table_Row_ProblemArea';
+    protected $_dependentTables = array('Colla_Db_Table_ProblemAreaChange');
+
+    /**
 	 * Save problematic area into database
 	 * 
 	 * @param array $values data to save
@@ -89,7 +91,7 @@ class Colla_Db_Table_ProblemArea extends Colla_Db_Table_Abstract
 	 * Get problem are info
 	 *
 	 * @param int $id
-	 * @return Zend_Db_Table_Row
+	 * @return Colla_Db_Table_Row_ProblemArea
 	 */
 	public function getProblemArea($id)
 	{

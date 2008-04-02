@@ -195,12 +195,12 @@ a {
  */
 table.std {
   border-collapse: collapse;
-  border: 1px solid #FF952F;
+  border: 1px solid #B35A00;
   width: 100%;
 } 
 table.std th {
-  background-color: #FF952F;
-  color: black;
+  background-color: #B35A00;
+  color: #FFDFBF;
   text-align: left;
 }
 table.std td {
