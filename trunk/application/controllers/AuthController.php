@@ -72,14 +72,6 @@ class AuthController extends Colla_Controller_Action
     }
     
     /**
-     * Show partial login box in navigation menu
-     */
-	public function partialLoginBoxAction()
-    {
-    	;
-    }
-    
-    /**
      * Change profile of logged user
      *
      */
