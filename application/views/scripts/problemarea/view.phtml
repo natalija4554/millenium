@@ -8,8 +8,23 @@
 	<?=$this->pa->Definition; ?>
 </p>
 
-<h3>Zmeny v problémovej oblasti</h3>
-... 
+<h3>História zmien problémovej oblasti</h3>
+<table>
+<tr>
+	<th>Zmena</th>
+	<th>Dátum</th>
+	<th>Autor</th>
+	<th>Zobraziť</th>
+</tr>
+<?php $i=count($this->changes)+1; foreach ($this->changes as $change): $i-- ?>
+<tr>
+	<td><?=$i;?></td>
+	<td><?=$change->Created?></td>
+	<td></td>
+	<td><?=$change->Name?></td>
+</tr>
+<?php endforeach; ?>
+</table> 
 
 
 <p>

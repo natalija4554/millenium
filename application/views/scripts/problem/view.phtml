@@ -1,4 +1,5 @@
-<h2><?=$this->problem->Name?></h2>
+<h2>Problém: <?=$this->problem->Name?></h2>
+<div style="border: 1px solid grey">
 <dl>
 	<dt>Plný názov</dt>
 	<dd><?=$this->problem->FullName;?></dd>
@@ -13,9 +14,27 @@
 	<dd><?=$this->problem->Modified?></dd>
 	
 </dl>
+</div>
 <p>
 	<a class="btn" href="/problem/changedefinition/Id/<?=$this->problem->Id?>">Change definition</a>
 	<a class="btn" href="/problem/remove/Id/<?=$this->problem->Id?>">Remove</a>
+	<a class="btn" href="/problem/remove/Id/<?=$this->problem->Id?>">Zobraziť históriu</a>
 </p>
 
+<h3>Riešenia</h3>
+<table>
+	<tr>
+		<th></th>
+		<th></th>
+	</tr>
+	
+</table>
+
 <h3>Diskusia</h3>
+<p>
+	...
+</p>
+
+<h4>Pridať prispevok do diskusie</h4>
+
+
