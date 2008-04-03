@@ -69,4 +69,15 @@ class Colla_Db_Table_Problem extends Colla_Db_Table_Abstract
 		// commit transaction
 		$this->getAdapter()->commit();
 	}
+	
+	/**
+	 * Change the definition of a problem
+	 *
+	 * @param int $problemId
+	 * @param array $data
+	 */
+	public function changeDefinition($problemId, $data)
+	{
+		
+	}
 }
