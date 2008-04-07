@@ -36,6 +36,10 @@
 </p>
 
 <h3>Diskusia</h3>
+<!--  zobrazi jednotlive komentare k problemom  -->
+<?php foreach ($this->problem->getComments() as $comment): ?>
+	<?=$this->partial('partial-comment.phtml', array('comment' => $comment)); ?>
+<?php endforeach; ?>
 <div style="border: 1px solid silver;">
 	...
 </div>

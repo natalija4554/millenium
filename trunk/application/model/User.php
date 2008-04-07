@@ -1,5 +1,5 @@
 <?php
-class Colla_Db_Table_User extends Zend_Db_Table_Abstract
+class Model_User extends Zend_Db_Table_Abstract
 {
     protected $_name = 'users';
     protected $_rowClass = 'Colla_Db_Table_Row_User';
