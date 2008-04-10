@@ -8,7 +8,7 @@ class CategoryController extends Colla_Controller_Action
 	 */
 	public function listAction()
 	{
-		$categoryTable = new Colla_Db_Table_Category();
+		$categoryTable = new Category();
    		$this->view->categories = $categoryTable->getParentRows();
 	}
 	
@@ -17,10 +17,10 @@ class CategoryController extends Colla_Controller_Action
 	 */
 	public function newAction()
 	{
-		$form = new Colla_Form_Category();
+		$form = new Form_Category();
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($_POST)) {
-				$categoryTable = new Colla_Db_Table_Category();
+				$categoryTable = new Category();
 				$categoryTable->newCategory($form->getValues());
 				$this->_helper->FlashMessenger->addMessage('New category has been created.');
     			$this->_redirect('/category/list');	
@@ -40,10 +40,10 @@ class CategoryController extends Colla_Controller_Action
 			$this->_helper->FlashMessenger->addMessage('Please specify Id.');
     		$this->_redirect('/category/list');
 		}
-		$form = new Colla_Form_SubCategory($parentId);
+		$form = new Form_SubCategory($parentId);
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($_POST)) {
-				$categoryTable = new Colla_Db_Table_Category();
+				$categoryTable = new Category();
 				$categoryTable->newSubCategory($form->getValues());
 				$this->_helper->FlashMessenger->addMessage('New subcategory has been created.');
     			$this->_redirect('/category/list');	
@@ -62,7 +62,7 @@ class CategoryController extends Colla_Controller_Action
 		// find info about category:
 		// - count of subcategories
 		// @todo - count of problems in this category and subcategories
-		$categoryTable = new Colla_Db_Table_Category();
+		$categoryTable = new Category();
 		$category = $categoryTable->findCategory($categoryId);
 		$childs = $category->getChilds();
 		
@@ -86,10 +86,42 @@ class CategoryController extends Colla_Controller_Action
 		}
 		
 		// odstran rekurzivne 
-		$categoryTable = new Colla_Db_Table_Category();
+		$categoryTable = new Category();
 		$category = $categoryTable->findCategory($categoryId);
 		$category->deleteRecursively();
 		$this->_helper->FlashMessenger->addMessage('Category with subcategories has been deleted!');
 		$this->_redirect('/category/list');
+	}
+	
+	public function ajaxListAction()
+	{
+		// check post param
+		$parentId = $this->getRequest()->getParam('node');
+		if (!$parentId) {
+			throw new Exception('No node specified!');
+		}
+		
+		if ($parentId == 'null') {
+			$parentId = null;
+		}
+		
+		// find all childrens
+		$output = array();
+		$category = new Category();
+		$childs = $category->getChilds($parentId);
+		foreach ($childs as $c) {
+			$item = array();
+			$item['text'] 	= $c->Name;
+			$item['id']		= $c->Id;
+			$item['cls'] = 'subor';
+			$subChilds = $c->getChilds();
+			if (count($subChilds) > 0) {
+				$item['leaf'] = false;
+			} else {
+				$item['leaf'] = true;
+			}
+			$output[] = $item;
+		}
+		$this->view->data = $output;
 	}
 }

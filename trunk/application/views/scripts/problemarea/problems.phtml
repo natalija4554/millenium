@@ -5,6 +5,7 @@
 	<thead>
     <tr>
 		<th>Názov problém</th>
+		<th>Stav</th>
 		<th>Vytvorený</th>
 		<th>Posledná zmena</th>   
 	</tr>
@@ -13,12 +14,13 @@
 	<?php foreach ($this->problems as $problem): ?>
 	<tr>
 		<td>
-			<a href="/problem/view/Id/<?=$problem['Id']?>">
-				<?=$problem['FullName']?>
+			<a href="/problem/view/Id/<?=$problem->Id?>">
+				<?=$problem->FullName?>
 			</a>
 		</td>
-		<td><?=$problem['Created']?></td>
-		<td><?=$problem['Modified']?></td>
+		<td><?=$problem->State?></td>
+		<td><?=$problem->Created?></td>
+		<td><?=$problem->Modified?></td>
 	</tr>
 	<?php endforeach; ?>
 	</tbody>

@@ -13,7 +13,7 @@ class Colla_Controller_Action extends Zend_Controller_Action
 		// check login informations
 		$auth = Zend_Auth::getInstance();
 		$view->authenticated = $auth->hasIdentity();
-		$view->user = $view->authenticated ? Colla_Db_Table_User::getByUsername($auth->getIdentity()) : null;
+		$view->user = $view->authenticated ? User::getByUsername($auth->getIdentity()) : null;
 		
 		// save informations into registry to gain access to them by Db_Table_Abstract
 		Zend_Registry::set('Authenticated', $view->authenticated);
@@ -32,7 +32,7 @@ class Colla_Controller_Action extends Zend_Controller_Action
 		if ($view->hasProblemArea) {
 			
 			// fetch pa 
-			$pa = new Colla_Db_Table_ProblemArea();
+			$pa = new ProblemArea();
 			$problemAra = $pa->find(Colla_App::getInstance()->getProblemArea());
 			$view->problemAreaName = $problemAra->current()->Name;
 		}

@@ -7,7 +7,7 @@ class AuthController extends Colla_Controller_Action
      */
     public function loginAction()
     {
-    	$form = new Colla_Form_Login();
+    	$form = new Form_Login();
     	
     	// action save !
     	if ($this->getRequest()->isPost()) {
@@ -85,8 +85,8 @@ class AuthController extends Colla_Controller_Action
     	
     	// get form
     	// get informations 
-    	$user = Colla_Db_Table_User::getByUsername(Zend_Auth::getInstance()->getIdentity());
-    	$form = new Colla_Form_Profile();
+    	$user = User::getByUsername(Zend_Auth::getInstance()->getIdentity());
+    	$form = new Form_Profile();
     	
     	// action save !
     	if ($this->getRequest()->isPost()) {
@@ -117,8 +117,8 @@ class AuthController extends Colla_Controller_Action
     	
     	// get form
     	// get informations 
-    	$user = Colla_Db_Table_User::getByUsername(Zend_Auth::getInstance()->getIdentity());
-    	$form = new Colla_Form_Password();
+    	$user = User::getByUsername(Zend_Auth::getInstance()->getIdentity());
+    	$form = new Form_Password();
     	
     	// action save !
     	if ($this->getRequest()->isPost()) {

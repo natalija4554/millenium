@@ -13,7 +13,7 @@ class ProblemAreaController extends Colla_Controller_Action
     {
     	// param ID
     	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
-    	$PA = new Colla_Db_Table_ProblemArea();
+    	$PA = new ProblemArea();
     	$problemArea = $PA->getProblemArea($ProblemAreaId);
     	
     	$this->view->pa = $problemArea;
@@ -22,9 +22,13 @@ class ProblemAreaController extends Colla_Controller_Action
     
     public function problemsAction()
     {
+    	// default problem area
     	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
-    	$PA = new Colla_Db_Table_ProblemArea();
-    	$this->view->problems = $PA->getProblems($ProblemAreaId);
+    	
+    	// problem table
+    	$problemTable = new Problem();
+    	$problems = $problemTable->fetchAll($problemTable->select()->where('ProblemAreaId = ?', $ProblemAreaId));
+    	$this->view->problems = $problems;
     }
     
 	/**
@@ -40,10 +44,10 @@ class ProblemAreaController extends Colla_Controller_Action
     	}
     	
     	// new form
-    	$form = new Colla_Form_ProblemArea();
+    	$form = new Form_ProblemArea();
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($_POST)) {
-    			$ProblemArea = new Colla_Db_Table_ProblemArea();
+    			$ProblemArea = new ProblemArea();
     			$data = $form->getValues();
     			$data['CreatedBy'] = $this->view->user->Id;
     			$ProblemArea->saveNew($data);
@@ -68,14 +72,14 @@ class ProblemAreaController extends Colla_Controller_Action
     	
     	// ID for the new problem
     	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
-    	$form = new Colla_Form_Problem();
+    	$form = new Form_Problem();
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($_POST)) {
     			$data = array();
     			$data = $form->getValues();
     			$data['CreatedBy'] = $this->view->user->Id;
     			$data['ProblemAreaId'] = $ProblemAreaId;
-    			$problem = new Colla_Db_Table_Problem();
+    			$problem = new Problem();
 				$problem->createNew($data);
 				$this->_helper->FlashMessenger->addMessage('Problém bol vytvorený');
 				$this->_redirect('/problemarea/problems');
@@ -92,7 +96,7 @@ class ProblemAreaController extends Colla_Controller_Action
      */
     public function selectAction()
     {
-    	$ProblemArea = new Colla_Db_Table_ProblemArea();
+    	$ProblemArea = new ProblemArea();
     	$this->view->areas = $ProblemArea->getProblemAreas();
     }
     
@@ -104,12 +108,9 @@ class ProblemAreaController extends Colla_Controller_Action
     public function changeAction()
     {
 	    // param Id is required
-		if (!($problemAreaId = $this->getRequest()->getParam('Id'))) {
-			$this->_helper->FlashMessenger->addMessage('Please specify Id.');
-    		$this->_redirect('/problemarea/view');
-		}	
-		$form = new Colla_Form_ProblemAreaChange($problemAreaId);
-		$problemAreaTable = new Colla_Db_Table_ProblemArea();
+		$problemAreaId = Colla_App::getInstance()->getProblemArea();	
+		$form = new Form_ProblemAreaChange($problemAreaId);
+		$problemAreaTable = new ProblemArea();
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($_POST)) {
 				$problemAreaTable->changeDefinition($problemAreaId, $form->getValues());

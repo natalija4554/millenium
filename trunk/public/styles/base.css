@@ -8,33 +8,49 @@ Color scheme
 */ 
 
 /* standard color */
-h1, 
-
-
 body, html {
 	margin: 0;
 	padding: 0;
 }
 body {
-	background-color: grey; 
+	background-color: #808080; 
 	text-align: center; 
 	padding: 5px;
+	
 }
 h1 {
 	background-color: #B35A00;
 	line-height: 70%; 
 	margin-left: 10px; 
 	margin-right: 10px; 
-	padding: 10px;
-	color: #FFDFBF;
 	margin-bottom: 13px;
 	margin-top: 10px;
+	font-size: 2em;
+	
+	
+	color:#15428b;
+	font:bold 27px tahoma,arial,verdana,sans-serif;
+	padding:10px 3px 10px 5px;
+	border:1px solid #99bbe8;
+	line-height:25px;
+	background:transparent url(../javascript/ext/resources/images/default/panel/white-top-bottom.gif) repeat-x 0 -1px;
 }
 h1 span {
 	font-size: 50%; 
 	font-weight: normal;
-	color: #FFDFBF;
+	color: #15428b;
 	font-weight: bold;
+}
+h1 a {
+	text-decoration: none;
+	font-size: 100%;
+	color: #15428b;
+}
+h2 {
+	padding-top: 0.9em;
+	padding-bottom: 0.4em;
+	font:bold 23px tahoma,arial,verdana,sans-serif;
+	color:#15428b;
 }
 a {
 	color: #5F2323;
@@ -44,16 +60,17 @@ a {
 	margin: 0 auto; 
 	/* width: 922px; */
 	max-width: 1024px;
-	background-color: #FFF7EF;
+	/* background-color: #FFF7EF; */
+	background-color: white;
 	text-align: left;
 }
 #mainMenuLeft {
 	float: left; 
-	width: 180px;
+	width: 240px;
 }
 #mainMenuRight {
 	/* width: 730px; */ 
-	margin-left: 190px; 
+	margin-left: 245px; 
 	padding-bottom: 30px;
 }
 #mainMenuRight2 {
@@ -72,7 +89,7 @@ a {
 	 clear: both;
 }
 #mainFooter2 {
-	 color: grey; 
+	 color: #808080; 
 	 font-size: 12px; 
 	 text-align: right;
 }
@@ -186,7 +203,6 @@ a {
 	border-top: 0;
 }
 .menuBox .divBox {
-	border: 1px solid #B35A00;
 	padding: 5px;
 }
 
@@ -248,3 +264,17 @@ input.btn, submit {
 #category-list ul {
 }
 
+/* Ext JS fix pre kategorie */
+.subor .x-tree-node-icon{background-image:url(../javascript/ext/resources/images/default/tree/folder.gif);}
+.x-tree-node-expanded .x-tree-node-icon{background-image:url(../javascript/ext/resources/images/default/tree/folder-open.gif);}
+.x-menu a.x-menu-item { text-align: left; }
+#toolbar_menu { border: 1px solid #99BBE8; border-bottom: 0; }
+
+.buttonRow {
+	padding-top: 12px;
+}
+
+ul.flashMessages {
+	margin: 10px 0 15px 0;
+	color: green;
+}
