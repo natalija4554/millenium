@@ -1,0 +1,57 @@
+<h2>
+	<span style="float: right">
+		<?=$this->problem->State?>
+	</span>
+	Problém: <?=$this->problem->Name?>
+</h2>
+<?=$this->FlashMessages(); ?>
+<p>
+	Tu bude graficky prvok, ktory bude zobrazovat stav riesenia problemu. 
+</p>
+
+
+<div style="border: 1px solid grey">
+<dl>
+	<dt>Plný názov</dt>
+	<dd><?=$this->problem->FullName;?></dd>
+	
+	<dt>Definition</dt>
+	<dd><?=$this->problem->Definition;?></dd>
+	
+	<dt>Created</dt>
+	<dd><?=$this->problem->Created?></dd>
+	
+	<dt>Modified</dt>
+	<dd><?=$this->problem->Modified?></dd>
+	
+</dl>
+</div>
+<p>
+	<?php if ($this->problem->State == Problem::STATE_NEW): ?>
+	<span style="float: right">
+		<a class="btn" href="/problem/decline/ProblemId/<?=$this->problem->Id?>">Zamietnúť</a>
+		<a class="btn" href="/problem/approve/ProblemId/<?=$this->problem->Id?>">Akceptovať</a>
+	</span>
+	<?php endif; ?>
+	
+	<?php if (in_array($this->problem->State, array(Problem::STATE_NEW, Problem::STATE_APPROVED))): ?>
+		<a class="btn" href="/problem/changedefinition/Id/<?=$this->problem->Id?>">Change definition</a>
+	<?php endif; ?>
+	
+	<?php if ($this->problem->State != Problem::STATE_DELETED): ?>
+	<a class="btn" href="/problem/changecategory/Id/<?=$this->problem->Id?>">Zmeniť kategóriu</a>
+	<?php endif; ?>
+	
+	<a class="btn" href="/problem/remove/Id/<?=$this->problem->Id?>">Zobraziť históriu</a>
+</p>
+
+<h3>Diskusia (<?=count($this->comments)?> príspevky/ov)</h3>
+<!--  zobrazi jednotlive komentare k problemom  -->
+<?php foreach ($this->comments as $comment): ?>
+	<?=$this->partial('problem/partial-comment.phtml', array('comment' => $comment)); ?>
+<?php endforeach; ?>
+<p>
+	<a class="btn" href="/problem/add-comment/Id/<?=$this->problem->Id?>">Pridať komentár</a>
+</p>
+
+

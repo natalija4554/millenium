@@ -15,7 +15,7 @@ class BoxController extends Colla_Controller_Action
      */
 	public function partialStatusBoxAction()
     {
-    	$problemTable = new Colla_Db_Table_Problem();
+    	$problemTable = new Problem();
     	$select = $problemTable->select();
     	$select->from($problemTable, array('Id', 'State'));
     	
@@ -38,6 +38,11 @@ class BoxController extends Colla_Controller_Action
     	// Novych
     	$rows = $problemTable->fetchAll($select->where('State = ?', 'CLOSED'));
     	$this->view->countClosed = count($rows);
+    }
+    
+    public function partialCategoryBoxAction()
+    {
+    	
     }
 }
 ?>

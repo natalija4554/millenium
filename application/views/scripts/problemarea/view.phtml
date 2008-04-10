@@ -1,32 +1,43 @@
 <h2><?=$this->pa->Name;?></h2>
+
 <?=$this->FlashMessages(); ?>
-<p>
-	<label>Created:</label><?=$this->pa->Created;?><br />
-	<label>Posledná zmena:</label> 10.1.2008, (<a href="#">Peter Zakuskový</a>)
-</p>
-<p>
-	<?=$this->pa->Definition; ?>
-</p>
 
-<h3>História zmien problémovej oblasti</h3>
-<table>
-<tr>
-	<th>Zmena</th>
-	<th>Dátum</th>
-	<th>Autor</th>
-	<th>Zobraziť</th>
-</tr>
-<?php $i=count($this->changes)+1; foreach ($this->changes as $change): $i-- ?>
-<tr>
-	<td><?=$i;?></td>
-	<td><?=$change->Created?></td>
-	<td></td>
-	<td><?=$change->Name?></td>
-</tr>
-<?php endforeach; ?>
-</table> 
+<div id="paDefinition">
+	<div style="border: 1px solid #D9E8FB; padding: 10px; background-color: #F1F2F4">
+	<?=nl2br($this->pa->Definition); ?>
+	<p style="margin-top: 15px; padding-top: 5px; border-top: 1px solid silver; font-size: 12px; font-family: tahoma,arial,verdana,sans-serif;">
+		<label>Vytvorený: </label><?=$this->pa->Created;?>,
+		<label>Posledná zmena:</label> 10.1.2008, (<a href="#">Peter Zakuskový</a>)	
+	</p>
+	</div>
+</div>
+<div id="paTabs"></div>
+<script type="text/javascript">
+	new Ext.TabPanel({
+        renderTo: 'paTabs',
+        activeTab: 0,
+        frame:true,
+        defaults:{autoHeight: true},
+        items:[
+            {contentEl:'paDefinition', title: 'Definícia problému'},
+            {autoLoad:'/problemarea/history', title: 'História zmien'}
+        ]
+    });
+</script>
 
 
-<p>
-	<a class="btn" href="/problemarea/change/Id/<?=$this->pa->Id?>" title="Identitfy new problem">Zmeniť definíciu</a>
+
+
+<p class="buttonRow">
+	<a href="/problemarea/change" id="buttonik"></a>
+	<script>
+		var btn = new Ext.Button({
+			type: 'button',
+			text: 'Zmeniť definíciu',
+			renderTo: 'buttonik',
+			onClick : function () {
+				window.location='/problemarea/change';
+			}
+		});
+	</script>
 </p>

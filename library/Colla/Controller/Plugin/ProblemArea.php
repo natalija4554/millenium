@@ -10,7 +10,7 @@ class Colla_Controller_Plugin_ProblemArea extends Zend_Controller_Plugin_Abstrac
 		}
 		
 		// find info about problem areas
-		$problemArea = new Colla_Db_Table_ProblemArea();
+		$problemArea = new ProblemArea();
 		if ($id = $problemArea->getDefaultProblemArea()) {
 			$collaApp->setProblemArea($id);
 			return;
