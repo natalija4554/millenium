@@ -16,19 +16,12 @@ class Form_Problem extends Zend_Form
 		// Name
 		$elm = new Zend_Form_Element_Text('Name');
 		$elm->setRequired(true);
-		$elm->setAttrib('size', 40);
+		$elm->setAttrib('size', 80);
 		$elm->addValidator(new Zend_Validate_StringLength(4, 128));
-		$elm->setLabel('Krátky názov problému');
+		$elm->setLabel('Názov problému');
 		$this->addElement($elm);
 		
-		// FullName
-		$elm = new Zend_Form_Element_Text('FullName');
-		$elm->setRequired(true);
-		$elm->setAttrib('size', 100);
-		$elm->addValidator(new Zend_Validate_StringLength(4, 518));
-		$elm->setLabel('Celý názov problému');
-		$this->addElement($elm);
-		
+			
 		// Definition
 		$elm = new Zend_Form_Element_Textarea('Definition');
 		$elm->setAttrib('rows', '10');
