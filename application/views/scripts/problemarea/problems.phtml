@@ -1,31 +1,153 @@
-<h2>Zoznam problémov v problémovej oblasti</h2>
+<h2>Zoznam všetkých problémov v problémovej oblasti</h2>
+<script type="text/javascript">
+	Ext.onReady(function() {
+	
+		var stavStore = new Ext.data.SimpleStore({
+        	fields: ['id', 'state'],
+      		data : [
+      			['NEW', 'Novy'],
+      			['CLOSED', 'Uzatvoreny']
+      		]
+    	});
+	
+		var categoryStore = new Ext.data.SimpleStore({
+        	fields: ['id', 'namex'],
+      		data : [
+      			['NEW', 'Novy'],
+      			['CLOSED', 'Uzatvoreny']
+      		]
+    	});
+	
+		var Filter = new Ext.Toolbar({
+			renderTo: 'gridkaFilterDiv',
+			border: true,
+			items: [
+				'Hľadať: ', 
+				new Ext.form.TextField({
+					id: 'sfFieldId',
+					width: '350',
+					listeners: {
+						click: function() {
+							alert('x');
+						},
+						change: function() {
+							alert('y');
+						}
+					}
+				}), '-', new Ext.form.ComboBox({
+			        store: stavStore,
+			        displayField: 'state',
+			        mode: 'local',
+			        triggerAction: 'all',
+			        width: 110,
+			        emptyText: 'Všetky stavy'
+			    }), '-',
+			    new Ext.form.ComboBox({
+			    	store: categoryStore,
+			    	displayField: 'namex',
+			    	mode: 'local',
+			    	triggerAction: 'all',
+			    	emptyText: 'Všetky kategórie'
+			    })
+			]
+		});
+	});	
+</script>
+<div id="gridkaFilterDiv" style="border: 1px solid #A9BFD3; border-bottom: 0; margin-bottom: 10px;"></div>
 
-<h3>Všetky problémy</h3>
-<table class="std">
-	<thead>
-    <tr>
-		<th>Názov problém</th>
-		<th>Stav</th>
-		<th>Vytvorený</th>
-		<th>Posledná zmena</th>   
-	</tr>
-	</thead>
-	<tbody>
-	<?php foreach ($this->problems as $problem): ?>
-	<tr>
-		<td>
-			<a href="/problem/view/Id/<?=$problem->Id?>">
-				<?=$problem->FullName?>
-			</a>
-		</td>
-		<td><?=$problem->State?></td>
-		<td><?=$problem->Created?></td>
-		<td><?=$problem->Modified?></td>
-	</tr>
-	<?php endforeach; ?>
-	</tbody>
-</table>
-
-<p>
-	<a class="btn" href="/problemarea/addproblem">Pridať nový problém</a>
-</p>
+<script type="text/javascript">
+Ext.onReady(function() {
+	var DataStore;
+	var ColumnModel;
+	var Gridka;
+	
+	// plugin
+	var expander = new Ext.grid.RowExpander({
+        tpl : new Ext.Template(
+            '<p style="padding: 5px;">{Definition}</p>'
+        )
+    });
+	
+	// Datastore
+	DataStore = new Ext.data.Store({
+		id: 'DataStoreId',
+		proxy: new Ext.data.HttpProxy({
+				url: '/problemarea/ajax-problems',
+				method: 'POST'				
+			}),
+		reader: new Ext.data.JsonReader({
+					root: 'rows',
+					totalProperty: 'total',
+					id: 'Id'
+				}, [
+					{name: 'Id', type: 'int', mapping: 'Id'},
+					{name: 'Name', type: 'string', mapping: 'Name'},
+					{name: 'Created', type: 'string', mapping: 'Created'},
+					{name: 'Definition', type: 'string', mapping: 'Definition'}
+			]),
+		sortInfo: {field: 'Id', direction: "ASC"}
+	});
+	
+	// Columns used
+	renderName = function(data, cellmd, record, row, col, store) {
+		return '<a href="/problem/view/Id/' + record.get('Id') + '">' + data + '</a>';
+	}
+	ColumnModel = new Ext.grid.ColumnModel(
+		[ expander,
+		 {
+		 	header: 'Name',
+		 	dataIndex: 'Name',
+		 	readOnly: true,
+		 	width: 250,
+		 	hidden: false,
+		 	renderer: renderName
+		 }, {
+		 	header: 'Created',
+		 	dataIndex: 'Created',
+		 	readOnly: true,
+		 	width: 150,
+		 	hidden: false
+		 }
+		]
+	);
+	ColumnModel.defaultSortable = true;
+	
+	// Gridka
+	
+	Gridka = new Ext.grid.GridPanel({
+		id: 'GridkaId',
+		store: DataStore,
+		cm: ColumnModel,
+		autoHeight: true,
+		selModel: new Ext.grid.RowSelectionModel({singleSelect:false}),
+		renderTo: 'gridkaDiv',
+		plugins: expander,
+		viewConfig: {
+            forceFit:true
+        },
+		tbar: [{
+			text: 'Nový problém',
+			tooltip: 'Pridať nový problém',
+			iconCls: 'addButton',
+			handler: function() {
+				window.location='/problemarea/addproblem';
+			}
+		}, '-'],
+		bbar: new Ext.PagingToolbar({
+			pageSize: 5,
+			store: DataStore,
+			displayInfo: true,
+			displayMsg: 'Zobrazujem problémy {0} - {1} z {2}', 
+			emptyMsg: 'Žiadne problémy'
+		})
+	});
+	
+	DataStore.load({
+		params: {
+			start: 0,
+			limit: 5
+		}
+	});
+});
+</script>
+<div id="gridkaDiv"></div>

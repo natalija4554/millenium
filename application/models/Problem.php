@@ -45,7 +45,6 @@ class Problem extends Colla_Db_Table_Abstract
 		// choose witch one to save
 		$problemData = $this->_filterArray($data, array(
 			'Name',
-			'FullName',
 			'Definition',
 			'ProblemAreaId',
 			'CategoryId',
@@ -57,7 +56,6 @@ class Problem extends Colla_Db_Table_Abstract
 		// change data
 		$changeData = $this->_filterArray($data, array(
 			'Name',
-			'FullName',
 			'Definition',
 			'Created',
 			'UserId',

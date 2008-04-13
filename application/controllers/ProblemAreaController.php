@@ -22,13 +22,7 @@ class ProblemAreaController extends Colla_Controller_Action
     
     public function problemsAction()
     {
-    	// default problem area
-    	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
     	
-    	// problem table
-    	$problemTable = new Problem();
-    	$problems = $problemTable->fetchAll($problemTable->select()->where('ProblemAreaId = ?', $ProblemAreaId));
-    	$this->view->problems = $problems;
     }
     
 	/**
@@ -125,6 +119,45 @@ class ProblemAreaController extends Colla_Controller_Action
 		}
 		
 		$this->view->form = $form;
+    }
+    
+    /**
+     * Vrati zoznam problemov
+     */
+    public function ajaxProblemsAction()
+    {
+    	// limiting
+    	$start = $this->getRequest()->getParam('start');
+    	$limit = $this->getRequest()->getParam('limit');
+    	
+    	/*
+    	$_POST['sort'];
+    	$_POST['dir'];
+		*/
+    	
+    	// default problem area
+    	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
+    	
+    	// problem table
+    	$problemTable = new Problem();
+    	$select = $problemTable->select();
+    	$select->where('ProblemAreaId = ?', $ProblemAreaId);
+    	$select->limit($limit, $start);    	
+    	$problems = $problemTable->fetchAll($select);
+
+    	// get total count
+    	$select = $problemTable->select();
+    	$select->from('problems', array('Id'));
+    	$select->where('ProblemAreaId = ?', $ProblemAreaId);
+    	$all = $problemTable->fetchAll($select);
+    	
+    	
+    	// data
+    	$this->view->data = array(
+    		'total' => count($all), 
+    		'rows' => $problems->toArray(),
+    		'info' => $_POST
+    	);
     }
     
  	
