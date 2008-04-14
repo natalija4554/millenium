@@ -1,54 +1,74 @@
 <h2>Zoznam všetkých problémov v problémovej oblasti</h2>
 <script type="text/javascript">
+	var Gridka;
+	var statusCombo;
+	var categoryCombo;
+	var filterText;
+	var DataStore;
+	var listingCount = 5;
+	var filterGrid = function () {
+		DataStore.load({
+			params: {
+				start: 0,
+				limit: listingCount
+			}
+		});
+	}
 	Ext.onReady(function() {
-	
 		var stavStore = new Ext.data.SimpleStore({
+        	id: 'catIdxxx',
         	fields: ['id', 'state'],
       		data : [
+      			['', 'Všetky stavy'],
       			['NEW', 'Novy'],
+      			['APPROVED', 'Potvrdený'],
+      			['SOLVED', 'Vyriešený'],
       			['CLOSED', 'Uzatvoreny']
       		]
     	});
-	
 		var categoryStore = new Ext.data.SimpleStore({
-        	fields: ['id', 'namex'],
-      		data : [
-      			['NEW', 'Novy'],
-      			['CLOSED', 'Uzatvoreny']
-      		]
+			id: 'catIdx',
+        	fields: ['Id', 'Name'],
+        	autoLoad: true,
+        	url: '/category/ajax-combo'
     	});
-	
-		var Filter = new Ext.Toolbar({
-			renderTo: 'gridkaFilterDiv',
-			border: true,
-			items: [
-				'Hľadať: ', 
-				new Ext.form.TextField({
-					id: 'sfFieldId',
-					width: '350',
-					listeners: {
-						click: function() {
-							alert('x');
-						},
-						change: function() {
-							alert('y');
-						}
-					}
-				}), '-', new Ext.form.ComboBox({
+    	statusCombo = new Ext.form.ComboBox({
+			        id: 'idStatus',
 			        store: stavStore,
 			        displayField: 'state',
+			        valueField: 'id',
+			        forceSelection: false,
+			        editable: true,
+			        allowBlank: true,
 			        mode: 'local',
 			        triggerAction: 'all',
 			        width: 110,
 			        emptyText: 'Všetky stavy'
-			    }), '-',
-			    new Ext.form.ComboBox({
+			    });
+		categoryCombo = new Ext.form.ComboBox({
 			    	store: categoryStore,
-			    	displayField: 'namex',
+			    	displayField: 'Name',
+			    	valueField: 'Id',
 			    	mode: 'local',
+			    	forceSelection: false,
+			    	editable: true,
+			    	allowBlank: true,
 			    	triggerAction: 'all',
 			    	emptyText: 'Všetky kategórie'
-			    })
+			    });
+		filterText = new Ext.app.SearchField({
+					id: 'idtrigger',
+					width: 300,
+					onTrigger2Click: filterGrid
+				});
+    	var Filter = new Ext.Toolbar({
+			renderTo: 'gridkaFilterDiv',
+			border: true,
+			items: [
+				'Hľadať: ', 
+				statusCombo, '-',
+			    categoryCombo, '-',
+				filterText
 			]
 		});
 	});	
@@ -57,18 +77,12 @@
 
 <script type="text/javascript">
 Ext.onReady(function() {
-	var DataStore;
 	var ColumnModel;
-	var Gridka;
-	
-	// plugin
 	var expander = new Ext.grid.RowExpander({
         tpl : new Ext.Template(
             '<p style="padding: 5px;">{Definition}</p>'
         )
     });
-	
-	// Datastore
 	DataStore = new Ext.data.Store({
 		id: 'DataStoreId',
 		proxy: new Ext.data.HttpProxy({
@@ -82,9 +96,21 @@ Ext.onReady(function() {
 				}, [
 					{name: 'Id', type: 'int', mapping: 'Id'},
 					{name: 'Name', type: 'string', mapping: 'Name'},
+					{name: 'Username', type: 'string', mapping: 'Username'},
 					{name: 'Created', type: 'string', mapping: 'Created'},
+					{name: 'FullCategoryName', type: 'string', mapping: 'FullCategoryName'},
+					{name: 'State', type: 'string', mapping: 'State'},
 					{name: 'Definition', type: 'string', mapping: 'Definition'}
 			]),
+		listeners: {
+			beforeload: function () {
+				DataStore.baseParams = {
+					status: statusCombo.getValue(),
+					category: categoryCombo.getValue(),
+					text: filterText.getValue()
+				}
+			}			
+		},
 		sortInfo: {field: 'Id', direction: "ASC"}
 	});
 	
@@ -92,28 +118,57 @@ Ext.onReady(function() {
 	renderName = function(data, cellmd, record, row, col, store) {
 		return '<a href="/problem/view/Id/' + record.get('Id') + '">' + data + '</a>';
 	}
-	ColumnModel = new Ext.grid.ColumnModel(
-		[ expander,
-		 {
-		 	header: 'Name',
+	renderState = function(data, cellmd, record, row, col, store) {
+		switch (data) {
+			case 'NEW':
+				return 'Nový';
+			case 'APPROVED':
+				return 'Potvrdený';
+			case 'SOLVED':
+				return 'Vyriešený';
+			case 'DELETED':
+				return 'Vymazaný';
+		}
+		return data;
+	}
+	ColumnModel = new Ext.grid.ColumnModel( [ 
+		 expander, {
+		 	header: 'Názov',
 		 	dataIndex: 'Name',
 		 	readOnly: true,
 		 	width: 250,
 		 	hidden: false,
 		 	renderer: renderName
 		 }, {
-		 	header: 'Created',
+		 	header: 'Stav',
+		 	dataIndex: 'State',
+		 	readOnly: true,
+		 	width: 75,
+		 	hidden: false,
+		 	renderer: renderState
+		 },{
+		 	header: 'Hlavná kategória',
+		 	dataIndex: 'FullCategoryName',
+		 	readOnly: true,
+		 	width: 120,
+		 	hidden: false
+		 }, {
+		 	header: 'Vytvoril',
+		 	dataIndex: 'Username',
+		 	readOnly: true,
+		 	width: 80,
+		 	hidden: false
+		 }, {
+		 	header: 'Vytvorený dňa',
 		 	dataIndex: 'Created',
 		 	readOnly: true,
 		 	width: 150,
 		 	hidden: false
-		 }
-		]
+		 }]
 	);
 	ColumnModel.defaultSortable = true;
 	
 	// Gridka
-	
 	Gridka = new Ext.grid.GridPanel({
 		id: 'GridkaId',
 		store: DataStore,
@@ -134,18 +189,17 @@ Ext.onReady(function() {
 			}
 		}, '-'],
 		bbar: new Ext.PagingToolbar({
-			pageSize: 5,
+			pageSize: listingCount,
 			store: DataStore,
 			displayInfo: true,
 			displayMsg: 'Zobrazujem problémy {0} - {1} z {2}', 
 			emptyMsg: 'Žiadne problémy'
 		})
-	});
-	
+	});	
 	DataStore.load({
 		params: {
 			start: 0,
-			limit: 5
+			limit: listingCount
 		}
 	});
 });

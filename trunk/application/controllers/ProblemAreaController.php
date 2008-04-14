@@ -123,41 +123,81 @@ class ProblemAreaController extends Colla_Controller_Action
     
     /**
      * Vrati zoznam problemov
+     * 
+     * @todo refactor !
      */
     public function ajaxProblemsAction()
     {
     	// limiting
     	$start = $this->getRequest()->getParam('start');
     	$limit = $this->getRequest()->getParam('limit');
+    	$status = $this->getRequest()->getParam('status');
+    	$text = $this->getRequest()->getParam('text');
+    	$sort = $this->getRequest()->getParam('sort');
+    	$dir = $this->getRequest()->getParam('dir');
+    	$category = $this->getRequest()->getParam('category');
     	
-    	/*
-    	$_POST['sort'];
-    	$_POST['dir'];
-		*/
     	
     	// default problem area
     	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
-    	
-    	// problem table
     	$problemTable = new Problem();
-    	$select = $problemTable->select();
-    	$select->where('ProblemAreaId = ?', $ProblemAreaId);
-    	$select->limit($limit, $start);    	
+    	$select = $problemTable->select()
+    		->setIntegrityCheck(false)
+    		->from('problems')
+    		->where('problems.State != ?', 'DELETED')
+    		->where('problems.ProblemAreaId = ?', $ProblemAreaId)
+    		->join('users', 'users.Id = problems.CreatedBy', array('Username', 'FullName'));
+    		
+    	$select->limit($limit, $start);
+    		
+    	// status
+    	if ($status != '') {
+    		$select->where('problems.State = ?', $status);
+    	}
+    	if ($text != '') {
+    		$select->where("problems.Name LIKE '%".addslashes($text)."%'");
+    	}	
+    	if ($category != '') {
+    		$select->where("problems.CategoryId = ?", $category);
+    	}
     	$problems = $problemTable->fetchAll($select);
-
+    	$problemsArray = $problems->toArray();
+		foreach ($problemsArray as $key => $problem) {
+			
+			// get the row and find out category
+			$row = $problems->getRow($key);
+			$problemsArray[$key]['FullCategoryName'] = $row->getFullCategoryName();
+    	}
+    	
+    	
     	// get total count
     	$select = $problemTable->select();
     	$select->from('problems', array('Id'));
     	$select->where('ProblemAreaId = ?', $ProblemAreaId);
+    	$select->where('problems.State != ?', 'DELETED');
+    	if ($status != '') {
+    		$select->where('problems.State = ?', $status);
+    	}
+    	if ($text != '') {
+    		$select->where("problems.Name LIKE '%".addslashes($text)."%'");
+    	}
+    	if ($category != '') {
+    		$select->where("problems.CategoryId = ?", $category);
+    	}
     	$all = $problemTable->fetchAll($select);
-    	
     	
     	// data
     	$this->view->data = array(
     		'total' => count($all), 
-    		'rows' => $problems->toArray(),
+    		'rows' => $problemsArray,
     		'info' => $_POST
     	);
+    	
+    	// preparse data object
+    	foreach ($this->view->data['rows'] as &$row) {
+    		$date = new Zend_Date($row['Created']);
+    		$row['Created'] = $date->toString();
+    	}
     }
     
  	

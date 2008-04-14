@@ -124,4 +124,14 @@ class CategoryController extends Colla_Controller_Action
 		}
 		$this->view->data = $output;
 	}
+	public function ajaxComboAction()
+	{
+		$category = new Category();
+
+		$data = $category->getThreadedList();
+		$data = array_reverse($data);
+		$data[] = array('', 'Všetky kategórie');
+		$data = array_reverse($data);
+		$this->view->data = $data;
+	}
 }
