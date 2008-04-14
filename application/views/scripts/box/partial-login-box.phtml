@@ -6,11 +6,13 @@
 			<a href="/auth/logout" title="logout">sign out</a>
 		</div>
 	<?php else: ?>
-		Sign in to the system.
+		<p style="padding: 5px 0 5px 0">
+		Prosím prihláste sa do systému.
+		</p>
 		<form action="/auth/login" class="menuBoxBody" method="post">
-			<label>Username:</label><input type="text" name="username" value="" />
-			<label>Password:</label><input type="password" name="password" value="" />
-			<input type="submit" value="Sign in" />
+			<label>Prihlasovacie meno:</label><br /><input type="text" name="username" value="" /><br />
+			<label>Heslo:</label><br /><input type="password" name="password" value="" />
+			<br /><input type="submit" value="Prihlásiť sa" />
 		</form>
 	<?php endif; ?>
 </div>

@@ -100,7 +100,7 @@ class Category extends Zend_Db_Table_Abstract
     		$this->select()->where('ParentId = ?', $parentId);
 
     	foreach ($this->fetchAll($where) as $category) {
-			$output[$category->Id] = str_repeat(' - ', $nested).$category->Name;
+			$output[$category->Id] = $category->Name;
 			$rows = $this->getSelectList($category->Id, $nested+1);
 			foreach ($rows as $key=>$value) {
 				$output[$key] = $value;
@@ -121,6 +121,15 @@ class Category extends Zend_Db_Table_Abstract
     		$this->select()->where('ParentId IS NULL') : 
     		$this->select()->where('ParentId = ?', $parentId);
     	return $this->fetchAll($where);
+    }
+    
+    public function getThreadedList()
+    {
+    	$output = array();
+    	foreach ($this->getSelectList() as $key => $value) {
+    		$output[] = array($key, $value);
+    	}
+    	return $output;
     }
     
 }
