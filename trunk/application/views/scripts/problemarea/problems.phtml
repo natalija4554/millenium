@@ -5,7 +5,7 @@
 	var categoryCombo;
 	var filterText;
 	var DataStore;
-	var listingCount = 5;
+	var listingCount = 25;
 	var filterGrid = function () {
 		DataStore.load({
 			params: {
@@ -49,10 +49,12 @@
 			    	store: categoryStore,
 			    	displayField: 'Name',
 			    	valueField: 'Id',
-			    	mode: 'local',
 			    	forceSelection: false,
 			    	editable: true,
 			    	allowBlank: true,
+			    	<?php if ($this->CategoryId): ?>
+			    		value: <?=(int)$this->CategoryId?>,
+			    	<?php endif; ?>
 			    	triggerAction: 'all',
 			    	emptyText: 'Všetky kategórie'
 			    });

@@ -22,6 +22,7 @@ class ProblemAreaController extends Colla_Controller_Action
     
     public function problemsAction()
     {
+    	$this->view->CategoryId = $this->getRequest()->getParam('CategoryId');
     	
     }
     
