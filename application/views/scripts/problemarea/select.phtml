@@ -1,7 +1,6 @@
 <h2>Problémové oblasti</h2>
 <p>
-  Prosím vyberte si problémovú oblasť, pre ktorú chcete zobraziť stav jej 
-  rozpracovania.
+  Prosím vyberte si problémovú oblasť, s ktorou chcete pracovať.
 </p>
 
 <?=$this->FlashMessages(); ?>
@@ -10,22 +9,18 @@
 	<table class="std">
   	<thead>
     	<tr>
-    		<th></th>
-      		<th>Názov problémovej oblasti</th>
-      		<th>Stav riešenia</th>
-      		<th>Posledná zmena</th>      
+    		<th>Názov problémovej oblasti</th>
+      		<th></th>      
     	</tr>
 	</thead>
 	<tbody>
 <?php foreach ($this->areas as $key=>$pa): ?>
 	
     <tr>
-      <td>
-      	<a href="/problemarea/view/id/<?=$pa['Id']?>" title="Zobraziť podrobnosti">Vybrať</a>
-      </td>
       <td><?=$pa['Name']?></td>
-      <td>todo</td>
-      <td>todo</td>
+      <td style="text-align: center;">
+      	<input type="button" value="Vybrať ako predvolenú" onclick="window.location = '/problemarea/view/id/<?=$pa['Id']?>';" />
+      </td>
       
     <tr>
 <?php endforeach; ?>
