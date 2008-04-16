@@ -1,42 +1,8 @@
 <h2><?=$this->pa->Name;?></h2>
-
 <?=$this->FlashMessages(); ?>
-<div id="paDefinition">
-	<div style="border: 1px solid #D9E8FB; padding: 10px; background-color: #F1F2F4">
-	<?=nl2br($this->pa->Definition); ?>
-	<p style="margin-top: 15px; padding-top: 5px; border-top: 1px solid silver; font-size: 12px; font-family: tahoma,arial,verdana,sans-serif;">
-		<label>Vytvorený: </label><?=$this->pa->Created;?>,
-		<label>Posledná zmena:</label> 10.1.2008, (<a href="#">Peter Zakuskový</a>)	
+<div style="padding: 1px 4px 0px 3px;">
+	<?=$this->pa->Definition; ?>
+	<p style="text-align: right; margin-top: 15px; padding-top: 5px; border-top: 1px solid silver; font-size: 12px; font-family: tahoma,arial,verdana,sans-serif;">
+		<label>Zadané dňa: </label><?=$this->pa->Created;?>	
 	</p>
-	</div>
 </div>
-<div id="paTabs"></div>
-<script type="text/javascript">
-	new Ext.TabPanel({
-        renderTo: 'paTabs',
-        activeTab: 0,
-        frame:true,
-        defaults:{autoHeight: true},
-        items:[
-            {contentEl:'paDefinition', title: 'Definícia problému'},
-            {autoLoad:'/problemarea/history', title: 'História zmien'}
-        ]
-    });
-</script>
-
-
-
-
-<p class="buttonRow">
-	<a href="/problemarea/change" id="buttonik"></a>
-	<script>
-		var btn = new Ext.Button({
-			type: 'button',
-			text: 'Zmeniť definíciu',
-			renderTo: 'buttonik',
-			onClick : function () {
-				window.location='/problemarea/change';
-			}
-		});
-	</script>
-</p>

@@ -66,4 +66,11 @@ class Colla_Controller_Action extends Zend_Controller_Action
 	{
 		return Zend_Registry::get('Colla_Acl')->isAllowed($this->_getRole(), $resource, $privilege);
 	}
+	
+	public function checkAllowed($resource, $privilege) 
+	{
+		if (!$this->isAllowed($resource, $privilege)) {
+			throw new Exception('You have no privilege('.$privilege.') to access this resource ('.$resource.')');
+		}
+	}
 }

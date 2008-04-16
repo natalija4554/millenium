@@ -4,7 +4,7 @@
  * Formular na pridanie novej problemovej oblasti
  * 
  */
-class Form_ProblemAreaChange extends Zend_Form
+class Form_ProblemAreaChange extends Colla_Form
 {
 	/**
 	 * Construck ProblemArea Form class
@@ -25,14 +25,15 @@ class Form_ProblemAreaChange extends Zend_Form
 		$elm->setRequired(true);
 		$elm->setAttrib('size', 60);
 		$elm->addValidator(new Zend_Validate_StringLength(4, 128));
-		$elm->setLabel('Problem area name');
+		$elm->setLabel('Problem area name:');
 		$this->addElement($elm);
 		
 		// description
 		$elm = new Zend_Form_Element_Textarea('Definition');
-		$elm->setAttrib('rows', '25');
+		$elm->setAttrib('rows', '10');
+		$elm->setAttrib('class', 'mceEditor');
 		$elm->setRequired(true);
-		$elm->setLabel('Problem area description');
+		$elm->setLabel('Problem area description:');
 		$this->addElement($elm);
 		
 		// ProblemAreaId

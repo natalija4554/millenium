@@ -8,6 +8,8 @@ class UserController extends Colla_Controller_Action
 {
 	public function findAction()
 	{
+		$this->checkAllowed('USERS', 'SEARCH');
+		
 		// zoznam roli
 		$role = new AclRole();
 		$select = $role->select()
@@ -39,6 +41,8 @@ class UserController extends Colla_Controller_Action
 	
 	public function rolesAction()
 	{
+		$this->checkAllowed('PERMISSIONS', 'EDIT');
+		
 		// read roles
 		$role = new AclRole();
 		$select = $role->select()

@@ -1,5 +1,5 @@
 <?php
-class Form_ProblemChange extends Zend_Form
+class Form_ProblemChange extends Colla_Form
 {
 	/**
 	 * @param array $options
