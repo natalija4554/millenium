@@ -1,0 +1,33 @@
+<h2>Konfigurácia prístupových práv</h2>
+<?=$this->FlashMessages(); ?>
+<form action="/user/roles" method="post">
+	<table class="std roletable">
+		<tr>
+			<th>Konfugurovateľná operácia</th>
+			<?php foreach ($this->roles as $role): ?>
+			<th style="text-align: center;">
+				<?=$this->translate('role_'.$role->id)?>
+			</th>
+			<?php endforeach; ?>
+		</tr>
+		<?php foreach ($this->resources as $resource): ?>
+		<tr>
+			<td>
+				<?=$this->translate($resource->id.'_'.$resource->privilege)?>
+			</td>
+			<?php foreach ($this->roles as $role): ?>
+			<td style="text-align: center;">
+				<?php if ($resource->isAllowedBy($role->id)): ?>
+					<input type="checkbox" name="allow[<?=$resource->id?>][<?=$resource->privilege?>][<?=$role->id?>]" value="1" checked/>
+				<?php else: ?>
+					<input type="checkbox" name="allow[<?=$resource->id?>][<?=$resource->privilege?>][<?=$role->id?>]" value="1" />
+				<?php endif; ?>
+			</td>
+			<?php endforeach; ?>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+	<p>
+		<input type="submit" value="Uložiť zmeny" />
+	</p>
+</form>

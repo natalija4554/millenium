@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Colla\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-06 18:41+0100\n"
-"PO-Revision-Date: 2008-03-06 18:42+0100\n"
+"POT-Creation-Date: 2008-04-16 17:38+0100\n"
+"PO-Revision-Date: 2008-04-16 17:38+0100\n"
 "Last-Translator: Frantisek Durajka <franto@franto.sk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -12,31 +12,71 @@ msgstr ""
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Basepath: C:\\Users\\franto\\My Web\\millenium\\application\n"
-"X-Poedit-KeywordsList: translate;setLabel\n"
-"X-Poedit-SearchPath-0: C:\\Users\\franto\\My Web\\millenium\\application\n"
+"X-Poedit-Basepath: C:\\Users\\franto\\www\\millenium\\application\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: C:\\Users\\franto\\www\\millenium\\application\n"
 
-#: C:\Users\franto\My
-#: Web\millenium\application/controllers/ProblemAreaController.php:42
-msgid "Problem area name"
-msgstr "Názov problémovej oblasti"
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:9
+msgid "role_guest"
+msgstr "Návštevník"
 
-#: C:\Users\franto\My
-#: Web\millenium\application/controllers/ProblemAreaController.php:48
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:10
+msgid "role_moderator"
+msgstr "Moderátor"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:11
+msgid "role_user"
+msgstr "Riešiteľ"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:12
+msgid "role_administrator"
+msgstr "Administrátor"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:13
+msgid "PROBLEM_DEFINE"
+msgstr "Definovanie, pridanie nového problému"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:14
+msgid "PROBLEM_ADD_COMMENT"
+msgstr "Pridávanie komentárov k problémom"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:15
+msgid "PROBLEM_ACCEPT_VOTE"
+msgstr "Hlasovanie za akceptovanie problému"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:16
+msgid "PROBLEM_ACCEPT"
+msgstr "Akcpetovanie alebo zrušenie problému"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:17
+msgid "PROBLEM_ADD_SOLUTION"
+msgstr "Pridanie riešenia k problému"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:18
+msgid "USERS_SEARCH"
+msgstr "Vyhľadávanie v používateľoch"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/box/partial-login-box.phtml:12
+msgid "Please log into the system"
+msgstr "Prosím prihláste sa do systému."
+
+#: C:\Users\franto\www\millenium\application/views/scripts/user/find.phtml:5
+msgid "roles_all"
+msgstr "Všetky typy"
+
 #, fuzzy
-msgid "Problem area description"
-msgstr "Popis problémovej oblasti"
+#~ msgid "Problem area has been created."
+#~ msgstr "Názov problémovej oblasti"
+#~ msgid "Problem area name"
+#~ msgstr "Názov problémovej oblasti"
 
-#: C:\Users\franto\My
-#: Web\millenium\application/controllers/ProblemAreaController.php:53
-msgid "Add new problem area"
-msgstr "Pridaj oblasť"
-
-#: C:\Users\franto\My
-#: Web\millenium\application/views/scripts/problemarea/add.phtml:1
-msgid "New Problem Area Title"
-msgstr "Pridať novú problémovú oblasť"
-
+#, fuzzy
+#~ msgid "Problem area description"
+#~ msgstr "Popis problémovej oblasti"
+#~ msgid "Add new problem area"
+#~ msgstr "Pridaj oblasť"
+#~ msgid "New Problem Area Title"
+#~ msgstr "Pridať novú problémovú oblasť"
 #~ msgid "Ahojte šepkajte že to ležo plažo ťažo mäso."
 #~ msgstr "slovaneky Ahojte šepkajte že to ležo plažo ťažo mäso."
 #~ msgid "ahoj"

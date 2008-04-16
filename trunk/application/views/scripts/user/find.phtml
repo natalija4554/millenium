@@ -1,6 +1,12 @@
 <h2>Zadajte meno používateľa</h2>
 <form action="/user/find" method="post">
 	<p>
+		<select type="text" name="role">
+			<option value=""><?=__('roles_all')?></option>
+			<?php foreach ($this->roles as $role): ?>
+			<option value="<?=$role->id?>" <?=(@$_POST['role']==$role->id)?'selected':''?>><?=$this->translate('role_'.$role->id)?></option>
+			<?php endforeach; ?>
+		</select>
 		<input type="text" name="username" value="<?=$this->searchField?>" size="50"> <input type="submit" value="Hľadaj" />
 	</p>
 </form>
