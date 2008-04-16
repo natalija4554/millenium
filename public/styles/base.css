@@ -56,6 +56,11 @@ h2 {
 }
 a {
 	color: #5F2323;
+	text-decoration: none;
+	padding: 0;
+}
+a:hover {
+	border-bottom: 1px dashed #5F2323;
 }
 p {
 	margin: 11px 0 7px 0;
@@ -217,16 +222,21 @@ p {
  */
 table.std {
   border-collapse: collapse;
-  border: 1px solid #B35A00;
+  border: 1px solid #99B7DF;
   width: 100%;
+  margin-top: 10px;
 } 
 table.std th {
-  background-color: #B35A00;
-  color: #FFDFBF;
-  text-align: left;
+ 	background-color: #CDDEF3;
+ 	color: #15428B;
+ 	text-align: left;
+ 	font-weight: bold;
+ 	padding: 2px 5px 1px 5px;
+ 	margin: 0;
 }
 table.std td {
-  border: 1px solid #CF4D4D;
+  	border: 1px solid #99B7DF;
+  	padding: 2px 5px 1px 5px;
 }
 
 /**
@@ -242,10 +252,6 @@ a.btn {
 }
 a.btn:hover {
 	border-color: #15428B;
-}
-
-input.btn, submit {
-	
 }
 
 

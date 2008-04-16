@@ -1,0 +1,40 @@
+<h2>Zadajte meno používateľa</h2>
+<form action="/user/find" method="post">
+	<p>
+		<input type="text" name="username" value="<?=$this->searchField?>" size="50"> <input type="submit" value="Hľadaj" />
+	</p>
+</form>
+
+<?php if ($this->isRequest): ?>
+	<?php if (count($this->foundUsers) > 0): ?>
+		<table class="std">
+			<tr>
+				<th>Prihlasovacie meno</th>
+				<th>Plné meno</th>
+				<th>E-mail</th>
+				<th>Typ</th>
+			</tr>
+			<?php foreach ($this->foundUsers as $user): ?>
+			<tr>
+				<td>
+					<a href="/user/view/Id/<?=$user->Id;?>"><?=$user->Username;?></a>
+				</td>
+				<td><?=$user->FullName?></td>
+				<td><?=$user->EMail?></td>
+				<td><?=$user->RoleId?></td>
+			</tr>
+			<?php endforeach; ?>
+		</table>
+		<p>
+			Nájdených <?=count($this->foundUsers)?> záznamov.
+		</p>
+	<?php else: ?>
+		<p>
+			Nenašli sa žiadne záznamy.
+		</p>		
+	<?php endif; ?>
+<?php else: ?>
+<p>
+	Prosím zadajte prihlasovacie alebo konkrétne meno používateľa.
+</p>
+<?php endif; ?>
