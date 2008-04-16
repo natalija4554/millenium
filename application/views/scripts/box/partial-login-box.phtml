@@ -1,7 +1,6 @@
 <div class="divBox">
 	<?php if ($this->authenticated): ?>
-		<b><?=$this->translate('role_'.$this->user->RoleId)?>:</b><br />
-		You are logged as <?=$this->user->getFullname();?>
+		<b><?=$this->translate('role_'.$this->user->RoleId)?>:</b> <?=$this->user->getFullname();?>
 		
 
 		<div style="text-align: right">

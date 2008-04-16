@@ -33,12 +33,16 @@ class Zend_View_Helper_FlashMessages
 			return '';
 		}
 		
+		
 		// render
-		$out = '<ul class="flashMessages">';
-		foreach ($this->view->messages as $message) {
-			$out .= '<li>'.$message.'</li>'; 
+		$out = '';
+		if (count($this->view->messages) > 0) {
+			$out = '<ul class="flashMessages">';
+			foreach ($this->view->messages as $message) {
+				$out .= '<li>'.$message.'</li>'; 
+			}
+			$out .= '</ul>';
 		}
-		$out .= '</ul>';
 		return $out;
 	}
 }
