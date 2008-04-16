@@ -59,9 +59,6 @@ a {
 	text-decoration: none;
 	padding: 0;
 }
-a:hover {
-	border-bottom: 1px dashed #5F2323;
-}
 p {
 	margin: 11px 0 7px 0;
 	padding: 0;
@@ -297,3 +294,6 @@ ul.flashMessages {
   background-image:url('../images/add.gif') !important;
 }
 
+.roletable {
+	line-height: 18px;
+}

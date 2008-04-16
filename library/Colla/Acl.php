@@ -67,7 +67,8 @@ class Colla_Acl extends Zend_ACL {
         
         // I chose to write the field names into these SQL statements, so that the tables can actually contain more
         // fields than just the ones I need here without producing heavier DB load as neccessary.
-        
+        $db = $this->dbase;
+    	
         /// First: Create all the resources we have.
         $resources = $db->fetchAll( $db->select()->distinct()->from( 'acl_resources', array( 'id', 'parent_id' ) ) );
         

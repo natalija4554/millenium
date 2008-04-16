@@ -51,4 +51,19 @@ class Colla_Controller_Action extends Zend_Controller_Action
 	{
 		return Zend_Auth::getInstance()->hasIdentity();
 	}
+	protected function _getRole()
+	{
+		return $this->hasIdentity() ? Zend_Registry::get('User')->RoleId : 'guest';
+	}
+	
+	/**
+	 * Check if user has an granted permission
+	 *
+	 * @param unknown_type $resource
+	 * @param unknown_type $privilege
+	 */
+	public function isAllowed($resource, $privilege)
+	{
+		return Zend_Registry::get('Colla_Acl')->isAllowed($this->_getRole(), $resource, $privilege);
+	}
 }

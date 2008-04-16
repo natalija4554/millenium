@@ -84,6 +84,7 @@ final class Colla_App
     		 ->_setupDatabase()
     		 ->_setupLayout()
     		 ->_setupTranslation()
+    		 ->_setupAcl()
     		 ->_setupFrontController()
     		 ->_dispachFrontController();
     		 
@@ -184,15 +185,17 @@ final class Colla_App
         return $this;
  	}
  	
- 	/**
- 	 * If system contains only 1 problem areat, this one becomes the default
+	/**
+ 	 * Setup Acl
  	 *
+ 	 * @return Colla_App
  	 */
- 	private function _setDefaultProblemArea()
+ 	private function _setupAcl()
  	{
- 		
+ 		Zend_Registry::set('Colla_Acl', new Colla_Acl());
+ 		return $this;
  	}
- 	
+ 	 	
  	/**
  	 * Setup Front Controller
  	 *
