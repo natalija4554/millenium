@@ -57,6 +57,10 @@ h2 {
 a {
 	color: #5F2323;
 }
+p {
+	margin: 11px 0 7px 0;
+	padding: 0;
+}
 #mainBox {
 	border: 1px solid black; 
 	margin: 0 auto; 
@@ -229,14 +233,15 @@ table.std td {
  * A button cls
  */
 a.btn {
-	border: 1px solid #B35A00;
-	padding: 0px 7px 0px 7px;
-	background-color: #FFDFBF;
-	color: #B35A00;
+	border: 1px solid #99B7DF;
+	padding: 1px 8px 1px 8px;
+	background-color: #CDDEF3;
+	color: #15428B;
+	font-weight: bold;
 	text-decoration: none;
 }
 a.btn:hover {
-	color: black;
+	border-color: #15428B;
 }
 
 input.btn, submit {
