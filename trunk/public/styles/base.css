@@ -302,7 +302,7 @@ ul.flashMessages {
 }
 form.std dt {
 	font-weight: bold;
-	margin-top: 9px;
+	margin-top: 7px;
 	font-size: 110%;
 }
 form.std dd {
@@ -310,10 +310,12 @@ form.std dd {
 	padding: 0;
 }
 form.std textarea.mceEditor {
-	width: 100%;	
-	font-size: 30px;
+	width: 100%;
 }
 dl.zend_form {
 	margin: 0;
 	padding: 0;
+}
+dl ul.errors {
+	color: red;
 }

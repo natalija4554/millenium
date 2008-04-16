@@ -30,7 +30,7 @@ class Form_ProblemAreaChange extends Colla_Form
 		
 		// description
 		$elm = new Zend_Form_Element_Textarea('Definition');
-		$elm->setAttrib('rows', '10');
+		$elm->setAttrib('rows', '20');
 		$elm->setAttrib('class', 'mceEditor');
 		$elm->setRequired(true);
 		$elm->setLabel('Problem area description:');

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Colla\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-16 17:38+0100\n"
-"PO-Revision-Date: 2008-04-16 17:38+0100\n"
+"POT-Creation-Date: 2008-04-16 22:51+0100\n"
+"PO-Revision-Date: 2008-04-16 22:51+0100\n"
 "Last-Translator: Frantisek Durajka <franto@franto.sk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,13 +56,20 @@ msgstr "Pridanie riešenia k problému"
 msgid "USERS_SEARCH"
 msgstr "Vyhľadávanie v používateľoch"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/box/partial-login-box.phtml:12
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:20
+msgid "isEmpty"
+msgstr "Zadané políčko nemôže byť prázdne."
+
+#: C:\Users\franto\www\millenium\application/views/scripts/box/partial-login-box.phtml:11
 msgid "Please log into the system"
 msgstr "Prosím prihláste sa do systému."
 
 #: C:\Users\franto\www\millenium\application/views/scripts/user/find.phtml:5
 msgid "roles_all"
 msgstr "Všetky typy"
+
+#~ msgid "Value is empty, but a non-empty value is required"
+#~ msgstr "super test1"
 
 #, fuzzy
 #~ msgid "Problem area has been created."

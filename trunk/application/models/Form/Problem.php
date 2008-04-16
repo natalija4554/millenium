@@ -1,5 +1,5 @@
 <?php
-class Form_Problem extends Zend_Form
+class Form_Problem extends Colla_Form
 {
 	/**
 	 * @param array $options
@@ -16,17 +16,19 @@ class Form_Problem extends Zend_Form
 		// Name
 		$elm = new Zend_Form_Element_Text('Name');
 		$elm->setRequired(true);
-		$elm->setAttrib('size', 80);
+		$elm->setAttrib('size', '60');
 		$elm->addValidator(new Zend_Validate_StringLength(4, 128));
-		$elm->setLabel('Názov problému');
+		$elm->setLabel('Názov problému:');
 		$this->addElement($elm);
 		
 			
 		// Definition
 		$elm = new Zend_Form_Element_Textarea('Definition');
 		$elm->setAttrib('rows', '10');
+		$elm->setAttrib('cols', '10');
 		$elm->setRequired(true);
-		$elm->setLabel('Definícia problému');
+		$elm->setAttrib('class', 'mceEditor');
+		$elm->setLabel('Definícia problému:');
 		$this->addElement($elm);
 		
 		// Kategoria
@@ -34,21 +36,15 @@ class Form_Problem extends Zend_Form
 		$elm = new Zend_Form_Element_Select('CategoryId');
 		$rows = $categoryTable->getSelectList();
 		$elm->addMultiOptions($rows)
-			->setLabel('Kategória problému');
+			->setLabel('Kategória problému:');
 		$this->addElement($elm);
 		
 		// Note
 		$elm = new Zend_Form_Element_Textarea('Note');
 		$elm->setAttrib('rows', '1');
+		$elm->setAttrib('class', 'siroky');
 		$elm->setRequired(false);
-		$elm->setLabel('Poznámka k pridaniu správy');
-		$this->addElement($elm);
-		
-		// Klucove slova
-		$elm = new Zend_Form_Element_Text('Keywords');
-		$elm->setRequired(false);
-		$elm->setAttrib('size', 100);
-		$elm->setLabel('Kľúčové slová');
+		$elm->setLabel('Poznámka k pridaniu správy:');
 		$this->addElement($elm);
 		
 		// submit button
