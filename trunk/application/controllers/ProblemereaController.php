@@ -4,7 +4,7 @@
  * 
  * 
  */
-class ProblemAreaController extends Colla_Controller_Action
+class ProblemareaController extends Colla_Controller_Action
 {
 /**
      * View problem Area details
