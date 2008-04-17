@@ -1,0 +1,213 @@
+<?= $this->doctype('XHTML1_STRICT') ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Colaboration software application</title>
+	<?php // $this->headLink()->appendStylesheet('/javascript/ext/resources/css/ext-all.css')?>
+	<?php echo $this->headLink()
+					->appendStylesheet('/javascript/ext/resources/css/ext-all.css')
+					->appendStylesheet('/styles/base.css')
+					?>
+	<?php echo $this->headScript()
+					->appendFile('/javascript/prototype.js')
+					->appendFile('/javascript/scriptaculous.js?load=effects')
+					->appendFile('/javascript/ext/adapter/prototype/ext-prototype-adapter.js')
+					->appendFile('/javascript/ext/ext-all.js')
+					->appendFile('/javascript/RowExpander.js')
+					->appendFile('/javascript/SearchField.js')
+					->appendFile('/javascript/tinymce/tiny_mce.js')
+					?>
+	<script type="text/javascript">
+		tinyMCE.init({
+			mode: 'textareas',
+			editor_selector: 'mceEditor',
+			content_css : '/styles/myMce.css'
+		});
+	</script>
+</head>
+<body>
+<div id="mainBox">
+	<div>
+		<div>
+			<h1>
+				<a href="/">Kolaboračný informačný systém</a><br />
+				<span>
+					Problémová oblasť &raquo; <em><?=$this->problemAreaName ?></em>
+				</span>
+			</h1>
+			
+			
+			
+		</div>
+		<div id="mainMenuLeft">
+			<!-- LOGIN BOX [action] -->
+			<?php if (!($this->actionName=='login' and $this->controllerName=='auth')): ?>
+			<script>
+			Ext.onReady(function(){
+				var p = new Ext.Panel({
+			        title: 'Váš profil',
+			        collapsible: false,
+			        renderTo: 'box-login',
+			        contentEl: 'box-login-body'
+			        
+				});
+			});
+			</script>
+			<div class="menuBox" id="box-login"></div>
+			<div id="box-login-body">
+				<?=$this->action('partial-login-box', 'box')?>
+			</div>
+			<?php endif; ?>
+			
+			<!-- Status Bar  -->
+			<script>
+			Ext.onReady(function(){
+				var p = new Ext.Panel({
+			        title: 'Stav riešenia probl. oblasti',
+			        collapsible: true,
+			        renderTo: 'box-status',
+			        contentEl: 'box-status-body'
+			        
+				});
+			});
+			</script>
+			<div class="menuBox" id="box-status"></div>
+			<div id="box-status-body">
+				<?=$this->action('partial-status-box', 'box')?>
+			</div>
+			
+			<!--  Categories  -->
+			<script type="text/javascript">
+				Ext.onReady(function() {
+				    var Tree_Category_Loader = new Ext.tree.TreeLoader({
+				        dataUrl   : '/category/ajax-list'
+				    });
+				    var Tree_Category = new Ext.tree.TreePanel({
+				        title            : 'Kategorie',
+				        collapsible      : true,
+				        animCollapse     : true,
+				        border           : true,
+				        id               : "tree_projectcategory",
+				        el               : "tree_projectcategory",
+				        autoScroll       : true,
+				        animate          : false,
+				        enableDD         : true,
+				        height			 : 200,
+				        rootVisible		 : false,
+				        loader           : Tree_Category_Loader
+				    });
+				    var Tree_Category_Root = new Ext.tree.AsyncTreeNode({
+				        text		: 'Categories',
+				        draggable	: false,
+				        id		: 'null'
+				    });
+				    
+				    Tree_Category.on('click', function(node) {
+				    	window.location = '/problemarea/problems/CategoryId/' + node.id;
+				    });
+				    			    
+				    Tree_Category.setRootNode(Tree_Category_Root);
+				    Tree_Category.render();
+				    Tree_Category_Root.expand();
+			});						
+			</script>
+			<div class="menuBox" id="tree_projectcategory" ></div>
+			
+			
+			
+		</div>
+		
+		<div id="mainMenuRight">
+			<div id="mainMenuRight2">
+
+				<script>
+					Ext.onReady(function() {
+						
+						// menu oblasti
+						var menuOblasti = new Ext.menu.Menu({
+							id:	'menuOblasti',
+							items: [
+								new Ext.menu.Item({
+									text: 'Zoznam oblastí',
+									href: '/problemarea/select'
+								}),
+								new Ext.menu.Item({
+									text: 'Zmeniť definíciu aktuálnej',
+									href: '/problemarea/change'
+								}),
+								new Ext.menu.Item({
+									text: 'Pridať novú oblasť',
+									href: '/problemarea/add'
+								})
+							]
+						});
+						// menu problemy
+						var menuProblemy = new Ext.menu.Menu({
+							id:	'menuProblemy',
+							items: [
+								new Ext.menu.Item({
+									text: 'Zobraziť všetky',
+									href: '/problemarea/problems'
+								}),
+								new Ext.menu.Item({
+									text: 'Pridať nový',
+									href: '/problemarea/addproblem'
+								})
+							]
+						});
+						// menu kategorie
+						var menuUsers = new Ext.menu.Menu({
+							id:	'menuUsers',
+							items: [
+								<?php if ($this->isAllowed('USERS', 'SEARCH')): ?>
+								new Ext.menu.Item({
+								 text: 'Hľadať',
+									href: '/user/find'
+								}),
+								<?php endif; ?>
+								<?php if ($this->isAllowed('PERMISSIONS', 'EDIT')): ?>
+								new Ext.menu.Item({
+									text: 'Prístupové práva',
+									href: '/user/roles'
+								}),
+								<?php endif; ?>
+							]
+						});
+						
+						
+						
+						
+						var toolbar = new Ext.Toolbar({
+							renderTo	: 'toolbar_menu'
+						});
+						toolbar.add({
+							text: 'Problemová oblasť',
+							cls: 'supretetest',
+							menu: menuOblasti
+						});
+						
+						toolbar.add({
+							text: 'Problémy',
+							menu: menuProblemy
+						});
+						if (menuUsers.items.getCount() > 0) {
+							toolbar.add({
+								text: 'Používateľia',
+								menu: menuUsers
+							});
+						}
+					});
+				</script>
+				<div id="toolbar_menu"></div>
+				<div id="mainContent">
+					<?=$this->layout()->content;?>
+				</div> 
+			</div>
+		</div>
+		<br clear="both"/>
+	</div>
+</div>
+<div style="text-align: center">
+</div>
+</body>
+</html>
