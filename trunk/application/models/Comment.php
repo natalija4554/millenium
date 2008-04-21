@@ -1,7 +1,7 @@
 <?php
-class ProblemComment extends Zend_Db_Table_Abstract
+class Comment extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'problemcomments';
+    protected $_name = 'comments';
 
     protected $_referenceMap = array(
     	'Problem' => array(

@@ -23,7 +23,8 @@ class ProblemController extends Colla_Controller_Action
 		$problemTable = new Problem();
 		$problem = $problemTable->findProblem($Id);
 		$this->view->problem = $problem;
-		$this->view->comments = $problem->findProblemComment();
+		$this->view->comments = $problem->findComment();
+		$this->view->acceptVote = $problem->getAcceptVote($this->view->user->Id);
 	}
 	
 	public function changecategoryAction()
@@ -39,14 +40,29 @@ class ProblemController extends Colla_Controller_Action
 			$this->_redirect('/problemarea/problems');
 			return;
 		}
+		// problem in state new 
 		$form = new Form_ProblemChange($Id);
 		$problemTable = new Problem();
+		$problem = $problemTable->findProblem($Id);
+		
+		// only new problem can be changed
+		if ($problem->State != Problem::STATE_NEW) {
+			throw new Exception('Only new problem can be changed');
+		}
+		if ($problem->CreatedBy != null && $problem->CreatedBy != $this->view->user->Id) {
+			throw new Exception('Only original craetor can change this problem');
+		}
+		
 		if ($this->getRequest()->isPost()) {
 			if ($form->isValid($_POST)) {
-				$problemTable->changeDefinition($Id, $form->getValues());	
+				$problem->Name = $form->getValue('Name');
+				$problem->Definition = $form->getValue('Definition');
+				$problem->save();
+				$this->_helper->FlashMessenger->addMessage('Definícia bola zmenená');
+				$this->_redirect('/problem/view/Id/'.$problem->Id);
+				return;	
 			}			
 		} else {
-			$problem = $problemTable->findProblem($Id);
 			$form->getElement('Name')->setValue($problem->Name);
 			$form->getElement('Definition')->setValue($problem->Definition);
 		}
@@ -225,6 +241,37 @@ class ProblemController extends Colla_Controller_Action
 			$form->getElement('Body')->setValue('Moderator rejected this problem.');
 		}
 		$this->view->form = $form;
+	}
+	
+	public function voteAcceptYesAction()
+	{
+		$this->_vote(ProblemAccept::VOTE_YES);
+	}
+	
+	public function voteAcceptNoAction()
+	{
+		$this->_vote(ProblemAccept::VOTE_NO);
+	}
+	
+	public function voteAcceptIgnoreAction()
+	{
+		$this->_vote(ProblemAccept::VOTE_IGNORE);
+	}
+	
+	private function _vote($vote)
+	{
+		$problemId = $this->getRequest()->getParam('problemId');
+		$user = Zend_Registry::get('User');
+		$pa = new ProblemAccept();
+		$row = $user->getAcceptVote($problemId);
+		$row->Vote = $vote;
+		$row->VoteTime = new Zend_Db_Expr('NOW()');
+		$row->save();
+			
+	
+		// get it again and display in json
+		$this->view->acceptVote = $user->getAcceptVote($problemId);
+		$this->render('ajax-vote-accept');
 	}
 }
 ?>

@@ -7,7 +7,7 @@ class BoxController extends Colla_Controller_Action
      */
 	public function partialLoginBoxAction()
     {
-    	;
+    	$this->view->redirect = $this->getRequest()->getParam('redirect');
     }
 	
 	/**

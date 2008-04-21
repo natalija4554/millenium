@@ -37,6 +37,31 @@ class Row_Problem extends Zend_Db_Table_Row_Abstract
 		$output .= $category->Name;
 		return $output;	
 	}
+	
+	/**
+	 * Get the object for problem accept
+	 *
+	 * @return Row_ProblemAccept
+	 */
+    public function getAcceptVote($userId)
+    {
+    	$paTable = new ProblemAccept();
+    	
+    	// if user is not loaded return empty row
+    	if (!$this->Id) {
+    		throw new Exception('Object no initialized');
+    	}
+    	
+    	// if no row exists, return empty one
+    	$rows = $paTable->find($userId, $this->Id);
+    	if (count($rows) != 1) {
+    		return $paTable->createRow(array(
+    			'ProblemId' => $this->Id,
+    			'UserId'	=> $userId
+    		));
+    	}
+    	return $rows->current();
+    }
 }
 
 ?>

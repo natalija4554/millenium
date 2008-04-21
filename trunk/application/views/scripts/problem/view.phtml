@@ -1,57 +1,126 @@
 <h2>
 	<span style="float: right">
-		<?=$this->problem->State?>
+		<?=$this->translate('problemstate_'.$this->problem->State)?>
 	</span>
-	Problém: <?=$this->problem->Name?>
+	<?=$this->problem->Name?>
 </h2>
 <?=$this->FlashMessages(); ?>
-<p>
-	Tu bude graficky prvok, ktory bude zobrazovat stav riesenia problemu. 
-</p>
+<fieldset id="problemView">
+	<legend>Definícia problému:</legend>
+	<?=$this->problem->Definition;?>
 
+<script type="text/javascript">
+function voteAccept(vote) {
+	
+	// set voting text
+	$('hlasujem').innerHTML = 'Hlasujem ...';
+	
+	// ajax request
+	new Ajax.Request('/problem/vote-accept-'+vote+'/problemId/<?=$this->problem->Id?>', {
+		method: 'post',
+		onSuccess: function(transport) {
+			var json = transport.responseText.evalJSON();
+			
+			var out = 'Hlasovali ste: ';
+			switch (json.Vote) {
+				case '<?=ProblemAccept::VOTE_YES?>':
+					out += '<b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b>';
+					break;
+				case '<?=ProblemAccept::VOTE_NO?>':
+					out += '<b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b>';
+					break;
+				case '<?=ProblemAccept::VOTE_IGNORE?>':
+					out += '<b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b>';
+					break;
+			}
+			out += '<span id="voteChangeHide">';
+			out += ' , <a href="#" onclick="$(\'voteChangeHide\').hide(); $(\'voteChange\').show(); return false;">Zmeniť</a>';
+			out += '</span>';
+			out += '<span id="voteChange" style="display: none"> / ';
+			switch (json.Vote) {
+				case '<?=ProblemAccept::VOTE_YES?>':
+					out += '<a onclick="return voteAccept(\'no\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a> /';
+					out += '<a onclick="return voteAccept(\'ignore\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b></a>';
+					break;
+				case '<?=ProblemAccept::VOTE_NO?>':
+					out += '<a onclick="return voteAccept(\'yes\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b></a> /';
+					out += '<a onclick="return voteAccept(\'ignore\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b></a>';
+					break;
+				case '<?=ProblemAccept::VOTE_IGNORE?>':
+					out += '<a onclick="return voteAccept(\'yes\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b></a> /';
+					out += '<a onclick="return voteAccept(\'no\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a>';
+					break;
+			}
+			out += '</span>';
+			$('hlasujem').innerHTML = out;
+		}
+	});
+	return false;
+}
+</script>
 
-<div style="border: 1px solid grey">
-<dl>
-	<dt>Plný názov</dt>
-	<dd><?=$this->problem->FullName;?></dd>
+<p style="margin-top: 15px; margin-bottom: 0; border-top: 1px solid silver; padding-top: 10px;">
 	
-	<dt>Definition</dt>
-	<dd><?=$this->problem->Definition;?></dd>
-	
-	<dt>Created</dt>
-	<dd><?=$this->problem->Created?></dd>
-	
-	<dt>Modified</dt>
-	<dd><?=$this->problem->Modified?></dd>
-	
-</dl>
-</div>
-<p>
+	<?php if ($this->isAllowed('PROBLEM', 'ACCEPT_VOTE')): ?>
 	<?php if ($this->problem->State == Problem::STATE_NEW): ?>
 	<span style="float: right">
-		<a class="btn" href="/problem/decline/ProblemId/<?=$this->problem->Id?>">Zamietnúť</a>
-		<a class="btn" href="/problem/approve/ProblemId/<?=$this->problem->Id?>">Akceptovať</a>
+		<span id="hlasujem">
+		<?php if ($this->acceptVote->voted()):?>
+			Hlasovali ste: <b><?=__('VOTE_'.$this->acceptVote->Vote)?></b>
+			<span id="voteChangeHide">
+				, <a href="#" onclick="$('voteChangeHide').hide(); $('voteChange').show(); return false;">Zmeniť</a>
+			</span>
+			<span id="voteChange" style="display: none">
+				/ 
+				<?php if ($this->acceptVote->Vote == ProblemAccept::VOTE_YES): ?>
+					<a onclick="return voteAccept('no');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a> /
+					<a onclick="return voteAccept('ignore');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b></a>
+						
+				<?php endif; ?>
+				<?php if ($this->acceptVote->Vote == ProblemAccept::VOTE_NO): ?>
+					<a onclick="return voteAccept('yes');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b></a> /
+					<a onclick="return voteAccept('ignore');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b></a>
+					
+				<?php endif; ?>
+				<?php if ($this->acceptVote->Vote == ProblemAccept::VOTE_IGNORE): ?>
+					<a onclick="return voteAccept('yes');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b></a> /
+					<a onclick="return voteAccept('no');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a>
+				<?php endif; ?>
+			</span>
+		<?php else: ?>
+			Akceptovať: 
+			<a href="/problem/vote-accept-yes/problemId/<?=$this->problem->Id?>"><b>Ano</b></a> /
+			<a href="/problem/vote-accept-no/problemId/<?=$this->problem->Id?>"><b>Nie</b></a> /
+			<a href="/problem/vote-accept-ignore/problemId/<?=$this->problem->Id?>"><b>Neviem</b></a>
+		<?php endif; ?>
+		</span>
 	</span>
 	<?php endif; ?>
-	
-	<?php if (in_array($this->problem->State, array(Problem::STATE_NEW, Problem::STATE_APPROVED))): ?>
-		<a class="btn" href="/problem/changedefinition/Id/<?=$this->problem->Id?>">Change definition</a>
 	<?php endif; ?>
 	
-	<?php if ($this->problem->State != Problem::STATE_DELETED): ?>
-	<a class="btn" href="/problem/changecategory/Id/<?=$this->problem->Id?>">Zmeniť kategóriu</a>
-	<?php endif; ?>
 	
-	<a class="btn" href="/problem/remove/Id/<?=$this->problem->Id?>">Zobraziť históriu</a>
+	<!-- Autor moze pozmenit definiciu ak nie je new -->
+	<?php if ($this->problem->State == Problem::STATE_NEW && $this->problem->CreatedBy == $this->user->Id): ?>
+		<a href="/problem/changedefinition/Id/<?=$this->problem->Id?>"><b>Upraviť definíciu</b></a>
+	<?php endif; ?>
 </p>
+</fieldset>
 
+<br />
+
+<h3>Komentáre k zadanému problému:</h3>
+<p id="commentNone">	
+	Žiadne.
+</p>
+<input type="button" value="Pridať komentár" />
+
+<!--  zobrazi jednotlive komentare k problemom
 <h3>Diskusia (<?=count($this->comments)?> príspevky/ov)</h3>
-<!--  zobrazi jednotlive komentare k problemom  -->
 <?php foreach ($this->comments as $comment): ?>
 	<?=$this->partial('problem/partial-comment.phtml', array('comment' => $comment)); ?>
 <?php endforeach; ?>
 <p>
 	<a class="btn" href="/problem/add-comment/Id/<?=$this->problem->Id?>">Pridať komentár</a>
 </p>
-
+-->
 

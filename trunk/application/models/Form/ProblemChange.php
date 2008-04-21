@@ -25,6 +25,7 @@ class Form_ProblemChange extends Colla_Form
 		$elm = new Zend_Form_Element_Textarea('Definition');
 		$elm->setAttrib('rows', '10');
 		$elm->setRequired(true);
+		$elm->setAttrib('class', 'mceEditor');
 		$elm->setLabel('Definícia problému');
 		$this->addElement($elm);
 		

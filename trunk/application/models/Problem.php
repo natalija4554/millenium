@@ -32,59 +32,35 @@ class Problem extends Colla_Db_Table_Abstract
 	 * Save problematic area into database
 	 * 
 	 * @param array $values data to save
-	 * @todo save CreatedBy
 	 */
 	public function createNew($data)
 	{
 		// extra fields to save
 		$data['Created'] 	= new Zend_Db_Expr('NOW()');
 		$data['Modified'] 	= new Zend_Db_Expr('NOW()');
-		$data['UserId'] 		= $this->_getLogedUserId();
-		$data['ApproveUserId']	= $this->_getLogedUserId();
 		
-		// choose witch one to save
-		$problemData = $this->_filterArray($data, array(
+		// save them
+		$this->getAdapter()->beginTransaction();		
+		$data['ProblemId'] = $this->insert($this->_filterArray($data, array(
 			'Name',
 			'Definition',
 			'ProblemAreaId',
 			'CategoryId',
 			'CreatedBy',
+			'Note',
 			'Created',
+			'CreatedBy',
 			'Modified'
-		));	
-		
-		// change data
-		$changeData = $this->_filterArray($data, array(
-			'Name',
-			'Definition',
+		)));
+		$data['Event'] = 'CREATE';
+		$hTable = new ProblemHistory();
+		$hTable->insert($this->_filterArray($data, array(
+			'ProblemId',
+			'Event',
+			'Note',
 			'Created',
-			'UserId',
-			'ApproveUserId'
-		));		
-		
-		// begin transaction
-		$this->getAdapter()->beginTransaction();
-		
-		// Save problem
-		$problemId = $this->insert($problemData);
-		
-		// Save problem change
-		$changeTable = new ProblemChange();
-		$changeData['ProblemId'] = $problemId;
-		$changeTable->insert($changeData);
-		
-		// commit transaction
+			'CreatedBy'
+		)));		
 		$this->getAdapter()->commit();
-	}
-	
-	/**
-	 * Change the definition of a problem
-	 *
-	 * @param int $problemId
-	 * @param array $data
-	 */
-	public function changeDefinition($problemId, $data)
-	{
-		
 	}
 }

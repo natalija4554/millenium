@@ -49,10 +49,15 @@ h1 a {
 }
 h2 {
 	padding-top: 0.9em;
-	padding-bottom: 0.2em;
+	padding-bottom: 0.3em;
 	margin: 0;
 	font:bold 23px tahoma,arial,verdana,sans-serif;
 	color:#15428b;
+}
+h3 {
+	margin-top: 0.9em;
+	font:bold 18px tahoma,arial,verdana,sans-serif;
+	color: #15428B;
 }
 a {
 	color: #5F2323;
@@ -244,7 +249,8 @@ table.std td {
  */
 a.btn {
 	border: 1px solid #99B7DF;
-	padding: 1px 8px 1px 8px;
+	padding: 3px 8px 3px 8px;
+	font-size: 11px;
 	background-color: #CDDEF3;
 	color: #15428B;
 	font-weight: bold;
@@ -318,4 +324,24 @@ dl.zend_form {
 }
 dl ul.errors {
 	color: red;
+}
+
+#problemView {
+	padding: 10px;
+	padding-bottom: 15px;
+	padding-top: 7px;
+	border: 1px solid silver;
+}
+#problemView legend {
+	color: silver;
+}
+#problemView hr {
+	border-color: silver;
+	border:0;
+	border-top: 1px solid silver;
+	
+}
+#commentNone {
+	border: 1px solid silver;
+	padding: 10px;
 }

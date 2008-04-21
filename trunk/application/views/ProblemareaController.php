@@ -1,4 +1,5 @@
-<?php
+﻿<?php
+error_reporting(E_ALL);
 /**
  * Controller pre problemove oblasti
  * 
@@ -31,8 +32,6 @@ class ProblemareaController extends Colla_Controller_Action
      */
     public function addAction()
     {
-    	$this->checkAllowed('PROBLEMAREA', 'ADD');
-    	
     	// check if user is logged in
     	if (!$this->hasIdentity()) {
     		$this->_helper->FlashMessenger->addMessage('You need to be logged in to perform actions.');
@@ -60,8 +59,6 @@ class ProblemareaController extends Colla_Controller_Action
      */
     public function addproblemAction()
     {
-    	$this->checkAllowed('PROBLEM', 'DEFINE');
-    	
 	    // check if user is logged in
     	if (!$this->hasIdentity()) {
     		$this->_helper->FlashMessenger->addMessage('You need to be logged in to perform actions.');
@@ -76,7 +73,7 @@ class ProblemareaController extends Colla_Controller_Action
     		if ($form->isValid($_POST)) {
     			$data = array();
     			$data = $form->getValues();
-    			$data['CreatedBy'] = Zend_Registry::get('User')->Id;
+    			$data['CreatedBy'] = $this->view->user->Id;
     			$data['ProblemAreaId'] = $ProblemAreaId;
     			$problem = new Problem();
 				$problem->createNew($data);
@@ -106,8 +103,6 @@ class ProblemareaController extends Colla_Controller_Action
      */
     public function changeAction()
     {
-    	$this->checkAllowed('PROBLEMAREA', 'CHANGE');
-    	
 	    // param Id is required
 		$problemAreaId = Colla_App::getInstance()->getProblemArea();	
 		$form = new Form_ProblemAreaChange($problemAreaId);
@@ -133,7 +128,7 @@ class ProblemareaController extends Colla_Controller_Action
      * 
      * @todo refactor !
      */
-    public function ajaxProblemsAction()
+    public function ajaxproblemsAction()
     {
     	// limiting
     	$start = $this->getRequest()->getParam('start');
@@ -153,7 +148,7 @@ class ProblemareaController extends Colla_Controller_Action
     		->from('problems')
     		->where('problems.State != ?', 'DELETED')
     		->where('problems.ProblemAreaId = ?', $ProblemAreaId)
-    		->joinLeft('users', 'users.Id = problems.CreatedBy', array('Username', 'FullName'));
+    		->join('users', 'users.Id = problems.CreatedBy', array('Username', 'FullName'));
     		
     	$select->limit($limit, $start);
     		
