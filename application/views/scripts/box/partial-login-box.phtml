@@ -11,6 +11,7 @@
 		<?=__('Please log into the system');?>
 		</p>
 		<form action="/auth/login" class="menuBoxBody" method="post">
+			<input type="hidden" name="redirect" value="<?=$this->redirect;?>" />
 			<label>Prihlasovacie meno:</label><br /><input type="text" name="username" value="" /><br />
 			<label>Heslo:</label><br /><input type="password" name="password" value="" />
 			<br /><input type="submit" value="Prihlásiť sa" />

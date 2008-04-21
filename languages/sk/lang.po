@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Colla\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-16 22:51+0100\n"
-"PO-Revision-Date: 2008-04-16 22:51+0100\n"
+"POT-Creation-Date: 2008-04-21 06:32+0100\n"
+"PO-Revision-Date: 2008-04-21 06:32+0100\n"
 "Last-Translator: Frantisek Durajka <franto@franto.sk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -60,9 +60,54 @@ msgstr "Vyhľadávanie v používateľoch"
 msgid "isEmpty"
 msgstr "Zadané políčko nemôže byť prázdne."
 
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:22
+msgid "problemstate_NEW"
+msgstr "Nový"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:23
+msgid "problemstate_APPROVED"
+msgstr ""
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:24
+msgid "problemstate_SOLVED"
+msgstr ""
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:25
+msgid "problemstate_CLOSED"
+msgstr ""
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:26
+msgid "problemstate_DELETED"
+msgstr ""
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:28
+msgid "VOTE_Yes"
+msgstr "Áno"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:29
+msgid "VOTE_No"
+msgstr "Nie"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:30
+msgid "VOTE_Ignore"
+msgstr "Neviem"
+
 #: C:\Users\franto\www\millenium\application/views/scripts/box/partial-login-box.phtml:11
 msgid "Please log into the system"
 msgstr "Prosím prihláste sa do systému."
+
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:27
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:30
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:33
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:49
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:56
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:57
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:61
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:62
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:66
+#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:67
+msgid "VOTE_"
+msgstr ""
 
 #: C:\Users\franto\www\millenium\application/views/scripts/user/find.phtml:5
 msgid "roles_all"

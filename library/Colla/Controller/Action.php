@@ -13,7 +13,12 @@ class Colla_Controller_Action extends Zend_Controller_Action
 		// check login informations
 		$auth = Zend_Auth::getInstance();
 		$view->authenticated = $auth->hasIdentity();
-		$view->user = $view->authenticated ? User::getByUsername($auth->getIdentity()) : null;
+		if ($view->authenticated) {
+			$view->user = User::getByUsername($auth->getIdentity());
+		} else {
+			$table = new User();
+			$view->user = $table->createRow();
+		}
 		
 		// save informations into registry to gain access to them by Db_Table_Abstract
 		Zend_Registry::set('Authenticated', $view->authenticated);

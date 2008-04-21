@@ -1,5 +1,10 @@
 <h2>Authentification</h2>
 <?=$this->FlashMessages(); ?>
+<?php if ($this->loginError): ?>
+	<p style="color: red">	
+		<?=$this->loginError?>
+	</p>
+<?php endif; ?>
 
 <?php if ($this->authenticated) : ?>
 	<p>You are already authenticated as <?php echo $this->escape($this->user->getFullname()) ?>.</p>

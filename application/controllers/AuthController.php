@@ -8,6 +8,11 @@ class AuthController extends Colla_Controller_Action
     public function loginAction()
     {
     	$form = new Form_Login();
+    	$redirect = $this->getRequest()->getParam('redirect');
+    	if (!$redirect) {
+    		$redirect = '/auth/login';
+    	}
+    	$form->setRedirectParam($redirect);
     	
     	// action save !
     	if ($this->getRequest()->isPost()) {
@@ -15,6 +20,7 @@ class AuthController extends Colla_Controller_Action
     		// authenticate
     		if ($form->isValid($_POST)) {
     			
+    			   			
     			// create adapter
     			$authAdapter = new Zend_Auth_Adapter_DbTable(
     					Zend_Db_Table_Abstract::getDefaultAdapter(),
@@ -23,8 +29,6 @@ class AuthController extends Colla_Controller_Action
     					'password',
     					'MD5(?)'
     				);
-    				
-    			// fill adapter
     			$authAdapter->setIdentity($form->getValue('username'))
     						->setCredential($form->getValue('password'));
     						
@@ -34,15 +38,14 @@ class AuthController extends Colla_Controller_Action
     				// success
     				case Zend_Auth_Result::SUCCESS:
     					$this->_helper->FlashMessenger->addMessage('You have been successfully logged in.');
-    					$this->_redirect('/');
+    					$this->_redirect($form->getValue('redirect'));
     					break;
     					
     				// failure
     				case Zend_Auth_Result::FAILURE:
     				case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
     				case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
-    					$this->_helper->FlashMessenger->addMessage('Invalid username or password.');
-    					$this->_redirect('/auth/login');
+    					$this->view->loginError = __('Invalid username or password.');
     					break;
     					
     				// exception
@@ -61,14 +64,13 @@ class AuthController extends Colla_Controller_Action
     public function logoutAction()
     {
     	$auth = Zend_Auth::getInstance();
-    	
     	if ($auth->hasIdentity()) {
     		$auth->clearIdentity();
     		$this->_helper->FlashMessenger->addMessage('You have been logged out.');
     	} else {
     		$this->_helper->FlashMessenger->addMessage('You are allready logged out.');
     	}
-    	$this->_redirect('/auth/login');
+    	$this->_redirect('/');
     }
     
     /**

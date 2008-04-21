@@ -35,10 +35,18 @@ class Form_Login extends Zend_Form
 			->setLabel('Password');
 		$this->addElement($elm);
 		
+		$elm = new Zend_Form_Element_Hidden('redirect');
+		$this->addElement($elm);
+		
 		// submit button
 		$elm = new Zend_Form_Element_Submit('submit');
 		$elm->setLabel('Log in');
 		$this->addElement($elm);
+	}
+	
+	public function setRedirectParam($redirect)
+	{
+		$this->getElement('redirect')->setValue($redirect);
 	}
 }
 ?>
