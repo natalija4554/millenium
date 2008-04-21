@@ -25,6 +25,7 @@ class ProblemController extends Colla_Controller_Action
 		$this->view->problem = $problem;
 		$this->view->comments = $problem->findComment();
 		$this->view->acceptVote = $problem->getAcceptVote($this->view->user->Id);
+		$this->view->voteInfo 	= new VoteInfo($problem->Id);
 	}
 	
 	public function changecategoryAction()
@@ -272,6 +273,13 @@ class ProblemController extends Colla_Controller_Action
 		// get it again and display in json
 		$this->view->acceptVote = $user->getAcceptVote($problemId);
 		$this->render('ajax-vote-accept');
+	}
+	
+	public function ajaxVoteInfoAction()
+	{
+		$problemId = $this->getRequest()->getParam('problemId');
+		$voteInfo = new VoteInfo($problemId);
+		$this->view->data = $voteInfo->toArray();
 	}
 }
 ?>

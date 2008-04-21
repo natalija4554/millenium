@@ -53,6 +53,19 @@ function voteAccept(vote) {
 			}
 			out += '</span>';
 			$('hlasujem').innerHTML = out;
+			
+			// update voted informations
+			new Ajax.Request('/problem/ajax-vote-info/problemId/<?=$this->problem->Id?>', {
+				method: 'post',
+				onSuccess: function (transport) {
+					var json = transport.responseText.evalJSON();
+					$('voteYes').innerHTML 		= json.votes.Yes;
+					$('voteNo').innerHTML 		= json.votes.No;
+					$('voteIgnore').innerHTML 	= json.votes.Ignore;
+					$('voteVoted').innerHTML 	= json.voted;
+					$('voteTotal').innerHTML 	= json.total;
+				}
+			}); 	
 		}
 	});
 	return false;
@@ -63,14 +76,11 @@ function voteAccept(vote) {
 	
 	<?php if ($this->isAllowed('PROBLEM', 'ACCEPT_VOTE')): ?>
 	<?php if ($this->problem->State == Problem::STATE_NEW): ?>
-	<span style="float: right">
+	<span style="float: right; text-align: right;">
 		<span id="hlasujem">
 		<?php if ($this->acceptVote->voted()):?>
 			Hlasovali ste: <b><?=__('VOTE_'.$this->acceptVote->Vote)?></b>
-			<span id="voteChangeHide">
-				, <a href="#" onclick="$('voteChangeHide').hide(); $('voteChange').show(); return false;">Zmeniť</a>
-			</span>
-			<span id="voteChange" style="display: none">
+			<span id="voteChangeHide">, <a href="#" onclick="$('voteChangeHide').hide(); $('voteChange').show(); return false;">Zmeniť</a></span><span id="voteChange" style="display: none">
 				/ 
 				<?php if ($this->acceptVote->Vote == ProblemAccept::VOTE_YES): ?>
 					<a onclick="return voteAccept('no');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a> /
@@ -89,9 +99,9 @@ function voteAccept(vote) {
 			</span>
 		<?php else: ?>
 			Akceptovať: 
-			<a href="/problem/vote-accept-yes/problemId/<?=$this->problem->Id?>"><b>Ano</b></a> /
-			<a href="/problem/vote-accept-no/problemId/<?=$this->problem->Id?>"><b>Nie</b></a> /
-			<a href="/problem/vote-accept-ignore/problemId/<?=$this->problem->Id?>"><b>Neviem</b></a>
+			<a onclick="return voteAccept('yes');" href="#"><b>Ano</b></a> /
+			<a onclick="return voteAccept('no');" href="#"><b>Nie</b></a> /
+			<a onclick="return voteAccept('ignore');" href="#"><b>Neviem</b></a>
 		<?php endif; ?>
 		</span>
 	</span>
@@ -106,7 +116,16 @@ function voteAccept(vote) {
 </p>
 </fieldset>
 
+
+<?php if ($this->isAllowed('PROBLEM', 'VIEW_ACCEPT_STATS') or $this->isAllowed('PROBLEM', 'ACCEPT')): ?>
 <br />
+<fieldset>
+	<legend>Priebežná štatistika hlasovania:</legend>
+	<span id="acceptStats">
+		Akceptovalo <strong id="voteYes"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_YES);?></strong>, Neakceptovalo <strong id="voteNo"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_NO);?></strong>, Nevedelo <strong id="voteIgnore"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_IGNORE);?></strong> osoby. Celkovo hlasovalo <strong id="voteVoted"><?=$this->voteInfo->getVoted();?></strong> z <strong id="voteTotal"><?=$this->voteInfo->getTotal();?></strong> možných účastníkov.
+	</span>
+</fieldset>
+<?php endif; ?>
 
 <h3>Komentáre k zadanému problému:</h3>
 <p id="commentNone">	
