@@ -33,6 +33,7 @@ class Colla_Controller_Action extends Zend_Controller_Action
 		$view->actionName 		= $this->getRequest()->getActionName();
 		$view->controllerName 	= $this->getRequest()->getControllerName();
 		$view->hasProblemArea	= Colla_App::getInstance()->hasProblemArea();
+		$view->requestUri 		= $this->getRequest()->getRequestUri();
 		
 		if ($view->hasProblemArea) {
 			
