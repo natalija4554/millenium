@@ -117,13 +117,74 @@ function voteAccept(vote) {
 </fieldset>
 
 
-<?php if ($this->isAllowed('PROBLEM', 'VIEW_ACCEPT_STATS') or $this->isAllowed('PROBLEM', 'ACCEPT')): ?>
+<?php if ($this->problem->State == Problem::STATE_NEW && ($this->isAllowed('PROBLEM', 'VIEW_ACCEPT_STATS') or $this->isAllowed('PROBLEM', 'ACCEPT'))): ?>
 <br />
 <fieldset>
 	<legend>Priebežná štatistika hlasovania:</legend>
 	<span id="acceptStats">
 		Akceptovalo <strong id="voteYes"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_YES);?></strong>, Neakceptovalo <strong id="voteNo"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_NO);?></strong>, Nevedelo <strong id="voteIgnore"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_IGNORE);?></strong> osoby. Celkovo hlasovalo <strong id="voteVoted"><?=$this->voteInfo->getVoted();?></strong> z <strong id="voteTotal"><?=$this->voteInfo->getTotal();?></strong> možných účastníkov.
 	</span>
+	<p style="margin-top: 15px; margin-bottom: 0; border-top: 1px solid silver; padding-top: 10px;">
+		<span id="ackLinky">
+			<a onclick="$('akcForm').show(); $('ackLinky').hide(); return false;" href="#"><strong>Akceptovať problém</strong></a> 
+			/ 
+			<a onclick="$('decForm').show(); $('ackLinky').hide(); return false;" href="#"><strong>Zavrhnúť problém</strong></a>
+		</span>
+	</p>
+	<form class="std" id="akcForm" method="post" action="/problem/accept/problemId/<?=$this->problem->Id?>" style="display: none">
+		<fieldset>
+			<legend>
+				<input name="accept-comment" type="checkbox" onclick="if (this.checked) {$('accBody').show();} else {$('accBody').hide();}" value="1" checked />  
+				<strong>Pridaj informatívny komentár k problému</strong>
+			</legend>
+			<dl id="accBody">
+				<dt>Hlavička:</dt>
+				<dd><input type="text" size="60" value="Systémová správa" name="accept-comment-title" /></dd>
+				<dt>Komentár:</dt>
+				<dd>
+					<textarea name="accept-comment-body" class="mceEditor" style="width: 100%">
+						<p>Problém bol akceptovaný.</p>
+						<p>Výsledky hlasovania: Akceptovalo(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_YES)?>), Neakceptovalo(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_NO)?>), Zdržalo sa(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_IGNORE)?>), celkový počet <?=$this->voteInfo->getVoted()?> hlasov.</p>
+					</textarea>
+				</dd>
+			</dl>
+		</fieldset>
+		<dl>
+			<dt>Poznámka k zmene:</dt>
+			<dd><textarea name="accept-note" cols="60" rows="1"></textarea></dd>
+		</dl>
+		<p>
+			<input type="submit" value="Akceptovať" />
+			<input type="button" onclick="$('akcForm').hide(); $('ackLinky').show(); return false;" value="Zrušiť" />
+		</p>
+	</form>
+	<form class="std" id="decForm" method="post" action="/problem/decline/problemId/<?=$this->problem->Id?>" style="display: none">
+		<fieldset>
+			<legend>
+				<input name="decline-comment" type="checkbox" onclick="if (this.checked) {$('decBody').show();} else {$('decBody').hide();}" value="1" checked />  
+				<strong>Pridaj informatívny komentár k problému</strong>
+			</legend>
+			<dl id="decBody">
+				<dt>Hlavička:</dt>
+				<dd><input type="text" size="60" value="Systémová správa" name="decline-comment-title" /></dd>
+				<dt>Komentár:</dt>
+				<dd>
+					<textarea name="decline-comment-body" class="mceEditor" style="width: 100%">
+						<p>Problém nebol akceptovaný.</p>
+						<p>Výsledky hlasovania: Akceptovalo(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_YES)?>), Neakceptovalo(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_NO)?>), Zdržalo sa(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_IGNORE)?>), celkový počet <?=$this->voteInfo->getVoted()?> hlasov.</p>
+					</textarea>
+				</dd>
+			</dl>
+		</fieldset>
+		<dl>
+			<dt>Poznámka k zmene:</dt>
+			<dd><textarea name="decline-note" cols="60" rows="1"></textarea></dd>
+		</dl>
+		<p>
+			<input type="submit" value="Zavrhnúť problém" />
+			<input type="button" onclick="$('decForm').hide(); $('ackLinky').show(); return false;" value="Zrušiť" />
+		</p>
+	</form>
 </fieldset>
 <?php endif; ?>
 

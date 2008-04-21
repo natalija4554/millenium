@@ -28,11 +28,6 @@ class ProblemController extends Colla_Controller_Action
 		$this->view->voteInfo 	= new VoteInfo($problem->Id);
 	}
 	
-	public function changecategoryAction()
-	{
-		
-	}
-	
 	public function changedefinitionAction()
 	{
 		// param ID
@@ -116,10 +111,10 @@ class ProblemController extends Colla_Controller_Action
 	 * Akceptuje nove riesenie
 	 *
 	 */
-	public function approveAction()
+	public function acceptAction()
 	{
 		// read problem ID
-		$problemId = $this->getRequest()->getParam('ProblemId');
+		$problemId = $this->getRequest()->getParam('problemId');
 		if (!$problemId) {
 			$this->_helper->FlashMessenger->addMessage('Please select a problem!');
 			$this->_redirect('/problemarea/problems');
@@ -142,40 +137,54 @@ class ProblemController extends Colla_Controller_Action
 			return;
 		}
 		
-		// formular
-		$form = new Form_Approve($problemId);		
-		if ($this->getRequest()->isPost()) {
-			if ($form->isValid($_POST)) {
-				
-				// AKCEPTUJ
-				$problemTable->getAdapter()->beginTransaction();
-				
-				// save 
-				$problem->State = Problem::STATE_APPROVED;
-				$problem->Modified = new Zend_Db_Expr('NOW()');
-				$problem->save();
-				
-				// save comment
-				$problemComment = new ProblemComment();
-				$comment = $problemComment->createRow();
-				$comment->ProblemId		= $problemId;
-				$comment->UserId		= $this->view->user->Id;
-				$comment->Title			= $form->getValue('Title');
-				$comment->Body			= $form->getValue('Body');
-				$comment->Created		= new Zend_Db_Expr('NOW()');
-				$comment->System		= 1;
-				$comment->save();
-				
-				// commit & redirect
-				$problemTable->getAdapter()->commit();
-				$this->_helper->FlashMessenger->addMessage('Problem bol akceptovany.');
-				$this->_redirect('/problem/view/Id/'.$problemId);
-			}
-		} else {
-			$form->getElement('Title')->setValue('Problem has been accepted!');
-			$form->getElement('Body')->setValue('Moderator accepted this problem as approved.');
+		// Assert permission
+		$this->checkAllowed('PROBLEM', 'ACCEPT');
+		
+		// parameters
+		$acceptcommenttitle = $this->getRequest()->getParam('accept-comment-title');
+		$acceptcommentbody	= $this->getRequest()->getParam('accept-comment-body');
+		$acceptnote 		= $this->getRequest()->getParam('accept-note');
+
+		// save 
+		$problemTable->getAdapter()->beginTransaction();
+		$problem->State = Problem::STATE_APPROVED;
+		if (!$problem->save()) {
+			throw new Excpetion('save failed !');
 		}
-		$this->view->form = $form;
+			
+		// add comment item
+		if ($this->getRequest()->getParam('accept-comment', null)) {
+			
+			$cTable = new Comment();
+			$comment = $cTable->createRow(array(
+				'ProblemId' 	=> $problem->Id,
+				'UserId'		=> Zend_Registry::get('User')->Id,
+				'Title'			=> $acceptcommenttitle,
+				'System'		=> 1,	
+				'Body'			=> $acceptcommentbody,
+				'Created'		=> new Zend_Db_Expr('NOW()')
+			));
+			if (!$comment->save()) {
+				throw new Excpetion('save failed !');
+			}
+		}
+		// add history item
+		$hTable = new ProblemHistory();
+		$history = $hTable->createRow(array(
+			'ProblemId'			=> $problem->Id,
+			'Event'				=> Problem::EVENT_APPROVE, 
+			'Note'				=> $acceptnote,
+			'Created'			=> new Zend_Db_Expr('NOW()'),
+			'CreatedBy'			=> Zend_Registry::get('User')->Id
+		));
+		if (!$history->save()) {
+			throw new Excpetion('save failed !');
+		}
+		$problemTable->getAdapter()->commit();
+		
+		// commit 
+		$this->_helper->FlashMessenger->addMessage('Problem bol akceptovany.');
+		$this->_redirect('/problem/view/Id/'.$problemId);
 	}
 	
 	/**
@@ -185,7 +194,7 @@ class ProblemController extends Colla_Controller_Action
 	public function declineAction()
 	{
 		// read problem ID
-		$problemId = $this->getRequest()->getParam('ProblemId');
+		$problemId = $this->getRequest()->getParam('problemId');
 		if (!$problemId) {
 			$this->_helper->FlashMessenger->addMessage('Please select a problem!');
 			$this->_redirect('/problemarea/problems');
@@ -203,45 +212,59 @@ class ProblemController extends Colla_Controller_Action
 		
 		// problem musi byt v stave novy
 		if ($problem->State != Problem::STATE_NEW) {
-			$this->_helper->FlashMessenger->addMessage('Je mozne zavrhnut len novy problem!');
+			$this->_helper->FlashMessenger->addMessage('Je mozne akceptovat len novy problem!');
 			$this->_redirect('/problem/view/Id/'.$problemId);
 			return;
 		}
 		
-		// formular
-		$form = new Form_Decline($problemId);		
-		if ($this->getRequest()->isPost()) {
-			if ($form->isValid($_POST)) {
-				
-				// AKCEPTUJ
-				$problemTable->getAdapter()->beginTransaction();
-				
-				// save 
-				$problem->State = Problem::STATE_DELETED;
-				$problem->Modified = new Zend_Db_Expr('NOW()');
-				$problem->save();
-				
-				// save comment
-				$problemComment = new ProblemComment();
-				$comment = $problemComment->createRow();
-				$comment->ProblemId		= $problemId;
-				$comment->UserId		= $this->view->user->Id;
-				$comment->Title			= $form->getValue('Title');
-				$comment->Body			= $form->getValue('Body');
-				$comment->Created		= new Zend_Db_Expr('NOW()');
-				$comment->System		= 1;
-				$comment->save();
-				
-				// commit & redirect
-				$problemTable->getAdapter()->commit();
-				$this->_helper->FlashMessenger->addMessage('Problem bol zavrhnuty.');
-				$this->_redirect('/problem/view/Id/'.$problemId);
-			}
-		} else {
-			$form->getElement('Title')->setValue('Problem has been rejected!');
-			$form->getElement('Body')->setValue('Moderator rejected this problem.');
+		// Assert permission
+		$this->checkAllowed('PROBLEM', 'ACCEPT');
+		
+		// parameters
+		$acceptcommenttitle = $this->getRequest()->getParam('decline-comment-title');
+		$acceptcommentbody	= $this->getRequest()->getParam('decline-comment-body');
+		$acceptnote 		= $this->getRequest()->getParam('decline-note'); 
+
+		// save 
+		$problemTable->getAdapter()->beginTransaction();
+		$problem->State = Problem::STATE_DELETED;
+		if (!$problem->save()) {
+			throw new Excpetion('save failed !');
 		}
-		$this->view->form = $form;
+			
+		// add comment item
+		if ($this->getRequest()->getParam('decline-comment', null)) {
+			
+			$cTable = new Comment();
+			$comment = $cTable->createRow(array(
+				'ProblemId' 	=> $problem->Id,
+				'UserId'		=> Zend_Registry::get('User')->Id,
+				'Title'			=> $acceptcommenttitle,
+				'System'		=> 1,	
+				'Body'			=> $acceptcommentbody,
+				'Created'		=> new Zend_Db_Expr('NOW()')
+			));
+			if (!$comment->save()) {
+				throw new Excpetion('save failed !');
+			}
+		}
+		// add history item
+		$hTable = new ProblemHistory();
+		$history = $hTable->createRow(array(
+			'ProblemId'			=> $problem->Id,
+			'Event'				=> Problem::EVENT_DECLINE, 
+			'Note'				=> $acceptnote,
+			'Created'			=> new Zend_Db_Expr('NOW()'),
+			'CreatedBy'			=> Zend_Registry::get('User')->Id
+		));
+		if (!$history->save()) {
+			throw new Excpetion('save failed !');
+		}
+		$problemTable->getAdapter()->commit();
+		
+		// commit 
+		$this->_helper->FlashMessenger->addMessage('Problem bol zavrhnutý.');
+		$this->_redirect('/problem/view/Id/'.$problemId);
 	}
 	
 	public function voteAcceptYesAction()
