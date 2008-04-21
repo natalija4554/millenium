@@ -13,6 +13,11 @@ class Problem extends Colla_Db_Table_Abstract
     const STATE_CLOSED 		= 'CLOSED';
     const STATE_DELETED 	= 'DELETED';
     
+    
+    const EVENT_CREATE		= 'CREATE';
+    const EVENT_APPROVE		= 'APPROVE';
+    const EVENT_DECLINE		= 'DECLINE';
+    
     /**
      * Enter description here...
      *
