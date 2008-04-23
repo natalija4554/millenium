@@ -10,7 +10,7 @@ class ProblemArea extends Colla_Db_Table_Abstract
 	 *
 	 * @var string
 	 */
-    protected $_name = 'ProblemAreas';
+    protected $_name = 'problemareas';
     protected $_rowClass = 'Row_ProblemArea';
     protected $_dependentTables = array('ProblemAreaChange');
 
