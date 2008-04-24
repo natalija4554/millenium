@@ -55,12 +55,13 @@
 			</script>
 			<div class="menuBox" id="box-login"></div>
 			<div id="box-login-body">
-				<?=$this->action('partial-login-box', 'box')?>
+				<?=$this->action('partial-login-box', 'box', null, array('redirect'=> $this->requestUri))?>
 			</div>
 			<?php endif; ?>
 			
 			<!-- Status Bar  -->
-			<script>
+			<?php /* ?>
+			<script type="text/javascript">
 			Ext.onReady(function(){
 				var p = new Ext.Panel({
 			        title: 'Stav riešenia probl. oblasti',
@@ -75,8 +76,10 @@
 			<div id="box-status-body">
 				<?=$this->action('partial-status-box', 'box')?>
 			</div>
+			<?php */ ?>
 			
 			<!--  Categories  -->
+			<?php /* ?>
 			<script type="text/javascript">
 				Ext.onReady(function() {
 				    var Tree_Category_Loader = new Ext.tree.TreeLoader({
@@ -112,6 +115,7 @@
 			});						
 			</script>
 			<div class="menuBox" id="tree_projectcategory" ></div>
+			<?php */ ?>
 			
 			
 			
@@ -131,14 +135,18 @@
 									text: 'Zoznam oblastí',
 									href: '/problemarea/select'
 								}),
+								<?php if ($this->isAllowed('PROBLEMAREA', 'CHANGE')): ?>
 								new Ext.menu.Item({
 									text: 'Zmeniť definíciu aktuálnej',
 									href: '/problemarea/change'
 								}),
+								<?php endif; ?>
+								<?php if ($this->isAllowed('PROBLEMAREA', 'ADD')): ?>
 								new Ext.menu.Item({
 									text: 'Pridať novú oblasť',
 									href: '/problemarea/add'
 								})
+								<?php endif; ?>
 							]
 						});
 						// menu problemy
@@ -149,10 +157,12 @@
 									text: 'Zobraziť všetky',
 									href: '/problemarea/problems'
 								}),
+								<?php if ($this->isAllowed('PROBLEM', 'DEFINE')): ?>
 								new Ext.menu.Item({
 									text: 'Pridať nový',
 									href: '/problemarea/addproblem'
 								})
+								<?php endif; ?>
 							]
 						});
 						// menu kategorie
