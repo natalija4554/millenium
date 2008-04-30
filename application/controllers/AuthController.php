@@ -37,7 +37,7 @@ class AuthController extends Colla_Controller_Action
     			switch ($result->getCode()) {
     				// success
     				case Zend_Auth_Result::SUCCESS:
-    					$this->_helper->FlashMessenger->addMessage('You have been successfully logged in.');
+    					$this->_helper->FlashMessenger->addMessage('Boli ste úspešne prihlásený.');
     					$this->_redirect($form->getValue('redirect'));
     					break;
     					
@@ -45,7 +45,7 @@ class AuthController extends Colla_Controller_Action
     				case Zend_Auth_Result::FAILURE:
     				case Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND:
     				case Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID:
-    					$this->view->loginError = __('Invalid username or password.');
+    					$this->view->loginError = __('Nesprávne prihlasovacie meno alebo heslo.');
     					break;
     					
     				// exception

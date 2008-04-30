@@ -60,14 +60,14 @@ class ProblemareaController extends Colla_Controller_Action
      */
     public function addproblemAction()
     {
-    	$this->checkAllowed('PROBLEM', 'DEFINE');
-    	
-	    // check if user is logged in
+    	// check if user is logged in
     	if (!$this->hasIdentity()) {
-    		$this->_helper->FlashMessenger->addMessage('You need to be logged in to perform actions.');
-    		$this->_redirect('/auth/login');
+    		$this->_helper->FlashMessenger->addMessage('Pre pridávanie nového problému musíte byť najskôr prihlásený.');
+    		$this->_redirect('/auth/login?redirect=/problemarea/addproblem');
     		return;
     	}
+    	
+    	$this->checkAllowed('PROBLEM', 'DEFINE');
     	
     	// ID for the new problem
     	$ProblemAreaId = Colla_App::getInstance()->getProblemArea();
@@ -207,6 +207,10 @@ class ProblemareaController extends Colla_Controller_Action
     	}
     }
     
- 	
+    public function infoAction()
+    {
+    	$this->_helper->layout()->setLayout('simple');
+    }
+    
 }
 ?>

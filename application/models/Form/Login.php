@@ -26,13 +26,13 @@ class Form_Login extends Zend_Form
 			->addFilter(new Zend_Filter_StringTrim())
 			->addFilter(new Zend_Filter_StringToLower())
 			->addValidator(new Zend_Validate_StringLength(3, 32))
-			->setLabel('Username');
+			->setLabel('Prihlasovacie meno:');
 		$this->addElement($elm);
 		
 		// description
 		$elm = new Zend_Form_Element_Password('password');
 		$elm->setRequired(true)
-			->setLabel('Password');
+			->setLabel('Heslo:');
 		$this->addElement($elm);
 		
 		$elm = new Zend_Form_Element_Hidden('redirect');
@@ -40,7 +40,7 @@ class Form_Login extends Zend_Form
 		
 		// submit button
 		$elm = new Zend_Form_Element_Submit('submit');
-		$elm->setLabel('Log in');
+		$elm->setLabel('Prihlásiť sa');
 		$this->addElement($elm);
 	}
 	
