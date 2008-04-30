@@ -159,7 +159,7 @@ final class Colla_App
  		Zend_Layout::startMvc();
         $layout = Zend_Layout::getMvcInstance();
         $layout->setLayoutPath($this->_dirApplication . DS . 'views' . DS . 'layout' . DS);
-        $layout->setLayout('default');
+        $layout->setLayout('simple');
         
         return $this;
  	}

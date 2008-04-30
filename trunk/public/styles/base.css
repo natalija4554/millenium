@@ -20,20 +20,13 @@ body {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 h1 {
-	background-color: #B35A00;
-	line-height: 70%; 
-	margin-left: 10px; 
-	margin-right: 10px; 
-	margin-bottom: 13px;
-	margin-top: 10px;
 	font-size: 2em;
-	
-	
 	color:#15428b;
 	font:bold 27px tahoma,arial,verdana,sans-serif;
-	padding:10px 3px 10px 5px;
-	border:1px solid #99bbe8;
-	line-height:25px;
+	margin: 0;
+	padding: 20px 3px 5px 5px;
+	border: 1px solid #99bbe8;
+	line-height: 30px;
 	background:transparent url(../javascript/ext/resources/images/default/panel/white-top-bottom.gif) repeat-x 0 -1px;
 }
 h1 span {
@@ -67,6 +60,7 @@ a {
 p {
 	margin: 11px 0 7px 0;
 	padding: 0;
+	line-height: 17px;
 }
 fieldset {
 	padding: 10px;
@@ -87,34 +81,32 @@ textarea, input {
 	border: 1px solid black; 
 	margin: 0 auto; 
 	/* width: 922px; */
-	max-width: 1024px;
+	max-width: 984px;
 	/* background-color: #FFF7EF; */
 	background-color: white;
 	text-align: left;
+	background
 }
-#mainMenuLeft {
+#subMainBox {
+	margin: 10px;
+}
+#content {
+	margin-top: 10px;
+	background: white url('../images/bgnav.jpg') repeat-y;
+}
+#leftOne {
 	float: left; 
-	width: 240px;
+	width: 185px;
 }
-#mainMenuRight {
-	/* width: 730px; */ 
-	margin-left: 245px; 
-	padding-bottom: 30px;
-}
-#mainMenuRight2 {
-	padding-left: 0px;
-	padding-right: 10px;
-	margin-top: 0px;
+#rightOne {
+	margin-left: 205px;
+	padding-bottom: 20px; 
 }
 #mainFooter {
 	 text-align: right; 
-	 margin-top: 10px; 
 	 border-top: 1px dashed silver; 
 	 padding: 2px 10px 2px 10px;
-	 margin-right: 10px;
-	 margin-left: 10px;
-	 margin-bottom: 10px;
-	 clear: both;
+	 margin: 10px;
 }
 #mainFooter2 {
 	 color: #808080; 
@@ -207,7 +199,6 @@ textarea, input {
  * Custom definitions - LEFT MENU 
  */ 
 .menuBox {
-	margin: 0 10px 0 10px;
 	margin-bottom: 1em;
 	background-color: #FFDFBF;
 }

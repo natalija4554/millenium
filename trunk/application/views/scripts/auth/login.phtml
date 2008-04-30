@@ -1,14 +1,27 @@
-<h2>Authentification</h2>
+<h2>Prosím prihláste sa</h2>
 <?=$this->FlashMessages(); ?>
 <?php if ($this->loginError): ?>
 	<p style="color: red">	
 		<?=$this->loginError?>
 	</p>
 <?php endif; ?>
-
+<p>
+	Ak už vlastníte prihlasovacie meno a heslo, prosím prihláste sa do systému.
+</p>
+<fieldset>
 <?php if ($this->authenticated) : ?>
 	<p>You are already authenticated as <?php echo $this->escape($this->user->getFullname()) ?>.</p>
 	<p><a href="/auth/logout">Logout</a></p>
 <?php else: ?>
 	<?=$this->form ?>
 <?php endif; ?>
+</fieldset>
+
+
+<h3>Nemáte ešte vlastné konto?</h3>
+<p>
+	Pre plnohodnotnú prácu so systémom je nutné si vytvoriť 
+</p>
+<p>
+	<a href="#" class="btn">Registrovať sa &raquo;</a>
+</p>

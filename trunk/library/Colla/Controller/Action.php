@@ -76,7 +76,8 @@ class Colla_Controller_Action extends Zend_Controller_Action
 	public function checkAllowed($resource, $privilege) 
 	{
 		if (!$this->isAllowed($resource, $privilege)) {
-			throw new Exception('You have no privilege('.$privilege.') to access this resource ('.$resource.')');
+			$this->_helper->FlashMessenger->addMessage('Nemáte oprávnenie na zobrazenie požadovanej stránky.');
+			$this->_redirect('/auth/login');
 		}
 	}
 }
