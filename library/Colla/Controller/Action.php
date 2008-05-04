@@ -5,8 +5,17 @@
  */
 class Colla_Controller_Action extends Zend_Controller_Action
 {
+	
+	/**
+	 *  @var Zend_Config_Xml
+	 */
+	protected $appConfig;
+	
 	public function preDispatch()
 	{
+		// distribute app config
+		$this->appConfig = Colla_App::getConfig();
+		
 		// view object
 		$view = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer')->view;
 		

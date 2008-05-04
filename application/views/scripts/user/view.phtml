@@ -1,0 +1,47 @@
+<h2>Informácie o používateľovi</h2>
+<fieldset class="std">
+	<legend>Základné informácie</legend>
+	<dl class="std">
+		<dt>Prihlasovacie meno:</dt>
+		<dd><strong><?=$this->usr->Username?></strong></dd>
+		
+		<dt>Stav účtu:</dt>
+		<dd><?=__('USR_ACCSTATUS_'.$this->usr->Active)?></dd>
+		
+		<dt>Používateľské meno:</dt>
+		<dd><?=$this->usr->FullName?></dd>
+		
+		
+		<dt>E-mail:</dt>
+		<dd><a href="mailto:<?=$this->usr->EMail;?>"><?=$this->usr->EMail;?></a></dd>
+
+		<dt>Posledne prihlásený:</dt>
+		<dd><?=$this->usr->LastLogged?></dd>
+		
+		<dt>Typ účtu:</dt>
+		<dd><?=__('role_'.$this->usr->RoleId)?></dd>
+	</dl>
+</fieldset>
+<fieldset class="std">
+	<legend>Aktivity používateľa</legend>
+	<dl class="std">
+		<dt>Pridaných problémov:</dt>
+		<dd>0</dd>
+		
+		<dt>Pridaných riešení:</dt>
+		<dd>0</dd>
+		
+		<dt>Pridaných Komentárov:</dt>
+		<dd>0</dd>
+		
+		<dt>Počet hlasovaní:</dt>
+		<dd>0</dd>
+	</dl>	
+</fieldset>
+
+<p>
+	<a class="btn" href="#">Zmeniť údaje</a>
+	<a class="btn" href="#">Zmeniť typ účtu</a>
+	<a class="btn" href="#">Deaktivovať</a>
+</p>
+

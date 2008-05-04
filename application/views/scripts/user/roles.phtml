@@ -10,7 +10,13 @@
 			</th>
 			<?php endforeach; ?>
 		</tr>
-		<?php foreach ($this->resources as $resource): ?>
+		<?php $prev = null; foreach ($this->resources as $resource): ?>
+		<?php if ($resource->id != $prev): ?>
+		<tr>
+			<th colspan="<?=count($this->roles) + 1?>"><?=__('resource_group_'.$resource->id)?></th>
+		</tr>
+		<?php $prev = $resource->id;?>
+		<?php endif; ?>
 		<tr>
 			<td>
 				<?=$this->translate($resource->id.'_'.$resource->privilege)?>

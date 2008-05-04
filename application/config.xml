@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configdata>
 	<baseUrl>/</baseUrl>
+	<timezone>Europe/Bratislava</timezone>
 	<database>
 		<adapter>Pdo_Mysql</adapter>
 		<params>
@@ -10,4 +11,35 @@
 			<dbname>dp</dbname>
 		</params>
 	</database>
+	<email>
+		<from>millenium@franto.sk</from>
+		<fromName>Millenium Projekt</fromName>
+		<smtp>
+			<host>mail.ynet.sk</host>
+		</smtp>
+	</email>
+	
+	<!-- Registration -->
+	<activation>
+		<email>
+			<subject>Aktivácia Váštho účtu</subject>
+			<body>Dobrý deň,
+
+na adresu Vašej e-mailovej adresy bol registrovaný nový používateľský účet v Millenium systéme s názvom %Username%. 
+
+Pre potvredenie tejto registrácie prosím otvorte nasledovnú linku vo Vašom obľúbenom prehliadači:
+http://millenium.franto.sk/user/verify/id/%Id%/key/%VerificationKey%
+
+Ak ste si neregistrovali žiadne konto na portáli milénium projektu, prosím považujte tento e-mail za bezpredmetný. Používateľské konto bez aktivácie bude v priebehu niekoľko hodín zrušené. 
+
+S pozdravom, 
+
+Administrátor systému Millenium projekt
+
+-- 
+Tento e-mail je automaticky generovaný systémom.
+</body>
+		</email>
+	</activation>
+	
 </configdata>
