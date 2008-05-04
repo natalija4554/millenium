@@ -82,6 +82,7 @@ final class Colla_App
     		 ->_setupSession()
     		 ->_loadConfig()
     		 ->_setupDatabase()
+    		 ->_setupEmail()
     		 ->_setupLayout()
     		 ->_setupTranslation()
     		 ->_setupAcl()
@@ -108,8 +109,8 @@ final class Colla_App
         // autoloader
         set_include_path($this->_dirLibrary . PS . $this->_dirApplication . DS . 'models' . PS . get_include_path());
 		Zend_Loader::registerAutoload();
-        
-        return $this;
+
+		return $this;
     }
 		
     /**
@@ -133,6 +134,9 @@ final class Colla_App
  	{
         // read config file
         $this->_config = new Zend_Config_Xml($this->_dirApplication . DS . 'config.xml');
+        
+        // set defaul timezone
+        date_default_timezone_set($this->_config->timezone);
         return $this;
  	}
  	
@@ -146,6 +150,13 @@ final class Colla_App
  		$adapter = Zend_Db::factory($this->_config->database);
         Zend_Db_Table_Abstract::setDefaultAdapter($adapter);
         return $this;
+ 	}
+ 	
+ 	private function _setupEmail()
+ 	{
+ 		$tr = new Zend_Mail_Transport_Smtp($this->_config->email->smtp->host);
+		Zend_Mail::setDefaultTransport($tr);
+ 		return $this;
  	}
  	
  	/**
@@ -251,6 +262,16 @@ final class Colla_App
     public function setProblemArea($id)
     {
     	$this->_session->problemAreaId = $id;
+    }
+    
+    public function getAppConfig()
+    {
+    	return $this->_config;
+    }
+    
+    static function getConfig()
+    {
+    	return self::getInstance()->getAppConfig();	
     }
 }
 ?>

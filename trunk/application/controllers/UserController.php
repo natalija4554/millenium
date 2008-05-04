@@ -54,7 +54,7 @@ class UserController extends Colla_Controller_Action
 		$resource = new AclResource();
 		$select = $resource->select()
 			->where('configurable = 1')
-			->order('position');
+			->order(array('id', 'position'));
 		$this->view->resources = $resource->fetchAll($select);
 
 		
@@ -90,6 +90,115 @@ class UserController extends Colla_Controller_Action
 			$this->_redirect('/user/roles');
 			exit();
 		}
+	}
+	
+	
+	public function viewAction()
+	{
+		$userTable = new User();
+		$rows = $userTable->find($this->getRequest()->getParam('Id'));
+		if (count($rows) != 1) {
+			$this->_helper->FlashMessenger->addMessage('No such user!');
+			$this->_redirect('/user/find');
+		}
+		$this->view->usr = $rows->current();
+	}
+	
+	public function registerAction()
+	{
+		$form = new Form_Register();
+		
+		if ($this->getRequest()->isPost()) {
+			if ($form->isValid($_POST)) {
+
+				// insert new User
+				$userTable = new User();
+				$userTable->getAdapter()->beginTransaction();
+				$user = $userTable->createRow($form->getValues());
+				$user->Password = md5($user->Password);
+				$user->Active = 0;
+				$user->Verified = 0;
+				$user->VerificationKey = substr(md5(rand(0,999)), 10, 8);
+				$user->RoleId = 'user';
+				$userId = $user->save(); 
+				
+				
+				
+				// send verification e-mail
+				$body = str_replace('%Username%', $user->Username, $this->appConfig->activation->email->body);
+				$body = str_replace('%VerificationKey%', $user->VerificationKey, $body);
+				$body = str_replace('%Id%', $userId, $body);
+				
+				$mail = new Zend_Mail('utf-8');
+				$mail->setFrom($this->appConfig->email->from, $this->appConfig->email->fromName);
+				$mail->addTo($user->EMail);
+				$mail->setBodyText($body);
+				$mail->setSubject($this->appConfig->activation->email->subject);
+				$mail->send();					
+							
+				$userTable->getAdapter()->commit();
+				$this->render('register-info');
+			}
+		}
+		$this->view->form = $form;
+		$this->view->hideLoginBox = true;
+	}
+	
+	public function verifyAgainAction()
+	{
+		$userId 	= $this->getRequest()->getParam('id');
+		
+		// read user id 
+		$userTable = new User();
+		$rows = $userTable->find((int)$userId);
+		if (count($rows) != 1) {
+			throw new Exception('No such user');
+		}
+		$user = $rows->current();
+		
+		// send the e-mail
+		$body = str_replace('%Username%', $user->Username, $this->appConfig->activation->email->body);
+		$body = str_replace('%VerificationKey%', $user->VerificationKey, $body);
+		$body = str_replace('%Id%', $userId, $body);
+		
+		$mail = new Zend_Mail('utf-8');
+		$mail->setFrom($this->appConfig->email->from, $this->appConfig->email->fromName);
+		$mail->addTo($user->EMail);
+		$mail->setBodyText($body);
+		$mail->setSubject($this->appConfig->activation->email->subject);
+		$mail->send();
+	}
+	
+	public function verifyAction()
+	{
+		$userId 	= $this->getRequest()->getParam('id');
+		$key 		= $this->getRequest()->getParam('key');
+		
+		// read user id 
+		$userTable = new User();
+		$rows = $userTable->find((int)$userId);
+		if (count($rows) != 1) {
+			throw new Exception('No such user');
+		}
+		$user = $rows->current();
+		$this->view->usr = $user;
+		
+		// allready verified
+		if ($user->Verified) {
+			$this->render('verify-allready');
+			return;
+		}
+		
+		// bad token
+		if ($user->VerificationKey != $key) {
+			$this->render('verify-fail');
+			return;
+		}
+		
+		// verify the string 
+		$user->Verified = 1;
+		$user->VerificationKey = null;
+		$user->save();
 	}
 }
 ?>

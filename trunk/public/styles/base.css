@@ -68,6 +68,9 @@ fieldset {
 	padding-top: 7px;
 	border: 1px solid silver;
 }
+fieldset.std {
+	margin-top: 15px;
+}
 strong {
 	font-weight: bold;
 }
@@ -241,6 +244,7 @@ table.std th {
  	font-weight: bold;
  	padding: 2px 5px 1px 5px;
  	margin: 0;
+ 	border: 1px solid #99B7DF;
 }
 table.std td {
   	border: 1px solid #99B7DF;
@@ -314,10 +318,14 @@ form.std dt {
 	margin-top: 7px;
 	font-size: 110%;
 }
+form.std dt label.optional {
+	font-weight: normal;
+}
 form.std dd {
 	margin: 0;
 	padding: 0;
 }
+
 form.std textarea.mceEditor {
 	width: 100%;
 }
@@ -347,4 +355,38 @@ dl ul.errors {
 #commentNone {
 	border: 1px solid silver;
 	padding: 10px;
+}
+
+dl.std {
+	
+}
+dl.std dt {
+	display: block;
+	float: left;
+	width: 180px; 
+	padding: 0;
+	margin: 0;
+	clear: left;
+}
+dl.std dd {
+	display: block;
+	float: left;
+	width: 300px;
+	padding: 0;
+	margin: 0;
+	
+}
+dl.std dt, dl.std dd {
+	padding: 7px 0 2px 0;
+}
+dl.std br {
+	clear: both;
+}
+p.hint {
+	display: inline;
+}
+#Podmienky {
+	border: 1px solid silver;
+	height: 200px;
+	color: silver;
 }
