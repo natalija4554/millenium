@@ -20,17 +20,11 @@ class AuthController extends Colla_Controller_Action
     		// authenticate
     		if ($form->isValid($_POST)) {
     			
-    			   			
     			// create adapter
-    			$authAdapter = new Zend_Auth_Adapter_DbTable(
-    					Zend_Db_Table_Abstract::getDefaultAdapter(),
-    					'users',
-    					'username',
-    					'password',
-    					'MD5(?)'
-    				);
-    			$authAdapter->setIdentity($form->getValue('username'))
-    						->setCredential($form->getValue('password'));
+    			$authAdapter = new Colla_Auth_Adapter(
+    				$form->getValue('username'),
+    				$form->getValue('password')
+    			);
     						
     			// authenticate
     			$result = Zend_Auth::getInstance()->authenticate($authAdapter);
@@ -39,6 +33,14 @@ class AuthController extends Colla_Controller_Action
     				case Zend_Auth_Result::SUCCESS:
     					$this->_helper->FlashMessenger->addMessage('Boli ste úspešne prihlásený.');
     					$this->_redirect($form->getValue('redirect'));
+    					break;
+    				
+    				case Colla_Auth_Result::FAILURE_NOTACTIVE:
+    					$this->view->loginError = __('Prihlasovací účet nie je aktívny.');
+    					break;
+    				
+    				case Colla_Auth_Result::FAILURE_NOTVERIFIED:
+    					$this->view->loginError = __('Váš účet ešte nie je aktívny, nakoľko nebolo overená správnosť Vašej e-mailovej adresy.');
     					break;
     					
     				// failure
