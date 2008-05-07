@@ -1,0 +1,18 @@
+<h2>Zmeniť typ používateľského účtu</h2>
+<p>
+	Prosím vyberte nový typ používateľské účtu pre používateľa "<em><?=$this->usr->Username;?></em>".
+</p>
+<form method="post" action="/user/change-role/id/<?=$this->usr->Id?>">
+<fieldset>
+	<legend>Nový typ účtu:</legend>
+	<select name="role_id">
+		<?php foreach ($this->roles as $role): ?>
+		<?php if ($role->id == $this->usr->RoleId) continue; ?>
+		<option value="<?=$role->id?>"><?=$this->translate('role_'.$role->id)?></option>
+		<?php endforeach; ?>
+	</select>
+</fieldset>
+<p>
+	<input type="submit" value="Zmeniť" />
+</p>
+</form>

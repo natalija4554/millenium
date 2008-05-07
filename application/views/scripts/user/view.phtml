@@ -1,4 +1,5 @@
 <h2>Informácie o používateľovi</h2>
+<?=$this->FlashMessages(); ?>
 <fieldset class="std">
 	<legend>Základné informácie</legend>
 	<dl class="std">
@@ -40,8 +41,15 @@
 </fieldset>
 
 <p>
-	<a class="btn" href="#">Zmeniť údaje</a>
-	<a class="btn" href="#">Zmeniť typ účtu</a>
-	<a class="btn" href="#">Deaktivovať</a>
+	<?php if ($this->user->Id != $this->usr->Id): ?>
+		<a class="btn" href="/user/change-role/id/<?=$this->usr->Id?>">Zmeniť typ účtu</a>
+	
+		
+		<?php if ($this->usr->Active): ?>
+			<a class="btn" onclick="return confirm('Naozaj si prajete deaktivovať používateľský účet?');" href="/user/deactivate/id/<?=$this->usr->Id?>">Deaktivovať</a>
+		<?php else: ?>
+			<a class="btn" href="/user/activate/id/<?=$this->usr->Id?>">Aktivovať</a>
+		<?php endif; ?>
+	<?php endif;?>
 </p>
 

@@ -5,6 +5,12 @@
 		<?=$this->loginError?>
 	</p>
 <?php endif; ?>
+<?php if ($this->loginVerify): ?>
+	<p>
+		Ak ste si náhodou vymazali verifikačný e-mail, môžte požiadať o <a href="/user/verify-again/id/<?=$this->loginVerifyUserId?>">znovuzaslanie</a>.
+	</p>
+<?php endif; ?>
+
 <p>
 	Ak už vlastníte prihlasovacie meno a heslo, prosím prihláste sa do systému.
 </p>
@@ -20,8 +26,8 @@
 
 <h3>Nemáte ešte vlastné konto?</h3>
 <p>
-	Pre plnohodnotnú prácu so systémom je nutné si vytvoriť 
+	Pre plnohodnotnú prácu so systémom je nutné si ho vytvoriť. 
 </p>
 <p>
-	<a href="#" class="btn">Registrovať sa &raquo;</a>
+	<a href="/user/register" class="btn">Registrovať sa &raquo;</a>
 </p>

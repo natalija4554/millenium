@@ -40,6 +40,8 @@ class AuthController extends Colla_Controller_Action
     					break;
     				
     				case Colla_Auth_Result::FAILURE_NOTVERIFIED:
+    					$this->view->loginVerify = true;
+    					$this->view->loginVerifyUserId = $result->getIdentity();
     					$this->view->loginError = __('Váš účet ešte nie je aktívny, nakoľko nebolo overená správnosť Vašej e-mailovej adresy.');
     					break;
     					
@@ -57,6 +59,7 @@ class AuthController extends Colla_Controller_Action
        		}
     	}
     	$this->view->form = $form;
+    	$this->view->hideLoginBox = true;
     }
     
     /**
