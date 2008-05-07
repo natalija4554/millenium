@@ -108,6 +108,29 @@ function voteAccept(vote) {
 	<?php endif; ?>
 	<?php endif; ?>
 	
+	<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
+	<span style="float: right; text-align: right;">
+		
+		Hodnotenie závažnosti:
+		<?php if (1): ?>
+		<select style="">
+			<option style="color: black">1 - Nedôležitý</option>
+			<option>2 - Nezávažný</option>
+			<option>3 - Priemerný</option>
+			<option>4 - Závažný</option>
+			<option>5 - Kritický</option>
+		</select>
+		<?php endif; ?>
+		<?php if (0): ?>
+		<strong>Závažný</strong> / <a href="#">Zmeniť</a>
+		<?php endif; ?>
+	</span>
+	
+	
+	
+	<?php endif; ?>
+	
+	
 	
 	<!-- Autor moze pozmenit definiciu ak nie je new -->
 	<?php if ($this->problem->State == Problem::STATE_NEW && $this->problem->CreatedBy == $this->user->Id): ?>
@@ -115,6 +138,45 @@ function voteAccept(vote) {
 	<?php endif; ?>
 </p>
 </fieldset>
+<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
+<br />
+<fieldset>
+	<legend>Riešenia problému</legend>
+	<p>
+		<div style="margin-top: 5px; margin-bottom: 0; border-bottom: 1px solid silver; padding-bottom: 5px;">
+			1. <a href="#" style="font-weight: bold;">
+			Vymeniť hliníkové tesnenie na oknách.
+			</a>
+			<br />
+			
+			<p style="padding-left: 15px;">
+				Na tesnenie okien je na väčšine izieb použité tesnenie, toto je žial vo väčšine prípado pokazené, 
+				takže ho treba vymeniť. V prípade ak sú poškodené samotné okennice, tieto treba pred tým opraviť.
+				<br />
+				<span style="display: block; padding-top: 10px;">
+				<span style="text-decoration: underline;">Závislosť</span>:
+					<ul class="podmul">
+						<li><a href="#">Na izbách sa nedajú otvárať okná.</a></li>
+					</ul>
+				</span>			
+			
+			
+				<span style="padding-top: 15px; display: block;">
+				<span style="float: right;">
+					Správne riešenie: <a href="#">Áno</a> / <a href="#">Nie</a> / <a href="#">Neviem</a>
+				</span>
+				<a href="#">Zobraziť komentáre</a>
+				<!--  akceptacia je az v detaile riesenia, tak isto aj statistika -->
+				</span>
+			</p>
+			
+		</div>
+		<p style="margin-bottom: 0; padding-bottom: 0;">
+			<button>Nové riešenie</button>
+		</p>
+	</p>
+</fieldset>
+<?php endif; ?>
 
 
 <?php if ($this->problem->State == Problem::STATE_NEW && ($this->isAllowed('PROBLEM', 'VIEW_ACCEPT_STATS') or $this->isAllowed('PROBLEM', 'ACCEPT'))): ?>

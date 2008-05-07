@@ -41,17 +41,23 @@ class Form_Problem extends Colla_Form
 		$this->addElement($elm);
 		*/
 		
+		$elm = new Zend_Form_Element_Text('Keywords');
+		$elm->setRequired(true);
+		$elm->setAttrib('size', '60');
+		$elm->setLabel('Kľúčové slová:');
+		$this->addElement($elm);
+		
 		// Note
 		$elm = new Zend_Form_Element_Textarea('Note');
 		$elm->setAttrib('rows', '1');
 		$elm->setAttrib('class', 'siroky');
 		$elm->setRequired(false);
-		$elm->setLabel('Poznámka k pridaniu správy:');
+		$elm->setLabel('Poznámka k pridaniu problému:');
 		$this->addElement($elm);
 		
 		// submit button
 		$elm = new Zend_Form_Element_Submit('submit');
-		$elm->setLabel('Pridať nový problém');
+		$elm->setLabel('» Pridať nový problém');
 		$this->addElement($elm);
 	}
 }
