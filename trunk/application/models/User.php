@@ -20,4 +20,13 @@ class User extends Zend_Db_Table_Abstract
     	}
     	return $row;
     }
+    static function getById($userId)
+    {
+    	$user = new User();
+    	$row = $user->fetchRow($user->select()->where('Id = ?', $userId));
+     	if ($row == null) {
+    		throw new Exception('Username not found!');
+    	}
+    	return $row;
+    }
 }

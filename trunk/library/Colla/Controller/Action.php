@@ -23,7 +23,7 @@ class Colla_Controller_Action extends Zend_Controller_Action
 		$auth = Zend_Auth::getInstance();
 		$view->authenticated = $auth->hasIdentity();
 		if ($view->authenticated) {
-			$view->user = User::getByUsername($auth->getIdentity());
+			$view->user = User::getById($auth->getIdentity());
 		} else {
 			$table = new User();
 			$view->user = $table->createRow();

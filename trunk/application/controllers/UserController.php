@@ -197,8 +197,81 @@ class UserController extends Colla_Controller_Action
 		
 		// verify the string 
 		$user->Verified = 1;
+		$user->Active = 1;
 		$user->VerificationKey = null;
 		$user->save();
+		$this->view->hideLoginBox = true;
+	}
+	
+	public function activateAction()
+	{
+		$this->checkAllowed('PERMISSIONS', 'EDIT');
+		$userId 	= $this->getRequest()->getParam('id');
+		
+		// read user 
+		$userTable = new User();
+		$rows = $userTable->find((int)$userId);
+		if (count($rows) != 1) {
+			throw new Exception('No such user');
+		}
+		$user = $rows->current();
+		
+		// activate
+		$user->Active = 1;
+		$user->save();
+		$this->_redirect('/user/view/Id/'.$user->Id);
+	}
+	
+	public function deactivateAction()
+	{
+		$this->checkAllowed('PERMISSIONS', 'EDIT');
+		$userId 	= $this->getRequest()->getParam('id');
+		
+		// read user 
+		$userTable = new User();
+		$rows = $userTable->find((int)$userId);
+		if (count($rows) != 1) {
+			throw new Exception('No such user');
+		}
+		$user = $rows->current();
+		
+		// activate
+		$user->Active = 0;
+		$user->save();
+		$this->_redirect('/user/view/Id/'.$user->Id);
+	}
+	
+	public function changeRoleAction()
+	{
+		$this->checkAllowed('PERMISSIONS', 'EDIT');
+		$userId 	= $this->getRequest()->getParam('id');
+		
+		// read user 
+		$userTable = new User();
+		$rows = $userTable->find((int)$userId);
+		if (count($rows) != 1) {
+			throw new Exception('No such user');
+		}
+		$user = $rows->current();
+		
+		// nemoze menit svoj ucet
+		if ($this->view->user->Id == $user->Id) {
+			throw new Exception('Nemozete menit svoj ucet');
+		}
+		
+		if ($this->getRequest()->isPost()) {
+			$user->RoleId = $this->getRequest()->getParam('role_id');
+			$user->save();
+			$this->_helper->FlashMessenger->addMessage('Používateľská rola bola zmenená.');
+			$this->_redirect('/user/view/Id/'.$user->Id);
+			exit();
+		}
+		
+		// read all existing roles
+		$role = new AclRole();
+		$select = $role->select()->order('position');
+		$this->view->roles = $role->fetchAll($select);
+		$this->view->usr = $user;
 	}
 }
 ?>

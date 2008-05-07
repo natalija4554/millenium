@@ -65,7 +65,7 @@ class Colla_Auth_Adapter  implements Zend_Auth_Adapter_Interface
     	if ($user->Password != md5($this->_password)) {
     		return new Colla_Auth_Result(
     			Colla_Auth_Result::FAILURE, 
-    			$this->_username, 
+    			$user->Id, 
     			array()
     		);
     	}
@@ -74,7 +74,7 @@ class Colla_Auth_Adapter  implements Zend_Auth_Adapter_Interface
     	if (!$user->Active) {
     		return new Colla_Auth_Result(
     			Colla_Auth_Result::FAILURE_NOTACTIVE, 
-    			$this->_username, 
+    			$user->Id, 
     			array()
     		);
     	}
@@ -83,7 +83,7 @@ class Colla_Auth_Adapter  implements Zend_Auth_Adapter_Interface
     	if (!$user->Verified) {
     		return new Colla_Auth_Result(
     			Colla_Auth_Result::FAILURE_NOTVERIFIED, 
-    			$this->_username, 
+    			$user->Id, 
     			array()
     		);
     	}
@@ -91,7 +91,7 @@ class Colla_Auth_Adapter  implements Zend_Auth_Adapter_Interface
     	// success
     	return new Colla_Auth_Result(
     		Colla_Auth_Result::SUCCESS, 
-    		$this->_username, 
+    		$user->Id, 
     		array()
     	);
     }
