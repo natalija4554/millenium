@@ -50,7 +50,6 @@ class Problem extends Colla_Db_Table_Abstract
 			'Name',
 			'Definition',
 			'ProblemAreaId',
-			'CategoryId',
 			'CreatedBy',
 			'Note',
 			'Created',
