@@ -141,7 +141,6 @@ class UserController extends Colla_Controller_Action
 			}
 		}
 		$this->view->form = $form;
-		$this->view->hideLoginBox = true;
 	}
 	
 	public function verifyAgainAction()

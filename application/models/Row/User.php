@@ -36,6 +36,26 @@ class Row_User extends Zend_Db_Table_Row_Abstract
     	}    	
     	return $rows->current();
     }
+    
+    public function getSolutionAcceptVote($solutionId)
+    {
+    	$saTable = new SolutionAccept();
+    	
+    	// if user is not loaded return empty row
+    	if (!$this->Id) {
+    		throw new Exception('Object no initialized');
+    	}
+    	
+    	// if no row exists, return empty one
+    	$rows = $saTable->find($this->Id, $solutionId);
+    	if (count($rows) != 1) {
+    		return $saTable->createRow(array(
+    			'UserId' => $this->Id,
+    			'SolutionId' =>$solutionId
+    		));
+    	}    	
+    	return $rows->current();
+    }
 }
 
 ?>

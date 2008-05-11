@@ -20,25 +20,26 @@ body {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 h1 {
-	font-size: 2em;
-	color:#15428b;
-	font:bold 27px tahoma,arial,verdana,sans-serif;
+	color: #15428b;
+	font: bold 13px tahoma,arial,verdana,sans-serif;
 	margin: 0;
-	padding: 20px 3px 5px 5px;
+	padding: 20px 3px 0px 5px;
 	border: 1px solid #99bbe8;
-	line-height: 30px;
 	background:transparent url(../javascript/ext/resources/images/default/panel/white-top-bottom.gif) repeat-x 0 -1px;
+	line-height: 20px;
 }
-h1 span {
-	font-size: 50%; 
-	font-weight: normal;
-	color: #15428b;
-	font-weight: bold;
-}
-h1 a {
+h1 a.title {
 	text-decoration: none;
-	font-size: 100%;
+	font-size: 27px;
 	color: #15428b;
+	display: block;
+	padding-bottom: 14px;
+	margin-bottom: 0;
+}
+h1 span.rbox {
+	float: right; 
+	display: block;
+	padding-top: 1px;
 }
 h2 {
 	padding-top: 0.9em;
@@ -397,4 +398,51 @@ p.hint {
 	 padding-top: 1px;
 }
 .podmul li {
+}
+
+.solutionDv1 {
+	margin-top: 5px; 
+	margin-bottom: 10px; 
+	border-bottom: 1px solid silver; 
+	padding-bottom: 5px;
+}
+.solutionA1 {
+	font-weight: bold;
+}
+.solutionP {
+	padding-left: 15px;
+}
+.solutionBS {
+	padding-top: 5px; 
+	display: block;
+	padding-bottom: 5px;
+}
+ul.mBox {
+	border: 1px solid #BCD2EF;
+}
+ul.mBox a {
+	display: block;
+	color: #15428B;
+	color: #3F3F3F;
+	padding: 5px 7px 4px 7px;
+	
+}
+ul.mBox ul a {
+	color: #4C72AF;
+	padding: 4px 7px 4px 7px;
+	border-top: 1px solid #DFEFFF;
+}
+ul.mBox ul a:hover {
+	color: #15428B;
+}
+ul.mBox li {
+	background-color: #D8E6F6;
+	background-color: #BCD2EF;
+	font-weight: bold;
+}
+ul.mBox ul {
+	border: 0;
+}
+ul.mBox ul li {
+	background-color: #F3F7FB;
 }

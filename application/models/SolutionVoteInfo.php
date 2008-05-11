@@ -4,16 +4,16 @@
  * Retrieve voting informations
  *
  */
-class VoteInfo 
+class SolutionVoteInfo 
 {
 	protected $_total;
 	protected $_voted;
 	protected $_votes = array();
 	
-	public function __construct($problemId)
+	public function __construct($solutionId)
 	{
-		$problemAccept = new ProblemAccept();
-		$rows = $problemAccept->fetchAll($problemAccept->select()->where('ProblemId = ?', $problemId));
+		$solutionAccept = new SolutionAccept();
+		$rows = $solutionAccept->fetchAll($solutionAccept->select()->where('SolutionId = ?', $solutionId));
 		
 		// voted
 		$this->_voted = count($rows);
@@ -25,11 +25,12 @@ class VoteInfo
 			}
 			$this->_votes[$row->Vote] += 1;
 		}
-		// total posible voters -> ALL users with privilege PROBLEM ACCEPT_VOTE
+		
+		// total posible voters -> ALL users with privilege SOLUTION ACCEPT_VOTE
 		$roles = array();
 		$roleTable = new AclRole();
 		foreach ($roleTable->fetchAll() as $role) {
-			if (Zend_Registry::get('Colla_Acl')->isAllowed($role->id, 'PROBLEM', 'ACCEPT_VOTE')) {
+			if (Zend_Registry::get('Colla_Acl')->isAllowed($role->id, 'SOLUTION', 'ACCEPT_VOTE')) {
 				$roles[] = $role->id;
 			}
 		}
@@ -41,10 +42,10 @@ class VoteInfo
 				$select->orWhere('RoleId = ?', $role);
 			}
 			$rows = $userTable->fetchAll($select);
-			$this->_total = count($rows);	
+			$this->_total = count($rows);
 		} else {
 			$this->_total = 0;
-		}
+		}	
 	}
 	
 	public function getTotal()
@@ -71,9 +72,9 @@ class VoteInfo
 			'total' => $this->getTotal(),
 			'voted'	=> $this->getVoted(),
 			'votes' => array(
-				ProblemAccept::VOTE_YES => $this->getVote(ProblemAccept::VOTE_YES),
-				ProblemAccept::VOTE_NO => $this->getVote(ProblemAccept::VOTE_NO),
-				ProblemAccept::VOTE_IGNORE => $this->getVote(ProblemAccept::VOTE_IGNORE)
+				SolutionAccept::VOTE_YES => $this->getVote(SolutionAccept::VOTE_YES),
+				SolutionAccept::VOTE_NO => $this->getVote(SolutionAccept::VOTE_NO),
+				SolutionAccept::VOTE_IGNORE => $this->getVote(SolutionAccept::VOTE_IGNORE)
 			)
 		);
 	}
