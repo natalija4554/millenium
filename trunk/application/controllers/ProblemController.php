@@ -24,6 +24,7 @@ class ProblemController extends Colla_Controller_Action
 		$problem = $problemTable->findProblem($Id);
 		$this->view->problem = $problem;
 		$this->view->comments = $problem->findComment();
+		$this->view->solutions = $problem->findSolution();
 		$this->view->acceptVote = $problem->getAcceptVote($this->view->user->Id);
 		$this->view->voteInfo 	= new VoteInfo($problem->Id);
 	}

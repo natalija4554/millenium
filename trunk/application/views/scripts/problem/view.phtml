@@ -1,14 +1,3 @@
-<h2>
-	<span style="float: right">
-		<?=$this->translate('problemstate_'.$this->problem->State)?>
-	</span>
-	<?=$this->problem->Name?>
-</h2>
-<?=$this->FlashMessages(); ?>
-<fieldset id="problemView">
-	<legend>Definícia problému:</legend>
-	<?=$this->problem->Definition;?>
-
 <script type="text/javascript">
 function voteAccept(vote) {
 	
@@ -71,9 +60,30 @@ function voteAccept(vote) {
 	return false;
 }
 </script>
+<script type="text/javascript">
+function svVote(solutionId, vote) {
+	$('svInfo_'+solutionId).innerHTML = 'Hlasujem ...';
+	new Ajax.Request('/solution/vote-accept-'+vote+'/solutionId/'+solutionId, {
+		method: 'post',
+		onSuccess: function (transport) {
+			new Ajax.Updater('svInfo_'+solutionId, '/solution/display-status/solutionId/'+solutionId);
+		}
+	});
+}
+</script>
 
+<h2>
+	<span style="float: right">
+		<?=$this->translate('problemstate_'.$this->problem->State)?>
+	</span>
+	<?=$this->problem->Name?>
+</h2>
+<?=$this->FlashMessages(); ?>
+<fieldset id="problemView">
+	<legend>Definícia problému:</legend>
+	<?=$this->problem->Definition;?>
 <p style="margin-top: 15px; margin-bottom: 0; border-top: 1px solid silver; padding-top: 10px;">
-	
+
 	<?php if ($this->isAllowed('PROBLEM', 'ACCEPT_VOTE')): ?>
 	<?php if ($this->problem->State == Problem::STATE_NEW): ?>
 	<span style="float: right; text-align: right;">
@@ -125,12 +135,11 @@ function voteAccept(vote) {
 		<strong>Závažný</strong> / <a href="#">Zmeniť</a>
 		<?php endif; ?>
 	</span>
-	
-	
-	
 	<?php endif; ?>
 	
 	
+	<input type="submit" value="Nahradiť novým problémom" />
+	<input type="submit" value="Navrhnúť alternatívu" />
 	
 	<!-- Autor moze pozmenit definiciu ak nie je new -->
 	<?php if ($this->problem->State == Problem::STATE_NEW && $this->problem->CreatedBy == $this->user->Id): ?>
@@ -143,36 +152,34 @@ function voteAccept(vote) {
 <fieldset>
 	<legend>Riešenia problému</legend>
 	<p>
-		<div style="margin-top: 5px; margin-bottom: 0; border-bottom: 1px solid silver; padding-bottom: 5px;">
-			1. <a href="#" style="font-weight: bold;">
-			Vymeniť hliníkové tesnenie na oknách.
-			</a>
-			<br />
-			
-			<p style="padding-left: 15px;">
-				Na tesnenie okien je na väčšine izieb použité tesnenie, toto je žial vo väčšine prípado pokazené, 
-				takže ho treba vymeniť. V prípade ak sú poškodené samotné okennice, tieto treba pred tým opraviť.
-				<br />
+		<?php $i=0; foreach ($this->solutions as $solution): $i++;?>
+		<div class="solutionDv1">
+			<?=$i?>. <a href="/solution/view/id/<?=$solution->Id?>" class="solutionA1"><?=$solution->Name;?>.</a><br />
+			<p class="solutionP">
+				<?=$solution->Definition?>
+								
+				<!-- Zavislosti 
 				<span style="display: block; padding-top: 10px;">
-				<span style="text-decoration: underline;">Závislosť</span>:
+					<span style="text-decoration: underline;">Závislosť</span>:
 					<ul class="podmul">
 						<li><a href="#">Na izbách sa nedajú otvárať okná.</a></li>
 					</ul>
-				</span>			
-			
-			
-				<span style="padding-top: 15px; display: block;">
-				<span style="float: right;">
-					Správne riešenie: <a href="#">Áno</a> / <a href="#">Nie</a> / <a href="#">Neviem</a>
 				</span>
-				<a href="#">Zobraziť komentáre</a>
-				<!--  akceptacia je az v detaile riesenia, tak isto aj statistika -->
+				 -->			
+			
+				<span class="solutionBS">
+					<?php if ($this->authenticated): ?>
+					<span style="float: right;">
+						<?=$this->action('display-status', 'solution', null, array('solutionId' => $solution->Id, 'enableLayout'=>1))?>
+					</span>
+					<?php endif; ?>
+					<a href="/solution/comments/id/<?=$solution->Id;?>">Zobraziť komentáre</a>
 				</span>
 			</p>
-			
 		</div>
+		<?php endforeach; ?>
 		<p style="margin-bottom: 0; padding-bottom: 0;">
-			<button>Nové riešenie</button>
+			<button onclick="document.location = '/solution/create/id/<?=$this->problem->Id;?>';">Nové riešenie</button>
 		</p>
 	</p>
 </fieldset>
@@ -249,6 +256,8 @@ function voteAccept(vote) {
 	</form>
 </fieldset>
 <?php endif; ?>
+
+<br />
 
 <h3>Komentáre k zadanému problému:</h3>
 <p id="commentNone">	
