@@ -1,0 +1,122 @@
+<?= $this->doctype('XHTML1_STRICT') ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Vitajte! - Kolaboračný informačný systém</title>
+	<?php echo $this->headLink()
+					->appendStylesheet('/javascript/ext/resources/css/ext-all.css')
+					->appendStylesheet('/styles/base.css')
+	?>
+	<?php echo $this->headScript()
+					->appendFile('/javascript/prototype.js')
+					->appendFile('/javascript/scriptaculous.js?load=effects')
+					->appendFile('/javascript/ext/adapter/prototype/ext-prototype-adapter.js')
+					->appendFile('/javascript/ext/ext-all.js')
+					->appendFile('/javascript/RowExpander.js')
+					->appendFile('/javascript/SearchField.js')
+					->appendFile('/javascript/tinymce/tiny_mce.js')
+					?>
+	<script type="text/javascript">
+		tinyMCE.init({
+			mode: 'textareas',
+			editor_selector: 'mceEditor',
+			content_css : '/styles/myMce.css'
+		});
+	</script>
+</head>
+<body>
+<div id="mainBox">
+	<div id="subMainBox">
+		<div>
+			<h1>
+				<a href="/" class="title">Kolaboračný informačný systém</a>
+				<span style="display: block; margin-top: 0px; border-top: 2px solid #BCD2EF; padding: 3px 0 3px 0;">
+					
+					<?php if (!$this->hideLoginBox): ?>
+					<?php endif; ?>
+					<?php if ($this->authenticated): ?>
+						<span class="rbox">
+							<a href="/auth/logout" title="logout">Odhlásiť sa</a>
+						</span>
+						Vitajte: <?=$this->user->getFullname();?>
+					<?php else: ?>
+						<span class="rbox">
+							<a href="/user/register">Registrácia</a>
+						</span>
+						<form method="post" action="/auth/login">
+							<input type="hidden" name="redirect" value="<?=$this->requestUri?>" />
+							Meno: <input type="text" name="username" style="border:  1px solid silver; width: 90px;" />
+							Heslo: <input type="password" name="password" style="border: 1px solid silver; width: 90px;"/>
+							<input type="submit" value="Prihlásiť sa" />
+						</form>
+					<?php endif; ?>
+					
+					
+				</span>
+			</h1>
+				
+		</div>
+		<div id="content">
+			<div id="leftOne">
+				
+				<ul class="mBox">
+					<li><a href="#">Hľadaj v problémoch:</a></li>
+					<ul>
+							<li>
+								<input type="text" value="" size="15" /><input type="submit" value="Hľadať" />
+							</li>
+					</ul>
+				</ul>
+				<br />
+				
+				<ul class="mBox">
+					<li>
+						<a href="#">Problémová oblasť</a>
+						<ul>
+							<li><a href="/problemarea/view">&raquo; Informácie</a></li>
+							<li><a href="/problemarea/problems">&raquo; Zoznam problémov</a></li>
+							<li><a href="/problemarea/addproblem">&raquo; Nový problém</a></li>
+						</ul>
+					</li>
+				</ul>
+				
+				<br />
+				
+				<ul class="mBox">
+					<li>
+						<a href="#">Hodnotenia:</a>
+						<ul>
+							<li><a href="/problemarea/problems">&raquo; Akceptácia problémov</a></li>
+							<li><a href="/problemarea/problems">&raquo; Akeptácia riešení</a></li>
+							<li><a href="/problemarea/problems">&raquo; Závažnosť</a></li>
+						</ul>
+					</li>
+				</ul>
+								
+				<br />
+					
+				<ul class="mBox">
+					<li>
+						<a href="#">Používatelia</a>
+						<ul>
+							<li><a href="/user/find">&raquo; Hľadať</a></li>
+							<li><a href="/user/roles">&raquo; Prístupové práva</a></li>
+							
+						</ul>	
+					</li>
+				</ul>
+
+			</div>
+			<div id="rightOne">
+				<div id="mainContent">
+					<?=$this->layout()->content;?>
+				</div> 
+			</div>
+			<br clear="both"/>
+			</div>
+	</div>
+</div>
+<div style="text-align: center">
+</div>
+</body>
+</html>
