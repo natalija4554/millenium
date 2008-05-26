@@ -243,13 +243,13 @@ table.std th {
  	color: #15428B;
  	text-align: left;
  	font-weight: bold;
- 	padding: 2px 5px 1px 5px;
+ 	padding: 4px 10px 4px 10px;
  	margin: 0;
  	border: 1px solid #99B7DF;
 }
 table.std td {
   	border: 1px solid #99B7DF;
-  	padding: 2px 5px 1px 5px;
+  	padding: 4px 10px 4px 10px;
 }
 
 /**
@@ -445,4 +445,104 @@ ul.mBox ul {
 }
 ul.mBox ul li {
 	background-color: #F3F7FB;
+}
+#KeywordsDiv {
+	padding-bottom: 9px;
+}
+#KeywordsLike {
+	 font-style:italic;
+	 font-weight: bold;
+}
+#SimilarProblems {
+}
+
+table.problemItem {
+	border-collapse: collapse;
+	border: 1px solid silver;
+	padding-bottom: 20px;
+	width: 100%;
+	margin-top: 10px;
+}
+table.problemItem td {
+	padding: 3px 7px 3px 7px;
+}
+.problemItem .title {
+	font-weight: bold;
+	padding-top: 5px;
+}
+.problemItem .datum {
+	text-align: right;
+	padding-top: 5px;
+}
+.problemItem .spod {
+	padding-top: 0px;
+	padding-bottom: 5px;
+}
+.problemItem .obsah {
+	padding-top: 0px;
+}
+#problemFilter, #problemFilterDependency {
+	border: 1px solid silver;
+	background-color: #BCD2EF;
+	width: 100%;
+}
+#problemFilterDependency {
+	background-color: white;
+}
+
+#problemFilter td, #problemFilterDependency td {
+	padding: 6px;
+	font-weight: bold;
+}
+#listing {
+	padding-top: 5px;
+}
+dl.comment {
+	margin-bottom: 5px;
+}
+dl.comment dt {
+	padding-top: 7px;
+	padding-bottoM: 2px;
+}
+
+.comment-view {
+	margin-top: 15px;
+	margin-bottom: 2px;
+	border: 1px solid #BCD2EF;
+}
+.comment-title {
+	border-bottom: 1px solid #BCD2EF;
+	background-color: #EFF8FF;
+	padding: 5px;
+	color: #3F3F3F;
+}
+.system .comment-title {
+	background-color: #FFFCDF;
+}
+.comment-created {
+	float: right;
+	font-weight: normal;
+}
+.comment-body {
+	padding: 5px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.solutionDepencency {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	border-collapse: collapse;
+}
+.solutionDepencency td {
+	border-bottom: 1px solid silver; 
+	margin: 0 0 4px 0; 
+	padding: 10px 0 5px 0;
+}
+#statAcBar {
+	margin-top: 15px; 
+	margin-bottom: 0; 
+	border-top: 1px solid silver; 
+	padding-top: 10px;
 }

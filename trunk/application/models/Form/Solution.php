@@ -33,9 +33,17 @@ class Form_Solution extends Colla_Form
 		$elm->setLabel('Definícia riešenia:');
 		$this->addElement($elm);
 		
+		// Note
+		$elm = new Zend_Form_Element_Textarea('Note');
+		$elm->setAttrib('rows', '1');
+		$elm->setAttrib('class', 'siroky');
+		$elm->setRequired(false);
+		$elm->setLabel('Poznámka k pridaniu riešenia:');
+		$this->addElement($elm);
+		
 		// submit button
 		$elm = new Zend_Form_Element_Submit('submit');
-		$elm->setLabel('» Pridať riešenie');
+		$elm->setLabel('Pridať riešenie');
 		$this->addElement($elm);
 		
 		

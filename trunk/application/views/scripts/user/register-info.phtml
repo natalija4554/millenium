@@ -1,4 +1,5 @@
 <h2>Registrácia nového používateľa</h2>
+<?php if ($this->reqVerification): ?>
 <p style="color: green">
 	Vaša registrácia prebehla úspešne, avšak pre ukončenie registrácie je nutná verifikácia Vašej e-mailovej adresy.
 </p>
@@ -9,3 +10,18 @@
 	Vášho účtu.  
 </p>
 </fieldset>
+<?php else: ?>
+	
+	<?php if ($this->reqAcceptation): ?>
+	<p>
+		Registrácia prebehla úspešne. Vaše konto bolo zaslané administrátorovi na aktiváciu. Aktivácia môže trvať aj niekoľko hodín, v závislosti od prítomnosti administrátora.
+	</p>
+	<?php else: ?>
+	<p>
+		Registrácia prebehla úspešne a vaše konto bolo úspešne aktivované.
+	</p>
+	<p>
+		<a href="/auth/login" class="btn">&raquo; Pokračovať prihlásením</a>
+	</p>
+	<?php endif; ?>
+<?php endif; ?>

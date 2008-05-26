@@ -12,6 +12,9 @@ class AuthController extends Colla_Controller_Action
     	if (!$redirect) {
     		$redirect = '/auth/login';
     	}
+    	if ($redirect == '/auth/login') {
+    		$redirect = '/';
+    	}
     	$form->setRedirectParam($redirect);
     	
     	// action save !

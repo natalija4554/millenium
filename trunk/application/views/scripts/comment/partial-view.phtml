@@ -1,0 +1,39 @@
+<?php
+	$commentNumber = Zend_Registry::get('CommentNumber'); 
+	Zend_Registry::set('CommentNumber', $commentNumber + 1); 
+?>
+<div class="comment-view<?=($this->comment->System) ? ' system' : ''?>">
+	<div class="comment-title">
+		<span class="comment-created">
+			<?php 
+				$date = new Zend_Date($this->comment->Created, null, 'sk'); 
+				echo $date->get(Zend_Date::DATE_SHORT);
+			?>
+		</span>
+		
+			<?=$commentNumber?>.
+		
+		<?php if ($this->comment->System): ?>
+			<?php if ($this->comment->SolutionId): ?>
+				Riešenie
+			<?php else: ?>
+				Problém
+			<?php endif; ?>
+			<?=$this->translate('SOLUTIONEVENT_'.$this->comment->Event)?>
+		<?php else: ?>
+			Príspevok
+		<?php endif; ?>
+			
+		 
+		<?php if ($this->comment->Title): ?> 
+			- <?=$this->comment->Title?>
+		<?php endif; ?>
+		
+		
+		
+		
+	</div>
+	<div class="comment-body">	
+		<?=$this->comment->Body?>
+	</div>
+</div>

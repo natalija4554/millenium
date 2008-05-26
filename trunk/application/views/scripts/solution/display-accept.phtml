@@ -1,0 +1,53 @@
+<form class="std" method="post" action="/solution/accept/solutionId/<?=$this->solutionId?>">
+	<fieldset>
+		<legend>
+			<input name="comment-add" type="checkbox" onclick="if (this.checked) {$('accBody').show();} else {$('accBody').hide();}" value="1" checked />  
+			<strong>Pridaj informatívny komentár k riešeniu</strong>
+		</legend>
+		<dl id="accBody">
+			<dt>Hlavička:</dt>
+			<dd><input type="text" size="60" value="Systémová správa" name="comment-title" /></dd>
+			<dt>Komentár:</dt>
+			<dd>
+				<textarea name="comment-body" id="comment-body" class="mceEditor" style="width: 100%">
+					<p>Riešenie bolo akceptované.</p>
+					<p>Výsledky: <?=$this->action('display-accept-status', 'solution', null, array('solutionId' => $this->solutionId, 'enableLayout'=>1))?></p>
+				</textarea>
+			</dd>
+		</dl>
+	</fieldset>
+	<br />
+	<fieldset>
+		<legend>
+			<input name="decline-others" type="checkbox" onclick="if (this.checked) {$('declineBody').show();} else {$('declineBody').hide();}" value="1" />  
+			<strong>Zavrhni ostatné riešenia a pridaj k nim informatívny komentár</strong>
+		</legend>
+		<dl id="declineBody" style="display: none;">
+			<dt>Hlavička:</dt>
+			<dd><input type="text" size="60" value="Systémová správa" name="comment-decline-title" /></dd>
+			<dt>Komentár:</dt>
+			<dd>
+				<textarea name="comment-decline-body" id="comment-decline-body" class="mceEditor" style="width: 100%">
+					<p>Riešenie bolo zavrhnuté.</p>
+					<p>Výsledky: <?=$this->action('display-accept-status', 'solution', null, array('solutionId' => $this->solutionId, 'enableLayout'=>1))?></p>
+				</textarea>
+			</dd>
+		</dl>
+	</fieldset>
+	
+	<dl>
+		<dt>Poznámka k zmene:</dt>
+		<dd><textarea name="note" cols="60" rows="1"></textarea></dd>
+	</dl>
+	<p>
+		<input type="submit" value="Akceptovať" />
+		<input type="button" onclick="return hideAcceptDecline();" value="Zrušiť" />
+	</p>
+</form>
+<script type="text/javascript">
+	tinyMCE.init({
+			mode: 'textareas',
+			editor_selector: 'mceEditor',
+			content_css : '/styles/myMce.css'
+		});
+</script>

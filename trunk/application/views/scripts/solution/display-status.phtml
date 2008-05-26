@@ -6,16 +6,17 @@
 		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_NO?>');">Nie</a> / 
 		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_IGNORE?>');">Neviem</a>
 <?php else: ?>
-	Hlasovali ste: <strong><?=$this->solutionAccept->Vote?></strong>
+	Hlasovali ste: <strong>
+		<?=$this->translate('VOTE_'.$this->solutionAccept->Vote)?></strong>
 		
 	/ <a href="#" onclick="this.hide(); $('svHlas_<?=$this->solutionId?>').show(); return false;">Zmeniť</a>
 	<span style="display: none" id="svHlas_<?=$this->solutionId?>">
 		<?php if ($this->solutionAccept->Vote == 'Yes'): ?>
 		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_NO?>');">Nie</a> / 
-		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_IGNORE?>');">Nevie
+		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_IGNORE?>');">Neviem</a>
 		<?php elseif ($this->solutionAccept->Vote == 'No'): ?>
 		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_YES?>');">Áno</a> / 
-		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_IGNORE?>');">Neviem
+		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_IGNORE?>');">Neviem</a>
 		<?php elseif ($this->solutionAccept->Vote == 'Ignore'): ?>
 		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_YES?>');">Áno</a> / 
 		<a href="#" onclick="return svVote(<?=$this->solutionId;?>, '<?=SolutionAccept::VOTE_NO?>');">Nie</a> 

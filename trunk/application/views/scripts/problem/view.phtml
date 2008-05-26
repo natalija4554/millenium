@@ -1,60 +1,24 @@
 <script type="text/javascript">
-function voteAccept(vote) {
-	
-	// set voting text
-	$('hlasujem').innerHTML = 'Hlasujem ...';
-	
-	// ajax request
-	new Ajax.Request('/problem/vote-accept-'+vote+'/problemId/<?=$this->problem->Id?>', {
+function accVote(problemId, vote) {
+	$('accInfo_'+problemId).innerHTML = 'Hlasujem ...';
+	new Ajax.Request('/problem/vote-accept-'+vote+'/problemId/'+problemId, {
 		method: 'post',
-		onSuccess: function(transport) {
-			var json = transport.responseText.evalJSON();
-			
-			var out = 'Hlasovali ste: ';
-			switch (json.Vote) {
-				case '<?=ProblemAccept::VOTE_YES?>':
-					out += '<b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b>';
-					break;
-				case '<?=ProblemAccept::VOTE_NO?>':
-					out += '<b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b>';
-					break;
-				case '<?=ProblemAccept::VOTE_IGNORE?>':
-					out += '<b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b>';
-					break;
-			}
-			out += '<span id="voteChangeHide">';
-			out += ' , <a href="#" onclick="$(\'voteChangeHide\').hide(); $(\'voteChange\').show(); return false;">Zmeniť</a>';
-			out += '</span>';
-			out += '<span id="voteChange" style="display: none"> / ';
-			switch (json.Vote) {
-				case '<?=ProblemAccept::VOTE_YES?>':
-					out += '<a onclick="return voteAccept(\'no\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a> /';
-					out += '<a onclick="return voteAccept(\'ignore\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b></a>';
-					break;
-				case '<?=ProblemAccept::VOTE_NO?>':
-					out += '<a onclick="return voteAccept(\'yes\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b></a> /';
-					out += '<a onclick="return voteAccept(\'ignore\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b></a>';
-					break;
-				case '<?=ProblemAccept::VOTE_IGNORE?>':
-					out += '<a onclick="return voteAccept(\'yes\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b></a> /';
-					out += '<a onclick="return voteAccept(\'no\');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a>';
-					break;
-			}
-			out += '</span>';
-			$('hlasujem').innerHTML = out;
-			
-			// update voted informations
-			new Ajax.Request('/problem/ajax-vote-info/problemId/<?=$this->problem->Id?>', {
-				method: 'post',
-				onSuccess: function (transport) {
-					var json = transport.responseText.evalJSON();
-					$('voteYes').innerHTML 		= json.votes.Yes;
-					$('voteNo').innerHTML 		= json.votes.No;
-					$('voteIgnore').innerHTML 	= json.votes.Ignore;
-					$('voteVoted').innerHTML 	= json.voted;
-					$('voteTotal').innerHTML 	= json.total;
-				}
-			}); 	
+		onSuccess: function (transport) {
+			new Ajax.Updater('accInfo_' + problemId, '/problem/display-status/problemId/'+problemId);
+			new Ajax.Updater('acceptStats', '/problem/display-accept-status/problemId/'+problemId);
+		}
+	});
+	return false;
+}
+function importanceVote(problemId, vote) {
+	$('importanceInfo_'+problemId).innerHTML = 'Hlasujem ...';
+	new Ajax.Request('/problem/vote-importance/problemId/'+problemId+'/vote/'+vote, {
+		method: 'post',
+		onFailure: function (transport) {
+			$('accInfo_'+problemId).innerHTML = 'Failed ...';
+		},
+		onSuccess: function (transport) {
+			new Ajax.Updater('importanceInfo_'+problemId, '/problem/display-importance-status/problemId/'+problemId);
 		}
 	});
 	return false;
@@ -68,86 +32,53 @@ function svVote(solutionId, vote) {
 		onSuccess: function (transport) {
 			new Ajax.Updater('svInfo_'+solutionId, '/solution/display-status/solutionId/'+solutionId);
 		}
-	});
-}
+	});}
 </script>
 
-<h2>
-	<span style="float: right">
-		<?=$this->translate('problemstate_'.$this->problem->State)?>
-	</span>
-	<?=$this->problem->Name?>
-</h2>
+<h2><span style="float: right"><?=$this->translate('problemstate_'.$this->problem->State)?></span><?=$this->problem->Name?></h2>
 <?=$this->FlashMessages(); ?>
+
 <fieldset id="problemView">
 	<legend>Definícia problému:</legend>
-	<?=$this->problem->Definition;?>
-<p style="margin-top: 15px; margin-bottom: 0; border-top: 1px solid silver; padding-top: 10px;">
-
-	<?php if ($this->isAllowed('PROBLEM', 'ACCEPT_VOTE')): ?>
-	<?php if ($this->problem->State == Problem::STATE_NEW): ?>
-	<span style="float: right; text-align: right;">
-		<span id="hlasujem">
-		<?php if ($this->acceptVote->voted()):?>
-			Hlasovali ste: <b><?=__('VOTE_'.$this->acceptVote->Vote)?></b>
-			<span id="voteChangeHide">, <a href="#" onclick="$('voteChangeHide').hide(); $('voteChange').show(); return false;">Zmeniť</a></span><span id="voteChange" style="display: none">
-				/ 
-				<?php if ($this->acceptVote->Vote == ProblemAccept::VOTE_YES): ?>
-					<a onclick="return voteAccept('no');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a> /
-					<a onclick="return voteAccept('ignore');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b></a>
-						
-				<?php endif; ?>
-				<?php if ($this->acceptVote->Vote == ProblemAccept::VOTE_NO): ?>
-					<a onclick="return voteAccept('yes');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b></a> /
-					<a onclick="return voteAccept('ignore');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_IGNORE)?></b></a>
-					
-				<?php endif; ?>
-				<?php if ($this->acceptVote->Vote == ProblemAccept::VOTE_IGNORE): ?>
-					<a onclick="return voteAccept('yes');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_YES)?></b></a> /
-					<a onclick="return voteAccept('no');" href="#"><b><?=__('VOTE_'.ProblemAccept::VOTE_NO)?></b></a>
-				<?php endif; ?>
+	<div>
+		<?=$this->problem->Definition;?>
+	</div>
+	<p style="margin-top: 15px; margin-bottom: 0; border-top: 1px solid silver; padding-top: 10px;">
+		<?php if ($this->isAllowed('PROBLEM', 'ACCEPT_VOTE')): ?>
+			<?php if ($this->authenticated): ?>
+			<?php if ($this->problem->State == Problem::STATE_NEW): ?>
+				<span style="float: right;">
+					<?=$this->action('display-status', 'problem', null, array('problemId' => $this->problem->Id, 'enableLayout'=>1))?>		
+				</span>
+			<?php endif; ?>
+			<?php endif; ?>
+		<?php endif; ?>
+	
+		<?php if ($this->isAllowed('PROBLEM', 'IMPORTANCE_VOTE')): ?>
+		<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
+			<?php if ($this->authenticated): ?>
+			<span style="float: right;">
+				<?=$this->action('display-importance-status', 'problem', null, array('problemId' => $this->problem->Id, 'enableLayout'=>1))?>				
 			</span>
-		<?php else: ?>
-			Akceptovať: 
-			<a onclick="return voteAccept('yes');" href="#"><b>Ano</b></a> /
-			<a onclick="return voteAccept('no');" href="#"><b>Nie</b></a> /
-			<a onclick="return voteAccept('ignore');" href="#"><b>Neviem</b></a>
+			<?php endif; ?>
 		<?php endif; ?>
-		</span>
-	</span>
-	<?php endif; ?>
-	<?php endif; ?>
-	
-	<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
-	<span style="float: right; text-align: right;">
+		<?php endif; ?>
 		
-		Hodnotenie závažnosti:
-		<?php if (1): ?>
-		<select style="">
-			<option style="color: black">1 - Nedôležitý</option>
-			<option>2 - Nezávažný</option>
-			<option>3 - Priemerný</option>
-			<option>4 - Závažný</option>
-			<option>5 - Kritický</option>
-		</select>
+		<?php if ($this->problem->State == Problem::STATE_NEW && $this->problem->CreatedBy == $this->user->Id): ?>
+			<a href="/problem/changedefinition/Id/<?=$this->problem->Id?>"><b>Upraviť definíciu</b></a> - 
+			- <a href="/problem/history/problemId/<?=$this->problem->Id;?>"><b>História</b></a>
+		<?php else: ?>
+			<a href="/problem/history/problemId/<?=$this->problem->Id;?>"><b>História</b></a>
+		<?php endif; ?>		
+		<?php if ($this->isAllowed('PROBLEM', 'SOLVE')): ?>
+		<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
+			- <a onclick="return confirm('Naozaj chcete ukončiť riešenie problému?');" href="/problem/solve/problemId/<?=$this->problem->Id;?>"><b>Ukonči riešenie</b></a>
 		<?php endif; ?>
-		<?php if (0): ?>
-		<strong>Závažný</strong> / <a href="#">Zmeniť</a>
-		<?php endif; ?>
-	</span>
-	<?php endif; ?>
-	
-	
-	<input type="submit" value="Nahradiť novým problémom" />
-	<input type="submit" value="Navrhnúť alternatívu" />
-	
-	<!-- Autor moze pozmenit definiciu ak nie je new -->
-	<?php if ($this->problem->State == Problem::STATE_NEW && $this->problem->CreatedBy == $this->user->Id): ?>
-		<a href="/problem/changedefinition/Id/<?=$this->problem->Id?>"><b>Upraviť definíciu</b></a>
-	<?php endif; ?>
-</p>
+		<?php endif; ?> 		
+	</p>
 </fieldset>
-<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
+
+<?php if ($this->problem->State == Problem::STATE_APPROVED or $this->problem->State == Problem::STATE_SOLVED or $this->problem->State == Problem::STATE_DELETED): ?>
 <br />
 <fieldset>
 	<legend>Riešenia problému</legend>
@@ -157,121 +88,133 @@ function svVote(solutionId, vote) {
 			<?=$i?>. <a href="/solution/view/id/<?=$solution->Id?>" class="solutionA1"><?=$solution->Name;?>.</a><br />
 			<p class="solutionP">
 				<?=$solution->Definition?>
-								
-				<!-- Zavislosti 
-				<span style="display: block; padding-top: 10px;">
-					<span style="text-decoration: underline;">Závislosť</span>:
-					<ul class="podmul">
-						<li><a href="#">Na izbách sa nedajú otvárať okná.</a></li>
-					</ul>
-				</span>
-				 -->			
-			
 				<span class="solutionBS">
 					<?php if ($this->authenticated): ?>
 					<span style="float: right;">
-						<?=$this->action('display-status', 'solution', null, array('solutionId' => $solution->Id, 'enableLayout'=>1))?>
+						<?php if ($solution->State == Solution::STATE_NEW): ?>
+						<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
+							<?=$this->action('display-status', 'solution', null, array('solutionId' => $solution->Id, 'enableLayout'=>1))?>
+						<?php endif; ?>
+						<?php endif; ?>
+						<?php if ($solution->State == Solution::STATE_APPROVED): ?>
+							Riešenie bolo <strong>akceptované</strong>.
+						<?php endif; ?>
+						<?php if ($solution->State == Solution::STATE_DELETED): ?>
+							Riešenie je <strong>zavrhnuté</strong>.
+						<?php endif; ?>
 					</span>
 					<?php endif; ?>
-					<a href="/solution/comments/id/<?=$solution->Id;?>">Zobraziť komentáre</a>
+					<a href="/solution/view/id/<?=$solution->Id?>">Zobraziť podrobnosti</a>
 				</span>
 			</p>
 		</div>
 		<?php endforeach; ?>
+		<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
 		<p style="margin-bottom: 0; padding-bottom: 0;">
-			<button onclick="document.location = '/solution/create/id/<?=$this->problem->Id;?>';">Nové riešenie</button>
+			<a href="/solution/create/id/<?=$this->problem->Id;?>">&raquo; <strong>Pridať riešenie</strong></a>
 		</p>
+		<?php else: ?>
+		<p style="margin-bottom: 0; padding-bottom: 0;">
+			* Problém je vyriešený, nie je možné pridávať nové riešenia.
+		</p>
+		<?php endif; ?>
 	</p>
 </fieldset>
 <?php endif; ?>
 
 
-<?php if ($this->problem->State == Problem::STATE_NEW && ($this->isAllowed('PROBLEM', 'VIEW_ACCEPT_STATS') or $this->isAllowed('PROBLEM', 'ACCEPT'))): ?>
-<br />
-<fieldset>
-	<legend>Priebežná štatistika hlasovania:</legend>
-	<span id="acceptStats">
-		Akceptovalo <strong id="voteYes"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_YES);?></strong>, Neakceptovalo <strong id="voteNo"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_NO);?></strong>, Nevedelo <strong id="voteIgnore"><?=$this->voteInfo->getVote(ProblemAccept::VOTE_IGNORE);?></strong> osoby. Celkovo hlasovalo <strong id="voteVoted"><?=$this->voteInfo->getVoted();?></strong> z <strong id="voteTotal"><?=$this->voteInfo->getTotal();?></strong> možných účastníkov.
-	</span>
-	<p style="margin-top: 15px; margin-bottom: 0; border-top: 1px solid silver; padding-top: 10px;">
-		<span id="ackLinky">
-			<a onclick="$('akcForm').show(); $('ackLinky').hide(); return false;" href="#"><strong>Akceptovať problém</strong></a> 
-			/ 
-			<a onclick="$('decForm').show(); $('ackLinky').hide(); return false;" href="#"><strong>Zavrhnúť problém</strong></a>
+<?php if ($this->problem->State == Problem::STATE_NEW): ?>
+	<?php if ($this->isAllowed('PROBLEM', 'VIEW_ACCEPT_STATS') or $this->isAllowed('PROBLEM', 'ACCEPT')): ?>
+	<br />
+	<fieldset>
+		<legend>Priebežná štatistika hlasovania:</legend>
+		<span id="acceptStats">
+			<?=$this->action('display-accept-status', 'problem', null, array('problemId' => $this->problem->Id, 'enableLayout'=>1))?>
 		</span>
-	</p>
-	<form class="std" id="akcForm" method="post" action="/problem/accept/problemId/<?=$this->problem->Id?>" style="display: none">
-		<fieldset>
-			<legend>
-				<input name="accept-comment" type="checkbox" onclick="if (this.checked) {$('accBody').show();} else {$('accBody').hide();}" value="1" checked />  
-				<strong>Pridaj informatívny komentár k problému</strong>
-			</legend>
-			<dl id="accBody">
-				<dt>Hlavička:</dt>
-				<dd><input type="text" size="60" value="Systémová správa" name="accept-comment-title" /></dd>
-				<dt>Komentár:</dt>
-				<dd>
-					<textarea name="accept-comment-body" class="mceEditor" style="width: 100%">
-						<p>Problém bol akceptovaný.</p>
-						<p>Výsledky hlasovania: Akceptovalo(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_YES)?>), Neakceptovalo(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_NO)?>), Zdržalo sa(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_IGNORE)?>), celkový počet <?=$this->voteInfo->getVoted()?> hlasov.</p>
-					</textarea>
-				</dd>
-			</dl>
-		</fieldset>
-		<dl>
-			<dt>Poznámka k zmene:</dt>
-			<dd><textarea name="accept-note" cols="60" rows="1"></textarea></dd>
-		</dl>
-		<p>
-			<input type="submit" value="Akceptovať" />
-			<input type="button" onclick="$('akcForm').hide(); $('ackLinky').show(); return false;" value="Zrušiť" />
+		<p style="margin-top: 15px; margin-bottom: 0; border-top: 1px solid silver; padding-top: 10px;">
+			<span id="ackLinky">
+				<a onclick="$('akcForm').show(); $('ackLinky').hide(); return false;" href="#"><strong>Akceptovať problém</strong></a> 
+				/ 
+				<a onclick="$('decForm').show(); $('ackLinky').hide(); return false;" href="#"><strong>Zavrhnúť problém</strong></a>
+			</span>
 		</p>
-	</form>
-	<form class="std" id="decForm" method="post" action="/problem/decline/problemId/<?=$this->problem->Id?>" style="display: none">
-		<fieldset>
-			<legend>
-				<input name="decline-comment" type="checkbox" onclick="if (this.checked) {$('decBody').show();} else {$('decBody').hide();}" value="1" checked />  
-				<strong>Pridaj informatívny komentár k problému</strong>
-			</legend>
-			<dl id="decBody">
-				<dt>Hlavička:</dt>
-				<dd><input type="text" size="60" value="Systémová správa" name="decline-comment-title" /></dd>
-				<dt>Komentár:</dt>
-				<dd>
-					<textarea name="decline-comment-body" class="mceEditor" style="width: 100%">
-						<p>Problém nebol akceptovaný.</p>
-						<p>Výsledky hlasovania: Akceptovalo(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_YES)?>), Neakceptovalo(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_NO)?>), Zdržalo sa(<?=$this->voteInfo->getVote(ProblemAccept::VOTE_IGNORE)?>), celkový počet <?=$this->voteInfo->getVoted()?> hlasov.</p>
-					</textarea>
-				</dd>
+		
+		<form class="std" id="akcForm" method="post" action="/problem/accept/problemId/<?=$this->problem->Id?>" style="display: none">
+			<fieldset>
+				<legend>
+					<input name="accept-comment" type="checkbox" onclick="if (this.checked) {$('accBody').show();} else {$('accBody').hide();}" value="1" checked />  
+					<strong>Pridaj informatívny komentár k problému</strong>
+				</legend>
+				<dl id="accBody">
+					<dt>Hlavička:</dt>
+					<dd><input type="text" size="60" value="Systémová správa" name="accept-comment-title" /></dd>
+					<dt>Komentár:</dt>
+					<dd>
+						<textarea name="accept-comment-body" class="mceEditor" style="width: 100%">
+							<p>Problém bol akceptovaný.</p>
+							<p>Výsledky: <?=$this->action('display-accept-status', 'problem', null, array('problemId' => $this->problem->Id, 'enableLayout'=>1))?></p>
+						</textarea>
+					</dd>
+				</dl>
+			</fieldset>
+			<dl>
+				<dt>Poznámka k zmene:</dt>
+				<dd><textarea name="accept-note" cols="60" rows="1"></textarea></dd>
 			</dl>
-		</fieldset>
-		<dl>
-			<dt>Poznámka k zmene:</dt>
-			<dd><textarea name="decline-note" cols="60" rows="1"></textarea></dd>
-		</dl>
-		<p>
-			<input type="submit" value="Zavrhnúť problém" />
-			<input type="button" onclick="$('decForm').hide(); $('ackLinky').show(); return false;" value="Zrušiť" />
-		</p>
-	</form>
-</fieldset>
+			<p>
+				<input type="submit" value="Akceptovať" />
+				<input type="button" onclick="$('akcForm').hide(); $('ackLinky').show(); return false;" value="Zrušiť" />
+			</p>
+		</form>
+		
+		<form class="std" id="decForm" method="post" action="/problem/decline/problemId/<?=$this->problem->Id?>" style="display: none">
+			<fieldset>
+				<legend>
+					<input name="decline-comment" type="checkbox" onclick="if (this.checked) {$('decBody').show();} else {$('decBody').hide();}" value="1" checked />  
+					<strong>Pridaj informatívny komentár k problému</strong>
+				</legend>
+				<dl id="decBody">
+					<dt>Hlavička:</dt>
+					<dd><input type="text" size="60" value="Systémová správa" name="decline-comment-title" /></dd>
+					<dt>Komentár:</dt>
+					<dd>
+						<textarea name="decline-comment-body" class="mceEditor" style="width: 100%">
+							<p>Problém nebol akceptovaný.</p>
+							<p>Výsledky: <?=$this->action('display-accept-status', 'problem', null, array('problemId' => $this->problem->Id, 'enableLayout'=>1))?></p>
+						</textarea>
+					</dd>
+				</dl>
+			</fieldset>
+			<dl>
+				<dt>Poznámka k zmene:</dt>
+				<dd><textarea name="decline-note" cols="60" rows="1"></textarea></dd>
+			</dl>
+			<p>
+				<input type="submit" value="Zavrhnúť problém" />
+				<input type="button" onclick="$('decForm').hide(); $('ackLinky').show(); return false;" value="Zrušiť" />
+			</p>
+		</form>
+		
+	</fieldset>
+	<?php endif; ?>
 <?php endif; ?>
 
 <br />
 
-<h3>Komentáre k zadanému problému:</h3>
-<p id="commentNone">	
-	Žiadne.
-</p>
-<input type="button" value="Pridať komentár" />
+<h3>Diskusia k problému:</h3>
+<?php if (count($this->comments) > 0): ?>
+	<?php Zend_Registry::set('CommentNumber', 1); ?>
+	<?php foreach ($this->comments as $comment): ?>
+		<?=$this->partial('comment/partial-view.phtml', array('comment' => $comment));?>
+	<?php endforeach; ?>
+<?php else: ?>
+	<fieldset style="margin-top: 10px; padding: 10px;">
+		Žiadne komentáre.
+	</fieldset>
+<?php endif; ?>
 
-<!--  zobrazi jednotlive komentare k problemom
-<h3>Diskusia (<?=count($this->comments)?> príspevky/ov)</h3>
-<?php foreach ($this->comments as $comment): ?>
-	<?=$this->partial('problem/partial-comment.phtml', array('comment' => $comment)); ?>
-<?php endforeach; ?>
-<p>
-	<a class="btn" href="/problem/add-comment/Id/<?=$this->problem->Id?>">Pridať komentár</a>
-</p>
--->
-
+<?=$this->partial('comment/partial-add.phtml', array(
+	'problem' 	=> $this->problem,
+	'filter'	=> $this->filter
+));
+?>

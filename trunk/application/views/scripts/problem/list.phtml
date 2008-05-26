@@ -1,0 +1,104 @@
+<?php
+	$states = array('NEW', 'APPROVED', 'SOLVED', 'CLOSED', 'DELETED');
+?>
+<script type="text/javascript">
+function accVote(problemId, vote) {
+	$('accInfo_'+problemId).innerHTML = 'Hlasujem ...';
+	new Ajax.Request('/problem/vote-accept-'+vote+'/problemId/'+problemId, {
+		method: 'post',
+		onFailure: function (transport) {
+			$('accInfo_'+problemId).innerHTML = 'Failed ...';
+		},
+		onSuccess: function (transport) {
+			new Ajax.Updater('accInfo_'+problemId, '/problem/display-status/problemId/'+problemId);
+		}
+	});
+	return false;
+}
+function importanceVote(problemId, vote) {
+	$('importanceInfo_'+problemId).innerHTML = 'Hlasujem ...';
+	new Ajax.Request('/problem/vote-importance/problemId/'+problemId+'/vote/'+vote, {
+		method: 'post',
+		onFailure: function (transport) {
+			$('accInfo_'+problemId).innerHTML = 'Failed ...';
+		},
+		onSuccess: function (transport) {
+			new Ajax.Updater('importanceInfo_'+problemId, '/problem/display-importance-status/problemId/'+problemId);
+		}
+	});
+	return false;
+}
+</script>
+<h2>Zoznam problémov v problémovej oblasti</h2>
+<br />
+
+<form method="post" action="/problem/list/filter/form">
+<table id="problemFilter">
+<tr>
+	<td>
+		Problém: 
+		<select name="problemState">
+			<option value="">Všetky stavy</option>
+			<?php foreach ($states as $s): ?>
+				<option value="<?=$s;?>" <?=($this->filter->state == $s) ? 'selected="selected"': ''; ?>><?=$this->translate('problemstate_'.$s)?></option>
+			<?php endforeach; ?>
+		</select>
+		<input name="text" type="text" value="<?=$this->filter->text;?>" size="60" />
+		<input type="submit" value="Hľadaj" />
+		
+	</td>
+</tr>
+</table>
+</form>
+
+<p style="magin-top: 10px; border: 1px solid #BCD2EF; background-color: #F3F7FB; padding: 10px;">
+	
+	<span style="float: right;">
+		<?php if ($this->filter->type):	?>
+			- <a href="/problem/list/filter/none">Zrušiť filter</a> -
+		<?php endif; ?>
+	</span>
+	
+	
+	<?php if ($this->filter->type == 'keyword'): ?>
+		Záznamy obsahujúce kľúčové slovo <em><strong><?=$this->filter->keyword?></strong></em>. Celkovo <?=$this->count?> záznamov.		
+	<?php elseif ($this->filter->type =='acceptance'): ?>
+		Všetky Vami neakceptované nové problémy. Celkovo <?=$this->count?> záznamov.
+	<?php elseif ($this->filter->type == 'solutions'): ?>
+		Zoznam všetkých akceptovaných problémov. Celkovo <?=$this->count?> záznamov.
+	<?php elseif ($this->filter->type == 'form'): ?>
+		<?php if ($this->filter->state): ?>
+			<?php if ($this->filter->text): ?>
+				Nájdených <?=$this->count?> záznamov v stave <em><strong><?=$this->translate('problemstate_'.$this->filter->state)?></strong></em> obsahujúcich text "<em><strong><?=$this->filter->text?></strong></em>".
+			<?php else: ?>
+				Nájdených <?=$this->count?> záznamov v stave <em><strong><?=$this->translate('problemstate_'.$this->filter->state)?></strong></em>.
+			<?php endif; ?>
+		<?php else: ?>
+			Nájdených <?=$this->count?> záznamov obsahujúcich text "<em><?=$this->filter->text?></em>".
+		<?php endif; ?>
+		
+	<?php else: ?>
+		Celkovo <?=$this->count?> záznamov.
+	<?php endif; ?>
+</p>
+
+<?php foreach ($this->problems as $problem): ?>
+	<?=$this->partial('problem/partial-problem.phtml', array('problem' => $problem));?>
+<?php endforeach; ?>
+
+<?php if ($this->count > $this->listing): ?>
+<p id="listing">
+	<span style="float: right">
+		<?php if ($this->page > 0): ?>
+		<a href="/problem/list/page/<?=$this->page -1?>">&laquo; predchádzajúca</a>
+		<?php endif; ?>
+		<?php if (($this->page + 1 < ceil($this->count / $this->listing)) and ($this->page > 0)): ?>
+			| 
+		<?php endif; ?>
+		<?php if ($this->page + 1 < ceil($this->count / $this->listing)): ?>
+		<a href="/problem/list/page/<?=$this->page +1?>">ďalšia &raquo;</a>
+		<?php endif; ?>
+	</span>
+	Strana: <?=$this->page +1?> / <?= ceil($this->count / $this->listing)?>
+</p>
+<?php endif; ?>

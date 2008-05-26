@@ -1,8 +1,16 @@
 <?php
 class Solution extends Colla_Db_Table_Abstract
 {
+	const EVENT_CREATE		= 'CREATE';
+    const EVENT_APPROVE		= 'APPROVE';
+    const EVENT_DECLINE		= 'DECLINE';
+    
+    const STATE_NEW 		= 'NEW';
+    const STATE_APPROVED 	= 'APPROVED';
+    const STATE_DELETED 	= 'DELETED';
+    
 	protected $_name = 'solutions';
-	
+	protected $_rowClass = 'Row_Solution';
 	protected $_referenceMap = array(
     	'Problem' => array(
     		'columns'		=> array('ProblemId'),
