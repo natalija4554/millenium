@@ -1,0 +1,25 @@
+<div id="accInfo_<?=$this->problemId?>">
+
+<?php if (!$this->problemAccept->voted()): ?>
+	Akceptovať: 
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_YES?>');">Áno</a> / 
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_NO?>');">Nie</a> / 
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_IGNORE?>');">Neviem</a>
+<?php else: ?>
+	Hlasovali ste: <strong><?=$this->translate('VOTE_'.$this->problemAccept->Vote)?></strong>
+		
+	/ <a href="#" onclick="this.hide(); $('accHlas_<?=$this->problemId?>').show(); return false;">Zmeniť</a>
+	<span style="display: none" id="accHlas_<?=$this->problemId?>">
+		<?php if ($this->problemAccept->Vote == 'Yes'): ?>
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_NO?>');">Nie</a> / 
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_IGNORE?>');">Neviem
+		<?php elseif ($this->problemAccept->Vote == 'No'): ?>
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_YES?>');">Áno</a> / 
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_IGNORE?>');">Neviem
+		<?php elseif ($this->problemAccept->Vote == 'Ignore'): ?>
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_YES?>');">Áno</a> / 
+		<a href="#" onclick="return accVote(<?=$this->problemId;?>, '<?=ProblemAccept::VOTE_NO?>');">Nie</a> 
+		<?php endif; ?>
+	</span>
+<?php endif; ?>
+</div>

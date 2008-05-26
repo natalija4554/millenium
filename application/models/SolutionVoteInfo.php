@@ -30,7 +30,7 @@ class SolutionVoteInfo
 		$roles = array();
 		$roleTable = new AclRole();
 		foreach ($roleTable->fetchAll() as $role) {
-			if (Zend_Registry::get('Colla_Acl')->isAllowed($role->id, 'SOLUTION', 'ACCEPT_VOTE')) {
+			if (Zend_Registry::get('Colla_Acl')->isAllowed($role->id, 'SOLUTION', 'VIEW_STATS')) {
 				$roles[] = $role->id;
 			}
 		}

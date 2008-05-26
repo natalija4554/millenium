@@ -17,6 +17,8 @@ class Problem extends Colla_Db_Table_Abstract
     const EVENT_CREATE		= 'CREATE';
     const EVENT_APPROVE		= 'APPROVE';
     const EVENT_DECLINE		= 'DECLINE';
+    const EVENT_CHANGE		= 'CHANGE';
+    const EVENT_SOLVE		= 'SOLVE';
     
     /**
      * Enter description here...
@@ -65,6 +67,27 @@ class Problem extends Colla_Db_Table_Abstract
 			'Created',
 			'CreatedBy'
 		)));		
+		
+		// save keywords
+		$keywordTable = new Keyword();
+		$problemKeywordkTable = new ProblemKeyword();
+		$keywords = array_unique(explode(' ', trim($data['Keywords'])));
+		foreach ($keywords as $keyword) {
+			
+			// if not exists, save it
+			$rows = $keywordTable->fetchAll($keywordTable->select()->where('Keyword = ?', $keyword));
+			if (count($rows) == 0) {
+				$kRow = $keywordTable->createRow(array('Keyword' => $keyword));
+				$kRow->save();
+			}
+			
+			// save relation
+			$pkRow = $problemKeywordkTable->createRow(array(
+				'Keyword' => $keyword,
+				'ProblemId' => $data['ProblemId']
+			));
+			$pkRow->save();
+		}
 		$this->getAdapter()->commit();
 	}
 }

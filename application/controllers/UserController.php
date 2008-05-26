@@ -116,27 +116,54 @@ class UserController extends Colla_Controller_Action
 				$userTable->getAdapter()->beginTransaction();
 				$user = $userTable->createRow($form->getValues());
 				$user->Password = md5($user->Password);
-				$user->Active = 0;
-				$user->Verified = 0;
+				$user->Active = $this->appConfig->registration->reqAcceptation ? 0 : 1;
+				$user->Verified = $this->appConfig->registration->reqVerification ? 0 : 1;
 				$user->VerificationKey = substr(md5(rand(0,999)), 10, 8);
 				$user->RoleId = 'user';
 				$userId = $user->save(); 
 				
-				
-				
-				// send verification e-mail
-				$body = str_replace('%Username%', $user->Username, $this->appConfig->activation->email->body);
-				$body = str_replace('%VerificationKey%', $user->VerificationKey, $body);
-				$body = str_replace('%Id%', $userId, $body);
-				
-				$mail = new Zend_Mail('utf-8');
-				$mail->setFrom($this->appConfig->email->from, $this->appConfig->email->fromName);
-				$mail->addTo($user->EMail);
-				$mail->setBodyText($body);
-				$mail->setSubject($this->appConfig->activation->email->subject);
-				$mail->send();					
+				// send verification
+				if ($this->appConfig->registration->reqVerification) {
+					
+					$body = str_replace('%Username%', $user->Username, $this->appConfig->registration->emailVerification->body);
+					$body = str_replace('%VerificationKey%', $user->VerificationKey, $body);
+					$body = str_replace('%Id%', $userId, $body);
+					
+					$mail = new Zend_Mail('utf-8');
+					$mail->setFrom($this->appConfig->email->from, $this->appConfig->email->fromName);
+					$mail->addTo($user->EMail);
+					$mail->setBodyText($body);
+					$mail->setSubject($this->appConfig->registration->emailVerification->subject);
+					$mail->send();
+					
+				} else {
+					if ($this->appConfig->registration->reqAcceptation) {
+						
+						// send require activation e-mail
+						$body = str_replace('%Username%', $user->Username, $this->appConfig->registration->emailActivation->body);
+						$mail = new Zend_Mail('utf-8');
+						$mail->setFrom($this->appConfig->email->from, $this->appConfig->email->fromName);
+						$mail->addTo($user->EMail);
+						$mail->setBodyText($body);
+						$mail->setSubject($this->appConfig->registration->emailActivation->subject);
+						$mail->send();
+						
+					} else {
+						
+						// send information mail - account verified & accepted
+						$body = str_replace('%Username%', $user->Username, $this->appConfig->registration->emailSuccess->body);
+						$mail = new Zend_Mail('utf-8');
+						$mail->setFrom($this->appConfig->email->from, $this->appConfig->email->fromName);
+						$mail->addTo($user->EMail);
+						$mail->setBodyText($body);
+						$mail->setSubject($this->appConfig->registration->emailSuccess->subject);
+						$mail->send();
+					}
+				}
 							
 				$userTable->getAdapter()->commit();
+				$this->view->reqAcceptation 	= $this->appConfig->registration->reqAcceptation;
+				$this->view->reqVerification 	= $this->appConfig->registration->reqVerification;
 				$this->render('register-info');
 			}
 		}

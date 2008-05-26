@@ -1,10 +1,64 @@
 <h2>Vytvoriť nový problém</h2>
 <?=$this->FlashMessages(); ?>
 <?=$this->form;?>
-
-<h3>Existujúce podobné problémy</h3>
-<fieldset>
+<h3 style="padding-bottom: 7px;">Existujúce podobné problémy</h3>
+<fieldset id="SimilarProblems">
 	<p>
 		Prosím zadajte kľúčové slová.
 	</p>
 </fieldset>
+
+<script type="text/javascript">
+	
+	// flag - todo optimize
+	var processing = false;
+	
+	// insert element
+	$('Keywords').insert({
+		after: '<br /><div id="KeywordsDiv">Podobné slová: <span id="KeywordsLike"></span></div>'
+	});
+	
+	// add action to eleemtn
+	$('Keywords').observe('keyup', function(event) {
+		
+		// filter the last word of keywords
+		var last = $F('Keywords').split(' ').last();
+		
+		// space added -> new word,  
+		if (last == '') {
+			$('KeywordsLike').innerHTML = ' ';
+		} else {
+			// get similar words and display them
+			new Ajax.Request('/keyword/ajax-list', {
+				method: 'post',
+				parameters: { 
+					prefix: last
+				},
+				onSuccess: function(transport) {
+				
+					// display words
+					var json = transport.responseJSON;
+					$('KeywordsLike').innerHTML = ' ';
+					json.each(function (s) {
+						$('KeywordsLike').innerHTML += s + ' ';
+					});
+				}
+			});
+		}
+		
+		// fetch similar problems
+		if (!processing) {
+			new Ajax.Request('/problem/partial-similar-list', {
+				method: 'post',
+				parameters: {
+					keywords: $F('Keywords')
+				},
+				onSuccess: function (transport) {
+					$('SimilarProblems').innerHTML = transport.responseText;
+				}
+			});
+		}
+		
+	});
+</script>
+

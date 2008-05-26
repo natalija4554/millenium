@@ -1,11 +1,155 @@
-<h2><?=$this->solution->Name?></h2>
+<script type="text/javascript">
+	function svVote(solutionId, vote) {
+		$('svInfo_'+solutionId).innerHTML = 'Hlasujem ...';
+		new Ajax.Request('/solution/vote-accept-'+vote+'/solutionId/'+solutionId, {
+			method: 'post',
+			onSuccess: function (transport) {
+				new Ajax.Updater('svInfo_'+solutionId, '/solution/display-status/solutionId/'+solutionId);
+				new Ajax.Updater('acceptStats', '/solution/display-accept-status/solutionId/'+solutionId);
+			}
+		});
+		return false;
+	}
+	function showAccept() {
+		new Ajax.Updater('statActionBody', '/solution/display-accept/solutionId/<?=$this->solution->Id?>', { evalScripts: true });
+		$('ackLinky').hide();
+		return false;
+	}
+	function hideAcceptDecline() {
+		$('ackLinky').show();
+		$('statActionBody').innerHTML = '';
+		return false;
+	}
+	function showDecline() {
+		$('ackLinky').hide();
+		new Ajax.Updater('statActionBody', '/solution/display-decline/solutionId/<?=$this->solution->Id?>', { evalScripts: true });
+		return false;
+	}
+</script>
+
+<h2>Riešenie</h2>
 <?=$this->FlashMessages(); ?>
+<p>
+	<a href="/problem/view/Id/<?=$this->problem->Id?>">&laquo; Naspäť na problém</a>
+</p>
+<h3><?=$this->solution->Name?></h3>
+<br />
+<fieldset>
+	<legend>Problém: <?=$this->problem->Name?></legend>
+	<?=$this->problem->Definition?>
+</fieldset>
+<br />
+
 <fieldset>
 	<legend>Definícia riešenia:</legend>
 	<?=$this->solution->Definition;?>
+	
+	
+	<div>
+		<span style="float: right;">
+		
+			<?php if ($this->authenticated): ?>
+			<?php if ($this->problem->State == Problem::STATE_APPROVED): ?>
+			<?php if ($this->solution->State == Solution::STATE_NEW): ?>
+				<?=$this->action('display-status', 'solution', null, array('solutionId' => $this->solution->Id, 'enableLayout'=>1))?>
+			<?php endif; ?>
+			<?php endif; ?>
+			<?php endif; ?>
+			
+			<?php if ($this->solution->State == Solution::STATE_APPROVED): ?>
+				Riešenie bolo <strong>akceptované</strong>.
+			<?php endif; ?>
+			<?php if ($this->solution->State == Solution::STATE_DELETED): ?>
+				Riešenie je <strong>zavrhnuté</strong>.
+			<?php endif; ?>
+			
+			
+		</span>
+	</div>
+	
+	
 </fieldset>
-<p>
-	<a href="#">Pridať závislosť</a>
-</p>
+<br />
+
+
+<?php if ($this->isAllowed('PROBLEM', 'VIEW_ACCEPT_STATS') or $this->isAllowed('PROBLEM', 'ACCEPT')): ?>
+<fieldset>
+	<legend>Priebežná štatistika hlasovania:</legend>
+	<span id="acceptStats">
+		<?=$this->action('display-accept-status', 'solution', null, array('solutionId' => $this->solution->Id, 'enableLayout'=>1))?>
+	</span>
+	<?php if ($this->solution->State == Solution::STATE_NEW): ?>
+	<p id="statAcBar">
+		<span id="ackLinky">
+			<a onclick="return showAccept();" href="#"><strong>Akceptovať riešenie</strong></a> / 
+			<a onclick="return showDecline();" href="#"><strong>Zavrhnúť riešenie</strong></a>
+		</span>
+	</p>
+	<div id="statActionBody"></div>
+	<?php endif; ?>	
+</fieldset>
+<br />
+<?php endif; ?>
+
+
+
+<fieldset>
+	<legend>Riešenie je závislé na vyriešení nasledovných problémov:</legend>
+	<?php if (count($this->dependencies) > 0): ?>
+		<table class="solutionDepencency">
+		<?php $i=0; foreach ($this->dependencies as $dependency): $i++; ?>
+			<tr>
+				<td>
+					<?=$i;?>. 
+					<a href="/problem/view/Id/<?=$dependency->ProblemId?>"><?=$dependency->Name?></a>
+				</td>
+				<td>
+					<?php $x = new Zend_Date($dependency->Created, null, 'sk'); 
+					echo $x->get(Zend_Date::DATE_SHORT);?>
+				</td> 
+				<td><?=$this->translate('problemstate_'.$dependency->State)?></td>
+				<?php if ($this->isAllowed('SOLUTION', 'MANAGE_DEPENDENCY')): ?>
+				<td style="text-align: right;">
+					- 
+						<a onclick="return confirm('Naozaj chcete odstrániť túto závislosť?');" href="/solution/removedependency/solutionId/<?=$dependency->SolutionId?>/problemId/<?=$dependency->ProblemId?>">
+							Odstrániť
+					   	</a>
+					 -
+				</td>
+				<?php endif; ?>
+			</tr>
+		<?php endforeach; ?>
+		</table>
+		<?php if ($this->isAllowed('SOLUTION', 'MANAGE_DEPENDENCY')): ?>
+		<p style="margin-bottom: 0; padding-bottom: 0;">
+			<a href="/solution/dependency/solutionId/<?=$this->solution->Id?>">Pridať novú závislosť</a>
+		</p>
+		<?php endif; ?>
+	<?php else: ?>
+		<p>
+			Nie sú definované žiadne závislosti. 
+			<?php if ($this->isAllowed('SOLUTION', 'MANAGE_DEPENDENCY')): ?>
+				<a href="/solution/dependency/solutionId/<?=$this->solution->Id?>">Pridať novú</a>.
+			<?php endif; ?>
+		</p>
+	<?php endif; ?>
+</fieldset>
+
 
 <h3>Komentáre k riešeniu</h3>
+<?php if (count($this->comments) > 0): ?>
+	<?php Zend_Registry::set('CommentNumber', 1); ?>
+	<?php foreach ($this->comments as $comment): ?>
+		<?=$this->partial('comment/partial-view.phtml', array('comment' => $comment));?>
+	<?php endforeach; ?>
+<?php else: ?>
+	<fieldset style="margin-top: 10px; padding: 10px;">
+		Žiadne komentáre.
+	</fieldset>
+<?php endif; ?>
+<?=$this->partial('comment/partial-add.phtml', array(
+	'problem' 	=> $this->problem,
+	'solution'	=> $this->solution,
+	'filter'	=> $this->filter
+));
+?>

@@ -1,0 +1,44 @@
+<a name="commentLine"></a>
+<?php if ($this->problem->State != Problem::STATE_DELETED): ?>
+	
+	<?php if ($this->isAllowed('PROBLEM', 'ADD_COMMENT')): ?>
+		<form method="post" action="/comment/add/problemId/<?=$this->problem->Id?>#commentLine">
+		<?php if (isset($this->solution)): ?>
+			<input type="hidden" name="solutionId" value="<?=$this->solution->Id?>" />
+		<?php endif; ?>
+		<div style="border: 1px solid silver; margin-top: 20px; padding-top: 10px; padding: 10px; background-color: #EFF8FF">
+			
+			<?php if (isset($this->filter)): ?>
+			<?php foreach ($this->filter->getMessages() as $message):?>
+				<p style="color: red;">
+					<?=array_shift($message) ?>
+				</p>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		
+			<dl class="zend_form comment">
+				<dt>Nadpis správny (nepovinné):</dt>
+				<dd class="required"><input type="text" size="60" name="Title" /></dd>
+				<dt><strong>Komentár:</strong></dt>
+				<dd><textarea rows="5" cols="20" class="mceEditor" style="width: 100%" name="Body"></textarea></dd>
+			</dl>
+			<input type="submit" value="Pridať komentár" />
+		</div>
+		</form>
+	<?php else: ?>
+		<?php if ($this->autenticated): ?>
+			<p>
+				* Nemáte právo na pridávnie nových komentárov.
+			</p>
+		<?php else: ?>
+			<p>
+				* Pre pridávanie nových komentárova sa musíte najskôr <a href="/auth/login">prihlásiť</a>.
+			</p>
+		<?php endif; ?>
+	<?php endif; ?>
+	
+<?php else: ?>
+<p style="padding-top: 14px;">
+	* K tomuto problému nie je možné pridávať komentáre, nakoľko je v stave "<em><?=$this->translate('problemstate_'.$this->problem->State)?></em>".
+</p>
+<?php endif; ?>

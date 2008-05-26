@@ -1,0 +1,11 @@
+<table style="width: 100%">
+	<?php $i=0; foreach ($this->problems as $problem): $i++; ?>
+	<tr>
+		<td style="width: 25px;"><?=$i?>. </td>
+		<td style="width: 100%"><strong><?=$problem['Name']?></strong></td>
+		<td style="text-align: right;">
+			<a href="/problem/view/Id/<?=$problem['Id']?>" target="_blank">Zobraziť</a>
+		</td>
+	</tr>
+	<?php endforeach; ?>
+</table>

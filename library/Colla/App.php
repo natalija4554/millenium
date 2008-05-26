@@ -84,7 +84,7 @@ final class Colla_App
     		 ->_setupDatabase()
     		 ->_setupEmail()
     		 ->_setupLayout()
-    		 ->_setupTranslation()
+    		 ->_setupLanguage()
     		 ->_setupAcl()
     		 ->_setupFrontController()
     		 ->_dispachFrontController();
@@ -133,7 +133,7 @@ final class Colla_App
  	private function _loadConfig()
  	{
         // read config file
-        $this->_config = new Zend_Config_Xml($this->_dirApplication . DS . 'config.xml');
+        $this->_config = new Zend_Config_Xml($this->_dirApplication . DS . 'config'.DS.'config.xml');
         
         // set defaul timezone
         date_default_timezone_set($this->_config->timezone);
@@ -149,13 +149,16 @@ final class Colla_App
  	{
  		$adapter = Zend_Db::factory($this->_config->database);
         Zend_Db_Table_Abstract::setDefaultAdapter($adapter);
+        $adapter->query("SET NAMES 'utf8'");
         return $this;
  	}
  	
  	private function _setupEmail()
  	{
- 		$tr = new Zend_Mail_Transport_Smtp($this->_config->email->smtp->host);
-		Zend_Mail::setDefaultTransport($tr);
+ 		if ($this->_config->email->smtp->host) {
+ 			$tr = new Zend_Mail_Transport_Smtp($this->_config->email->smtp->host);
+			Zend_Mail::setDefaultTransport($tr);
+ 		}
  		return $this;
  	}
  	
@@ -180,19 +183,18 @@ final class Colla_App
  	 *
  	 * @return Colla_App
  	 */
- 	private function _setupTranslation()
+ 	private function _setupLanguage()
  	{
- 		// configure path
  		$dirLanguages 	= dirname($this->_dirLibrary) . DS . 'languages';
- 		
- 		// translate, add here more translations
-        // @todo dorobit automaticke nacitavanie jazykov
-        $adapter = new Zend_Translate(Zend_Translate::AN_GETTEXT, $dirLanguages.DS.'sk'.DS.'lang.mo', 'sk');
-        $adapter->addTranslation($dirLanguages.DS.'en'.DS.'lang.mo', 'en');
-        $adapter->setLocale('sk'); // zatial len SK
+ 		$lang = $this->_config->language;
+ 		if (!$lang) {
+ 			$lang = 'sk';
+ 		}
+ 		$adapter = new Zend_Translate(Zend_Translate::AN_GETTEXT, $dirLanguages.DS.$lang.DS.'lang.mo', $lang);
+ 		$adapter->setLocale($lang);
         Zend_Form::setDefaultTranslator($adapter); 
         Zend_Registry::set('Zend_Translate', $adapter);
-        
+        Zend_Locale::setDefault($lang);
         return $this;
  	}
  	
@@ -234,11 +236,15 @@ final class Colla_App
      */
     private function _dispachFrontController()
     {
-		// dispach
-		$front = Zend_Controller_Front::getInstance();
-    	$response = $front->dispatch();
-    	$response->sendResponse();
     	
+		// dispach
+		try {
+			$front = Zend_Controller_Front::getInstance();
+    		$response = $front->dispatch();
+    		$response->sendResponse();
+		} catch (Exception $e) {
+			require_once($this->_dirApplication.'/views/exception.php');
+		}
     	return $this;
     }
     

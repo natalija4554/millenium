@@ -1,0 +1,27 @@
+<h2>História zmien problému</h2>
+
+<table class="std">
+	<tr>
+		<th>Zmena</th>
+		<th>Zmenil</th>
+		<th>Dátum</th>
+		<th>Poznámka k zmene</th>
+	</tr>
+	<?php foreach ($this->records as $record): ?>
+	<tr>
+		<td><?=$this->translate('EVENT_'.$record['Event'])?></td>
+		<td>
+			<a href="/user/view/Id/<?=$record['CreatedBy']?>"><?=$record['Username']?></a>
+		</td>
+		<td>
+			<?php $date = new Zend_Date($record['Created'], null, 'sk'); ?>
+			<?=$date->get(Zend_Date::DATE_SHORT);?>
+			<?=$date->get(Zend_Date::TIME_SHORT);?>
+		</td>
+		<td><?=$record['Note']?></td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+<p>
+	<a href="/problem/view/Id/<?=$this->problemId?>"><strong>&laquo; Naspäť</strong></a>
+</p>

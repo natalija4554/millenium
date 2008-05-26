@@ -1,0 +1,29 @@
+<span id="importanceInfo_<?=$this->problemId?>">
+<?php if (!$this->problemImportance->voted()): ?>
+	Dôležitosť: 
+		<select onChange="return importanceVote(<?=$this->problemId;?>, $F(this));">
+			<option value=""></option>
+			<?php foreach($this->importances as $importance): ?>
+			<option value="<?=$importance->Importance?>"><?=$importance->Importance?> - <?=$importance->Name?></option>
+			<?php endforeach; ?>
+		</select>		
+<?php else: ?>
+	<span id="importanceZmen_<?=$this->problemId?>">
+		Vaša závažnosť: 
+			<strong><?=$this->problemImportance->ImportanceName?></strong>
+			(<?=$this->problemImportance->Importance?>/<?=count($this->importances)?>)
+		/ <a href="#" onclick="$('importanceZmen_<?=$this->problemId?>').hide(); $('importanceHlas_<?=$this->problemId?>').show(); return false;">Zmeniť</a>
+	</span>
+	<span style="display: none" id="importanceHlas_<?=$this->problemId?>">
+		Dôležitosť: 
+		<select onChange="return importanceVote(<?=$this->problemId;?>, $F(this));">
+			<option value=""></option>
+			<?php foreach($this->importances as $importance): ?>
+				<?php if ($importance->Importance != $this->problemImportance->Importance): ?>
+				<option value="<?=$importance->Importance?>"><?=$importance->Importance?> - <?=$importance->Name?></option>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</select>	
+	</span>
+<?php endif; ?>
+</span>

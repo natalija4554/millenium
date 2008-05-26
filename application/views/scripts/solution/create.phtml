@@ -1,3 +1,15 @@
 <h2>Nové riešenie problému</h2>
 <?=$this->FlashMessages(); ?>
-<?=$this->form;?>
+<p>
+	<a href="/problem/view/Id/<?=$this->problemId?>">&laquo; Naspäť na detail problému</a>
+</p>
+<br />
+<fieldset>
+	<legend>Problém: <?=$this->problem->Name?></legend>
+	<?=$this->problem->Definition?>
+</fieldset>
+<br />
+<fieldset>
+	<legend>Vaše riešenie:</legend>
+	<?=$this->form;?>
+</fieldset>

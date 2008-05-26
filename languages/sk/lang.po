@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Colla\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-03 23:42+0100\n"
-"PO-Revision-Date: 2008-05-04 00:00+0100\n"
+"POT-Creation-Date: 2008-05-26 16:07+0100\n"
+"PO-Revision-Date: 2008-05-26 16:11+0100\n"
 "Last-Translator: Frantisek Durajka <franto@franto.sk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,15 @@ msgstr ""
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-SearchPath-0: C:\\Users\\franto\\www\\millenium\\application\n"
 
+#: C:\Users\franto\www\millenium\application/controllers/AuthController.php:42
+msgid "Prihlasovací účet nie je aktívny."
+msgstr "Prihlasovací účet nie je aktívny."
+
 #: C:\Users\franto\www\millenium\application/controllers/AuthController.php:48
+msgid "Váš účet ešte nie je aktívny, nakoľko nebolo overená správnosť Vašej e-mailovej adresy."
+msgstr "Váš účet ešte nie je aktívny, nakoľko nebolo overená správnosť Vašej e-mailovej adresy."
+
+#: C:\Users\franto\www\millenium\application/controllers/AuthController.php:55
 msgid "Nesprávne prihlasovacie meno alebo heslo."
 msgstr "Nesprávne prihlasovacie meno alebo heslo."
 
@@ -68,108 +76,161 @@ msgstr "Používateľ môže vidieť štatistiku hlasovania."
 msgid "PERMISSIONS_EDIT"
 msgstr "Používateľ môže upravovať oprávnenia"
 
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:21
+msgid "resource_group_OUTPUT"
+msgstr "Výstup"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:22
+msgid "OUTPUT_OPTIMALORDER"
+msgstr "Vytvorenie optimálneho poradia riešenia problémov."
+
 #: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:23
+msgid "PROBLEM_SOLVE"
+msgstr "Ukončenie riešenia problému"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:24
+msgid "PROBLEM_IMPORTANCE_VOTE"
+msgstr "Hlasovanie za dôležitosť problému."
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:25
+msgid "resource_group_SOLUTION"
+msgstr "Riešenie"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:26
+msgid "SOLUTION_VIEW_STATS"
+msgstr "Zobrazenie priebežnej štatistiky hlasovania"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:27
+msgid "SOLUTION_MANAGE_DEPENDENCY"
+msgstr "Pridávanie, odoberanie závislostí problémov."
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:28
+msgid "SOLUTION_CREATE"
+msgstr "Vytvorenie nového riešenia"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:29
+msgid "SOLUTION_ACCEPT_VOTE"
+msgstr "Zobrazenie priebežnej štatistiky hlasovania"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:30
+msgid "SOLUTION_ACCEPT"
+msgstr "Akceptovanie riešenia"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:34
 msgid "resource_group_PERMISSIONS"
 msgstr "Oprávnenia k správe systému:"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:24
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:35
 msgid "resource_group_PROBLEM"
 msgstr "Oprávnenia k správe problémov:"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:25
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:36
 msgid "resource_group_USERS"
 msgstr "Oprávnenia k práci s používateľmi:"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:29
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:40
 msgid "isEmpty"
 msgstr "Zadané políčko nemôže byť prázdne."
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:30
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:41
 msgid "emailAddressInvalid"
 msgstr "%value%, nie je korektný formát e-mailovej adresy."
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:31
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:42
 msgid "emailAddressInvalidHostname"
 msgstr "\"%hostname%\", nie je korektné doménové meno pre e-mailovú adresu \"%value%\"."
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:32
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:43
 msgid "emailAddressInvalidMxRecord"
 msgstr "Nepsrávna e-mailová adresa."
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:33
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:44
 msgid "emailAddressDotAtom"
 msgstr "Nepsrávna e-mailová adresa."
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:34
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:45
 msgid "emailAddressQuotedString"
 msgstr "Nepsrávna e-mailová adresa."
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:35
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:46
 msgid "emailAddressInvalidLocalPart"
 msgstr "Nepsrávna e-mailová adresa."
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:39
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:50
 msgid "problemstate_NEW"
 msgstr "Nový"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:40
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:51
 msgid "problemstate_APPROVED"
 msgstr "Schválený"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:41
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:52
 msgid "problemstate_SOLVED"
 msgstr "Vyriešený"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:42
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:53
 msgid "problemstate_CLOSED"
 msgstr "Uzatvorený"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:43
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:54
 msgid "problemstate_DELETED"
 msgstr "Zrušený"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:46
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:57
 msgid "VOTE_Yes"
 msgstr "Áno"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:47
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:58
 msgid "VOTE_No"
 msgstr "Nie"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:48
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:59
 msgid "VOTE_Ignore"
 msgstr "Neviem"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:51
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:62
+msgid "EVENT_CREATE"
+msgstr "Vytvorený"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:63
+msgid "EVENT_APPROVE"
+msgstr "Schválený"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:64
+msgid "EVENT_DECLINE"
+msgstr "Zamietnutý"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:65
+msgid "EVENT_CHANGE"
+msgstr "Zmenený"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:66
+msgid "EVENT_SOLVE"
+msgstr "Vyriešený"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:68
+msgid "SOLUTIONEVENT_CREATE"
+msgstr "Vytvorené"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:69
+msgid "SOLUTIONEVENT_APPROVE"
+msgstr "Schválené"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:70
+msgid "SOLUTIONEVENT_DECLINE"
+msgstr "Zamietnuté"
+
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:74
 msgid "USR_ACCSTATUS_0"
 msgstr "<span style=\"color: red\">Neaktívny</span>"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:52
+#: C:\Users\franto\www\millenium\application/views/scripts/dummy.phtml:75
 msgid "USR_ACCSTATUS_1"
 msgstr "Aktívny"
 
 #: C:\Users\franto\www\millenium\application/views/scripts/box/partial-login-box.phtml:11
 msgid "Please log into the system"
 msgstr "Prosím prihláste sa."
-
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:27
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:30
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:33
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:42
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:43
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:46
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:47
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:50
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:51
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:82
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:86
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:87
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:91
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:92
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:96
-#: C:\Users\franto\www\millenium\application/views/scripts/problem/view.phtml:97
-msgid "VOTE_"
-msgstr "Chyba"
 
 #: C:\Users\franto\www\millenium\application/views/scripts/user/find.phtml:6
 msgid "roles_all"
@@ -179,15 +240,16 @@ msgstr "Všetky typy"
 msgid "resource_group_"
 msgstr "Chyba"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/user/view.phtml:9
+#: C:\Users\franto\www\millenium\application/views/scripts/user/view.phtml:10
 msgid "USR_ACCSTATUS_"
 msgstr "Chyba"
 
-#: C:\Users\franto\www\millenium\application/views/scripts/user/view.phtml:22
-#, fuzzy
+#: C:\Users\franto\www\millenium\application/views/scripts/user/view.phtml:23
 msgid "role_"
-msgstr "Riešiteľ"
+msgstr "role_"
 
+#~ msgid "VOTE_"
+#~ msgstr "Chyba"
 #~ msgid "Value is empty, but a non-empty value is required"
 #~ msgstr "super test1"
 

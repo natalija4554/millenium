@@ -1,0 +1,77 @@
+<script type="text/javascript">
+	function checkSelected()
+	{
+		var found = false;
+		$$('.selItem').each(function (elm) {
+			if (elm.getValue() != null) {
+				found = true;
+				return;
+			} 
+		});
+		if (!found) {
+			alert('Prosím vyberte aspoň jeden problém.');
+		}
+		return found;
+	}
+</script>
+<h2>Závislosť riešenia</h2>
+<p>
+	<a href="/solution/view/id/<?=$this->solution->Id?>">&laquo; Naspäť na detail riešenia</a>
+</p>
+<br />
+<fieldset>
+	<legend>Riešenie: <?=$this->solution->Name;?></legend>
+	<?=$this->solution->Definition;?>
+</fieldset>
+
+<h3 style="padding-bottom: 6px;">Na vybraných problémoch</h3>
+<form method="post" action="/solution/dependency/solutionId/<?=$this->solution->Id?>">
+	<table id="problemFilterDependency">
+		<tr>
+			<td>
+			Problémy: 
+			<input name="searchText" type="text" value="" size="60" />
+			<input type="submit" value="Hľadať" />
+			</td>
+		</tr>
+	</table>
+</form>
+<br />
+
+<?php if (isset($_POST['searchText'])): ?>
+	<?php if (count($this->problems) > 0): ?>
+		<form action="/solution/dependency/solutionId/<?=$this->solution->Id?>" method="post">
+			<table class="std" id="depResult">
+				<tr>
+					<th style="width: 15px">#</th>
+					<th>Názov</th>
+					<th>Stav</th>
+					<th>Vytvorené</th>
+				</tr>
+				<?php foreach ($this->problems as $problem): ?>
+				<tr>
+					<td>
+						<input class="selItem" type="checkbox" name="problem_id[<?=$problem->Id?>]" value="<?=$problem->Id?>" />
+					</td>
+					<td><?=$problem->Name?></td>
+					<td><?=$this->translate('problemstate_'.$problem->State)?></td>
+					<td>
+						<?php 
+							$date = new Zend_Date($problem->Created, null, 'sk'); 
+							echo $date->get(Zend_Date::DATE_SHORT);
+						?>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</table>
+			<p>
+				<input name="createDependency" type="submit" onclick="return checkSelected();" value="Vyvoriť závislosť" />
+			</p>
+		</form>
+		
+	<?php else: ?>
+		<p>
+			Nenašli sa žiadne problémy.
+		</p>
+	<?php endif; ?>
+<?php endif; ?>

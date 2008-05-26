@@ -1,0 +1,59 @@
+<?php $problem = $this->problem; ?>
+<table class="problemItem">
+<tr>
+	<td class="title">
+		<?=$problem['Id'];?>. 
+		<a href="/problem/view/Id/<?=$problem['Id']?>">
+		(<?=$this->translate('problemstate_'.$problem['State'])?>) <?=$problem['Name']?>
+		</a>		
+	</td>
+	<td class="datum"><a href="#"><?=$problem['Username']?></a>, 
+		<?php $x = new Zend_Date($problem['Created'], null, 'sk'); 
+		echo $x->get(Zend_Date::DATE_SHORT);?>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" class="obsah">
+		<?=$problem['Definition']?>
+		
+		
+		
+	</td>
+<tr>	
+<tr>
+	<td colspan="2" class="spod">
+		<span style="float: right">
+			
+			<?php if ($this->isAuthenticated()): ?>
+				<?php if ($this->isAllowed('PROBLEM', 'ACCEPT_VOTE')): ?>
+				<?php if ($problem['State'] == Problem::STATE_NEW): ?>		
+					<?=$this->action('display-status', 'problem', null, array('problemId' => $problem['Id'], 'enableLayout'=>1))?>
+				<?php endif; ?>
+				<?php endif; ?>
+			
+				<?php if ($this->isAllowed('PROBLEM', 'IMPORTANCE_VOTE')): ?>
+				<?php if ($problem['State'] == Problem::STATE_APPROVED or $problem['State'] == Problem::STATE_SOLVED): ?>
+					<?=$this->action('display-importance-status', 'problem', null, array('problemId' => $problem['Id'], 'enableLayout'=>1))?>
+				<?php endif; ?>
+				<?php endif; ?>
+			<?php endif; ?>
+			
+			
+		</span>
+		
+		Kľúčové slová: 
+			<?php
+				$out = array();
+				$keywords = explode(' ', $problem['Keywords']);
+				foreach ($keywords as $k) {
+					$out[] = '<a href="/problem/list/filter/keyword/keyword/'.$k.'">'.$k.'</a>';
+				}
+				echo implode(', ', $out);
+			?>
+	</td>
+</tr>
+</table>
+
+
+
+			
