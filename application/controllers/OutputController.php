@@ -17,6 +17,7 @@ class OutputController extends Colla_Controller_Action
 	{
 		$QUEUE = array();
 		$PROBLEMS = array();
+		$WARNING_ZV = false;
 		
 		// 1. Find all problems with their solutions and dependend problems
 		$pTable = new Problem();
@@ -31,12 +32,16 @@ class OutputController extends Colla_Controller_Action
 		);
 		
 		// empty field
-		if (empty($_problems)) {
-			$this->render('optimal-order-empty.phtml');
+		if (count($_problems) == 0) {
+			$this->render('optimal-order-empty');
 			return;
 		}
+		$pkeys = array();
+		foreach ($_problems as $p) {
+			$pkeys[] = $p->Id;
+		}
 		
-		// 
+		//
 		foreach ($_problems as $p) {
 			
 			// importance
@@ -62,7 +67,11 @@ class OutputController extends Colla_Controller_Action
 					->where('SolutionId = ?', $s->Id)
 				);
 				foreach ($_dependencies as $d) {
-					$_pdeps[] = $d->ProblemId;
+					if (in_array($d->ProblemId, $pkeys)) {
+						$_pdeps[] = $d->ProblemId;
+					} else {
+						$WARNING_ZV = true;
+					}
 				}
 			}
 						
@@ -87,7 +96,7 @@ class OutputController extends Colla_Controller_Action
 			}
 		}
 		if (empty($QUEUE)) {
-			throw new Excpetion('EMPTY Queue !');
+			throw new Exception('EMPTY Queue !');
 		}
 		
 		// ALgorithm
@@ -185,6 +194,7 @@ class OutputController extends Colla_Controller_Action
 				$QUEUE[] = $z;
 			}
 		}
+		$this->view->WARNING_ZV = $WARNING_ZV;
 		$this->view->problems = $PROBLEMS;
 	}
 }
