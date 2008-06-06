@@ -229,7 +229,7 @@ class SolutionController extends Colla_Controller_Action
 		$saTable = new SolutionAccept();
 		$rows = $saTable->fetchAll($saTable->select()
 			->where('SolutionId = ?', $solutionId)
-			->where('UserId', Zend_Registry::get('User')->Id)
+			->where('UserId = ?', Zend_Registry::get('User')->Id)
 		);
 		
 		$this->view->solutionId = $solutionId;

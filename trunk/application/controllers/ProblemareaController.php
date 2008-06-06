@@ -81,7 +81,7 @@ class ProblemareaController extends Colla_Controller_Action
     			$problem = new Problem();
 				$problem->createNew($data);
 				$this->_helper->FlashMessenger->addMessage('Problém bol vytvorený');
-				$this->_redirect('/problem/list/filter/none');
+				$this->_redirect('/problem/list/filter/acceptance');
 				return;
     		}
     	}

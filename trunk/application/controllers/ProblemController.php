@@ -75,9 +75,7 @@ class ProblemController extends Colla_Controller_Action
 				
 				// clear voting
 				$paTable = new ProblemAccept();
-				$paTable->delete(array(
-					'ProblemId' => $problem->Id
-				));				
+				$paTable->delete('ProblemId = '.(int)$problem->Id);
 				
 				$adapter->commit();
 				$this->_helper->FlashMessenger->addMessage('Definícia problému bola zmenená boli odstránené všetky hlasovania za akceptáciu problému.');
@@ -386,6 +384,10 @@ class ProblemController extends Colla_Controller_Action
 					break;
 
 				case 'solutions':
+					if (!$this->hasIdentity()) {
+						$this->_helper->FlashMessenger->addMessage('Na filtrovanie neakceptovaných požiadaviek musíte byť prihlásený.');
+						$this->_redirect('/auth/login');
+					}
 					$filter->unsetAll();
 					$filter->type = 'solutions';
 					$filter->notNew = true;
